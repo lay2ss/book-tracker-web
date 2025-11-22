@@ -1,2 +1,14 @@
 @import "tailwindcss";
 @tailwind utilities;
+
+html {
+  background-color: #FFF5ED;
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+:root{
+    --orange-accent: #FF6C00;
+    --light-orange: #FFF5ED;
+    --white: #FFFFFF; 
+    --gray: #374957;
+}
