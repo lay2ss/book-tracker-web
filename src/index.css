@@ -11,4 +11,47 @@ html {
     --light-orange: #FFF5ED;
     --white: #FFFFFF; 
     --gray: #374957;
+    --light-gray: #f1f1f1;
+}
+.inter-regular {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.inter-semibold {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.inter-bold {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+.gray-text{
+  color: var(--gray);
+}
+.orange-text{
+  color: var(--orange-accent);
+}
+.orange-border{
+  border-color: var(--orange-accent);
+}
+.orange-bg{
+  background-color: var(--orange-accent);
+}
+.gray-shadow{
+  -webkit-box-shadow: 2px 5px 8px 1px #b6b6b6; 
+  box-shadow: 2px 5px 8px 1px #c5c5c5;
+}
+.input-style{
+  @apply rounded-md mx-auto flex pl-3 focus:outline-none focus:border w-[80vw] h-10 md:w-[60vw];
+  font-family:  "Inter", sans-serif;
+  background-color: var(--light-gray);
+}
+.button-style{
+  @apply rounded-full px-10 py-3 mx-auto flex cursor-pointer transition duration-300 ease-in-out hover:shadow-sm hover:shadow-gray-600/70
 }
