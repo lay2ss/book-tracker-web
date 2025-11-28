@@ -17,7 +17,7 @@ const Login = () => {
       <div className='lg:flex mx-auto'>
         <div className='w-[500px] bg-login hidden lg:flex rounded-tl-2xl rounded-bl-2xl text-white flex-col text-center'>
           <div className='w-[300px] mx-auto my-auto'>
-            <h1 className='mx-auto text-4xl inter-semibold pb-3'>{changeLogin? 'HELLO, FRIEND!' : 'WELCOME BACK!'}</h1>
+            <h1 className='mx-auto text-4xl inter-semibold pb-3'>{changeLogin? 'Hello, Friend!' : 'Welcome back!'}</h1>
             <p className='inter-regular text-xl'>{changeLogin? 'Enter your personal details and start  journey with us' : 'To keep connect with us please login with your personal info'}</p>
             <button className='inter-regular text-white bg-transparent mt-6 button-style border' onClick={changeScreen}>{changeLogin? 'SIGN UP' : 'SIGN IN'}</button>
           </div>
@@ -33,7 +33,7 @@ const Login = () => {
                 <img src={showPassword? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="visibility icon" />
                 </button>
               </div>
-              <button className='inter-regular text-white orange-bg mt-15 button-style border border-orange-400'>SIGN UP</button>
+              <button className='inter-regular text-white orange-bg mt-22 button-style border border-orange-400'>SIGN UP</button>
               <div className='inter-semibold text-center mt-30 pb-5 opacity-70 lg:hidden'>
                 <p className='gray-text'>Already have an account?
                   <button className='pl-2 orange-text cursor-pointer hover:underline' onClick={changeScreen}>Sign in</button>
@@ -50,7 +50,7 @@ const Login = () => {
                 <img src={showPassword? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="visibility icon" />
                 </button>
               </div>
-                <button className='inter-regular text-white orange-bg button-style mt-35'>SIGN IN</button>
+                <button className='inter-regular text-white orange-bg button-style mt-35 border border-orange-400'>SIGN IN</button>
                 <button className='gray-text cursor-pointer inter-semibold opacity-70 mx-auto flex mt-3 hover:underline'>Forgot your password?</button>
                 <div className='inter-semibold text-center mt-30 pb-5 opacity-70 lg:hidden'>
                   <p  className='gray-text'>Don’t have an account? 
