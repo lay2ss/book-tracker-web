@@ -14,7 +14,7 @@ const Login = () => {
       <img src="src/assets/logo/logo_name.png" alt="logo name" className='pb-5 mx-auto w-40' />
 
       {/* mobile */}
-      <div className='lg:hidden mx-auto'>
+      <div className='md:hidden mx-auto'>
         <main className='bg-white w-[90vw] md:w-[70vw] rounded-2xl h-min gray-shadow mx-auto'>
           
           {/* mobile sign up form */}
@@ -58,7 +58,7 @@ const Login = () => {
       </div>
 
       {/* desktop */}
-      <div className='hidden lg:block w-[800px] max-w-full min-h-[500px] bg-white rounded-[20px] shadow-2xl relative overflow-hidden mx-auto'>
+      <div className='hidden md:block w-[800px] max-w-full min-h-[500px] bg-white rounded-[20px] shadow-2xl relative overflow-hidden mx-auto'>
         
         {/* desktop sign up form */}
         <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-1/2 flex items-center justify-center flex-col px-10 
