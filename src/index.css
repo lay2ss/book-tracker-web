@@ -49,6 +49,12 @@ html {
 .bg-login{
   background: linear-gradient(to left, #FF2600, #FF6C00);
 }
+.bg-light-orange{
+  background-color: var(--light-orange);
+}
+.orange-bg{
+  background-color: var(--orange-accent);
+}
 .form-style{
   @apply bg-white flex flex-col items-center justify-center h-full w-full text-center;
 }
