@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 const BookCard = () => {
+    const [isFavorite, setIsFavorite] = useState(false);
+    const toggleState = () => setIsFavorite(!isFavorite);
 
   return (
     <div className='flex font-inter bg-light-orange rounded-2xl w-fit p-5 gray-text flex-col max-w-[450px]'>
@@ -23,7 +27,9 @@ const BookCard = () => {
         </div>
         <div className="flex justify-between mt-2">
             <p className="text-sm">Read in [year]</p>
-            <img src="src/assets/icon/star.svg" alt="star-icon" className="w-min"/>
+            <button className="transition-transform active:scale-80" onClick={toggleState}>
+                <img src={isFavorite? "src/assets/icon/star_active.svg" : "src/assets/icon/star.svg"} alt="star-icon"/>
+            </button>
         </div>
     </div>
   )
