@@ -65,6 +65,9 @@ html {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+.icon-style{
+  @apply absolute opacity-50 hover:opacity-100 cursor-pointer;
+}
 .button-style{
   @apply rounded-full text-white text-xs font-bold py-3 px-12 tracking-wider uppercase transition-transform active:scale-95;
   background-color: var(--orange-accent);

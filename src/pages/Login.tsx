@@ -23,8 +23,8 @@ const Login = () => {
             <input type="text" placeholder="Name" className="input-style" />
             <input type="email" placeholder="Email" className="input-style" />
             <div className="relative w-full">
-                <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
-                <button type="button" onClick={togglePassword} className="absolute right-3 top-5 opacity-50 hover:opacity-100">
+                <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style"/>
+                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
             </div>
@@ -42,7 +42,7 @@ const Login = () => {
             <input type="email" placeholder="Email" className="input-style" />
             <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
-                <button type="button" onClick={togglePassword} className="absolute right-3 top-5 opacity-50 hover:opacity-100">
+                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
             </div>
@@ -70,7 +70,7 @@ const Login = () => {
               <input type="email" placeholder="Email" className="input-style" />
               <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
-                <button type="button" onClick={togglePassword} className="absolute right-3 top-5 opacity-50 hover:opacity-100">
+                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
               </div>
@@ -89,7 +89,7 @@ const Login = () => {
               <input type="email" placeholder="Email" className="input-style" />
               <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
-                <button type="button" onClick={togglePassword} className="absolute right-3 top-5 opacity-50 hover:opacity-100">
+                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
               </div>
