@@ -1,8 +1,9 @@
 import Book from "../components/Book";
+import BookCard from "../components/BookCard";
 
 const HomePage = () => {
   return (
-    <section className='flex h-screen w-full font-inter overflow-hidden flex-col p-5 relative mx-auto'>
+    <section className='flex h-screen w-full font-inter flex-col p-5 relative mx-auto'>
         <div className="flex justify-between w-[90vw] md:w-[70vw] lg:w-[60vw] mx-auto">
             <img src="src/assets/logo/logo_name.png" alt="logo name" className='w-40' />
             <div className="flex my-auto gap-3">
@@ -10,7 +11,7 @@ const HomePage = () => {
                 <img src="src/assets/icon/menu_bar.svg" alt="menu bar icon" className="h-min my-auto cursor-pointer" />
             </div>
         </div>
-        <main className='bg-white w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-2xl gray-shadow mx-auto absolute -bottom-5 left-1/2 transform -translate-x-1/2 h-[92vh] gray-text'>
+        <main className='bg-white w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-2xl mx-auto  -bottom-5 left-1/2 transform -translate-x-1/2 gray-text h-[92vh] absolute'>
         <div className="flex flex-col mx-auto">
             <div className="p-5">
                 <div className="relative w-full">
@@ -46,8 +47,21 @@ const HomePage = () => {
                     <Book 
                         current={60}
                         total={140}
-                        bookCover={"src/assets/icon/placeholder.png"}
-                        bookTitle={"[Book title]"}/>
+                        bookCover="src/assets/icon/placeholder.png"
+                        bookTitle="Book title"/>
+                </div>
+            </div>
+            <div className="p-5 gray-text bg-white">
+                <h1 className="text-2xl font-bold">Finished</h1>
+                <div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
+                    <BookCard 
+                        bookTitle="Book title"
+                        bookDescription="Book Description Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                        bookCover="src/assets/icon/placeholder.png"
+                        rate={10}
+                        year={2025}
+                        authorName="Author name"
+                    />
                 </div>
             </div>
         </main>
