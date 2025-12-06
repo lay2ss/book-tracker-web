@@ -11,11 +11,11 @@ const HomePage = () => {
                 <img src="src/assets/icon/menu_bar.svg" alt="menu bar icon" className="h-min my-auto cursor-pointer" />
             </div>
         </div>
-        <main className='bg-white w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-2xl mx-auto  -bottom-5 left-1/2 transform -translate-x-1/2 gray-text h-[92vh] absolute'>
+        <main className='bg-white w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-2xl mx-auto  -bottom-5 left-1/2 transform -translate-x-1/2 gray-text h-[92vh] absolute  gray-shadow'>
         <div className="flex flex-col mx-auto">
             <div className="p-5">
                 <div className="relative w-full">
-                    <input type="text" placeholder="Search for a book" className="border-none py-2 px-3 rounded-md outline-none focus:ring-1 focus:ring-[#FF6C00] bg-light-orange w-full"/>
+                    <input type="text" placeholder="Search for a book" className="border-none py-2 px-3 rounded-md outline-none focus:ring-1 focus:ring-[#FF6C00] bg-light-orange w-full input-shadow"/>
                     <button className="right-12 top-2 icon-style">
                         <img src="src/assets/icon/search.svg" alt="search icon"/>
                     </button>
@@ -30,13 +30,13 @@ const HomePage = () => {
                     <div>
                         <img src="src/assets/icon/book.svg" alt="book icon" />
                     </div>
-                        <p className="ml-1"><span className="font-bold">[3]</span> books this month</p>
+                        <p className="ml-1"><span className="font-bold">3</span> books this month</p>
                     </div>
                     <div className="flex items-center">
                     <div>
                         <img src="src/assets/icon/calendar.svg" alt="calendar icon" />
                     </div>
-                        <p className="ml-1">Reading streak: <span className="font-bold">[5 days]</span></p>
+                        <p className="ml-1">Reading streak: <span className="font-bold">5 days</span></p>
                     </div>
                 </div>
             </div>
