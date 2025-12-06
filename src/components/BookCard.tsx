@@ -13,7 +13,7 @@ const BookCard: React.FC<BookCardProps> = ({ bookDescription, bookCover, bookTit
     const toggleState = () => setIsFavorite(!isFavorite);
 
   return (
-    <div className='flex font-inter bg-light-orange rounded-2xl w-fit p-5 gray-text flex-col max-w-[450px] shrink-0'>
+    <div className='flex font-inter bg-light-orange rounded-2xl w-fit p-5 gray-text flex-col max-w-[450px] shrink-0 input-shadow'>
         <div className="flex gap-5 overflow-auto">
             <div className="relative flex">
                 <img src={bookCover} alt="bookCover"/>
