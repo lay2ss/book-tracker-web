@@ -9,7 +9,7 @@ interface BookProps{
 
 const Book: React.FC<BookProps> = ({ current, total, bookCover, bookTitle }) =>{
   return (
-        <div className="flex shrink-0 text-center">
+        <div className="flex shrink-0 text-center cursor-pointer">
             <div className="flex gap-2">
                 <div>
                     <img src={bookCover} alt="book cover" className="w-23 h-35 sm:w-fit sm:h-fit"/>
