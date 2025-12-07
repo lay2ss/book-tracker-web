@@ -113,7 +113,7 @@ const Login = () => {
               ${isSignUp ? 'translate-x-0' : '-translate-x-[20%]'}`}>
               <h1 className="font-bold text-3xl mb-2">Welcome Back!</h1>
               <p className="text-sm font-light mb-8">To keep connected with us please login with your personal info</p>
-              <button className="button-style-outline" onClick={toggleMode}>
+              <button className="button-style-outline border-white text-white" onClick={toggleMode}>
                 Sign In
               </button>
             </div>
@@ -123,7 +123,7 @@ const Login = () => {
               ${isSignUp ? 'translate-x-[20%]' : 'translate-x-0'}`}>
               <h1 className="font-bold text-3xl mb-2">Hello, Friend!</h1>
               <p className="text-sm font-light mb-8">Enter your personal details and start journey with us</p>
-              <button className="button-style-outline" onClick={toggleMode}>
+              <button className="button-style-outline border-white text-white" onClick={toggleMode}>
                 Sign Up
               </button>
             </div>
