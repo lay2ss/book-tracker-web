@@ -46,6 +46,9 @@ html {
   -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+.blur-effect{
+  @apply bg-white/30 backdrop-blur-sm border border-white/20 rounded-xl;
+}
 .bg-login{
   background: linear-gradient(to left, #FF2600, #FF6C00);
 }
@@ -75,13 +78,15 @@ html {
 .button-style{
   @apply rounded-full text-white text-xs font-bold py-3 px-12 tracking-wider uppercase transition-transform active:scale-95;
   background-color: var(--orange-accent);
-
 }
 .button-style-underline{
   @apply pl-2 cursor-pointer hover:underline;
   color: var(--orange-accent);
 }
 .button-style-outline{
-  @apply bg-transparent border border-white text-white rounded-full py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform;
+  @apply bg-transparent border rounded-full py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
+}
+.li-style{
+  @apply font-bold uppercase text-xs tracking-wider cursor-pointer active:scale-95;
 }
 
