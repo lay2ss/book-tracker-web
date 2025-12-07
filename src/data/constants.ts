@@ -1,0 +1,1 @@
+export const navData = ["Home", "Settings", "Favorites"];
