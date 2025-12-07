@@ -1,14 +1,26 @@
+import { useState } from "react";
 import Book from "../components/Book";
 import BookCard from "../components/BookCard";
+import MobileNav from "../components/MobileNav";
 
 const HomePage = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
     <section className='flex h-screen w-full font-inter flex-col p-5 relative mx-auto'>
         <div className="flex justify-between w-[90vw] md:w-[70vw] lg:w-[60vw] mx-auto">
-            <img src="src/assets/logo/logo_name.png" alt="logo name" className='w-40' />
-            <div className="flex my-auto gap-3">
-                <img src="src/assets/icon/placeholder_profile.png" alt="profile picture" className="w-min h-min cursor-pointer" />
-                <img src="src/assets/icon/menu_bar.svg" alt="menu bar icon" className="h-min my-auto cursor-pointer" />
+                <img src="src/assets/logo/logo_name.png" alt="logo name" className='w-40 h-min' />
+            <div className="flex gap-3 my-auto">
+                <img src="src/assets/icon/placeholder_profile.png" alt="profile picture" className="w-min h-min cursor-pointer z-5"/>
+                <div className="relative flex  md:hidden">
+                    <button onClick={toggleMenu} className="z-10">
+                        <img src={isOpen? 'src/assets/icon/close.svg' : 'src/assets/icon/menu_bar.svg'} alt="menu bar icon" className="h-min my-auto cursor-pointer"/>
+                    </button>
+                    <div className={`fixed right-0 top-0 z-5 h-screen ${isOpen? 'flex' : 'hidden'}`}>
+                        <MobileNav/>
+                    </div>
+                </div>
             </div>
         </div>
         <main className='bg-white w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-2xl mx-auto  -bottom-5 left-1/2 transform -translate-x-1/2 gray-text h-[92vh] absolute  gray-shadow'>
@@ -25,18 +37,12 @@ const HomePage = () => {
                 </div>
             </div>
             <div className="px-5">
-                <div className="bg-light-orange flex py-4 px-5 justify-between rounded-md border border-[#FF6C00] flex-wrap text-sm sm:text-[16px] max-w-[600px] mx-auto">
+                <div className="bg-light-orange flex py-4 px-5 justify-center rounded-full border border-[#FF6C00] flex-wrap max-w-[600px] mx-auto">
                     <div className="flex items-center">
                     <div>
-                        <img src="src/assets/icon/book.svg" alt="book icon" />
+                        <img src="src/assets/icon/fire.svg" alt="calendar icon" />
                     </div>
-                        <p className="ml-1"><span className="font-bold">3</span> books this month</p>
-                    </div>
-                    <div className="flex items-center">
-                    <div>
-                        <img src="src/assets/icon/calendar.svg" alt="calendar icon" />
-                    </div>
-                        <p className="ml-1">Reading streak: <span className="font-bold">5 days</span></p>
+                        <p className="ml-1">Reading streak: <span className="font-bold orange-text">5 days</span></p>
                     </div>
                 </div>
             </div>
