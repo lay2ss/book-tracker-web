@@ -13,7 +13,7 @@ const MobileNav: React.FC<MobileNavProps> = ({toggle}) => {
       <ul className="blur-effect px-5 py-14 gray-text flex items-center flex-col gap-3">
           {
             navData.map((item) => 
-              (<li className="li-style">{item}</li>)
+              (<li key={item.id} className="li-style">{item.li}</li>)
             )
           }
           <li>
