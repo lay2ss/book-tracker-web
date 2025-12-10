@@ -11,7 +11,9 @@ const HomePage = () => {
   return (
     <section className='flex h-screen w-full font-inter flex-col p-5 relative mx-auto'>
         <div className="flex justify-between w-[90vw] lg:w-[80vw] max-w-[1200px] mx-auto md:bg-white md:rounded-xl md:px-4 px-2">
+            <a href="/" className="cursor-pointer">
                 <img src="src/assets/logo/logo_name.png" alt="logo name" className='w-40 h-min' />
+            </a>
             <div className="hidden md:flex">
                 <DesktopNav/>
             </div>
@@ -32,7 +34,7 @@ const HomePage = () => {
                 </div>
             </div>
         </div>
-        <main className='bg-white w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto  -bottom-5 left-1/2 transform -translate-x-1/2 gray-text h-[92vh] absolute  gray-shadow'>
+        <main className='bg-white w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto  -bottom-23 left-1/2 transform -translate-x-1/2 gray-text h-screen absolute'>
         <div className="flex flex-col mx-auto">
             <div className="p-5">
                 <div className="relative w-full">
