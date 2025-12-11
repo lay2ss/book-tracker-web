@@ -24,7 +24,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ currentPage, totalP
           cx="50"
           cy="50"
           r={radius}
-          stroke="#FF6C00"
+          stroke="#b99ef6"
           strokeWidth="10"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
@@ -32,7 +32,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ currentPage, totalP
           fill="none"
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center text-xs text-[#FF6C00]">
+      <div className="absolute inset-0 flex items-center justify-center text-xs text-[#b99ef6]">
         {percent}%
       </div>
     </div>

@@ -13,11 +13,11 @@ const BookCard: React.FC<BookCardProps> = ({ bookDescription, bookCover, bookTit
     const toggleState = () => setIsFavorite(!isFavorite);
 
   return (
-    <div className='flex font-inter bg-light-orange rounded-2xl w-fit p-5 gray-text flex-col max-w-[450px] shrink-0 input-shadow'>
+    <div className='flex font-inter bg-dark-purple rounded-2xl w-fit p-5 flex-col max-w-[450px] shrink-0 input-shadow'>
         <div className="flex gap-5 overflow-auto">
             <div className="relative flex">
                 <img src={bookCover} alt="bookCover" className="cursor-pointer"/>
-                <div className="orange-bg absolute bottom-1 left-1 rounded-xl text-white w-fit py-1 px-2 text-sm tracking-wider">
+                <div className="purple-bg absolute bottom-1 left-1 rounded-xl w-fit py-1 px-2 text-sm tracking-wider">
                     <p>{rate}/10</p>
                 </div>
             </div>
@@ -26,7 +26,7 @@ const BookCard: React.FC<BookCardProps> = ({ bookDescription, bookCover, bookTit
                     <h2 className="text-xl font-bold">{bookTitle}</h2>
                     <p>{bookDescription}</p>
                 </div>
-                <div className="bg-white rounded-xl w-fit py-1 px-2 text-sm">
+                <div className="border-[#b99ef6] border rounded-xl w-fit py-1 px-2 text-sm">
                     <p>
                         {authorName}
                     </p>

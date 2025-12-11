@@ -7,9 +7,9 @@ const Nav = () => {
     const toggleMenu = () => setIsOpen(!isOpen);
   return (
     <nav className='w-full font-inter p-5 relative mx-auto'>
-        <div className="flex justify-between w-[90vw] lg:w-[80vw] max-w-[1200px] mx-auto md:bg-white md:rounded-xl md:px-4 px-2">
+        <div className="flex justify-between w-[90vw] lg:w-[80vw] max-w-[1200px] mx-auto md:bg-[#252033] md:rounded-xl md:px-4 px-2 md:py-2">
             <a href="/" className="cursor-pointer">
-                <img src="src/assets/logo/logo_name.png" alt="logo name" className='w-40 h-min' />
+                <img src="src/assets/logo/logo_name.svg" alt="logo name" className='w-40 h-min' />
             </a>
             <div className="hidden md:flex">
                 <DesktopNav/>
