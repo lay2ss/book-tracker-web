@@ -2,16 +2,15 @@
 @tailwind utilities;
 
 html {
-  background-color: var(--light-orange);
+  background-color: var(--bg-dark);
   height: 100vh;
   scroll-behavior: smooth;
 }
 :root{
-    --orange-accent: #FF6C00;
-    --light-orange: #FFF5ED;
-    --white: #FFFFFF; 
+    --purple-accent: #b99ef6;
+    --dark-purple: #252033;
+    --bg-dark: #1A1625;
     --gray: #374957;
-    --light-gray: #f1f1f1;
 }
 .font-inter {
   font-family: "Inter", sans-serif;
@@ -36,35 +35,35 @@ html {
   font-weight: 800;
   font-style: normal;
 }
-.gray-text{
-  color: var(--gray);
-}
-.orange-text{
-  color: var(--orange-accent);
+.purple-text{
+  color: var(--purple-accent);
 }
 .gray-shadow{
   -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 .blur-effect{
-  @apply bg-white/30 backdrop-blur-sm border border-white/20 rounded-xl;
+  @apply bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl;
 }
 .bg-login{
   background: linear-gradient(to left, #FF2600, #FF6C00);
 }
-.bg-light-orange{
-  background-color: var(--light-orange);
+.bg-dark{
+  background-color: var(--bg-dark);
 }
-.orange-bg{
-  background-color: var(--orange-accent);
+.bg-dark-purple{
+  background-color: var(--dark-purple);
+}
+.purple-bg{
+  background-color: var(--dark-purple);
 }
 .form-style{
   @apply bg-white flex flex-col items-center justify-center h-full w-full text-center;
 }
 .input-style{
-  @apply border-none p-3 my-1.5 w-full rounded-md outline-none focus:ring-1 focus:ring-[#FF6C00];
+  @apply border-none p-3 my-1.5 w-full rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6];
   font-family:  "Inter", sans-serif;
-  background-color: var(--light-gray);
+  background-color: var(--dark-purple);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -77,11 +76,11 @@ html {
 }
 .button-style{
   @apply rounded-full text-white text-xs font-bold py-3 px-12 tracking-wider uppercase transition-transform active:scale-95;
-  background-color: var(--orange-accent);
+  background-color: var(--purple-accent);
 }
 .button-style-underline{
   @apply pl-2 cursor-pointer hover:underline;
-  color: var(--orange-accent);
+  color: var(--purple-accent);
 }
 .button-style-outline{
   @apply bg-transparent border rounded-full py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
