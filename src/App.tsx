@@ -1,13 +1,13 @@
 import './App.css';
 import Nav from './components/Nav';
-import HomePage from './pages/HomePage';
+import Profile from './pages/Profile';
 
 function App() {
 
   return (
     <>
     <Nav/>
-    <HomePage/>
+    <Profile/>
     </>
   )
 }
