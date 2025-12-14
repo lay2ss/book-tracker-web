@@ -1,7 +1,7 @@
 import Book from "../components/Book";
 import BookCard from "../components/BookCard";
 
-const HomePage = () => {
+const Home = () => {
 
   return (
     <section className='h-screen w-full font-inter p-5 relative mx-auto text-white'>
@@ -57,4 +57,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default Home
