@@ -14,7 +14,7 @@ const StatWidget: React.FC<StatWidgetProps> = ({stat, icon, text, alt}) => {
                         {text}
                     </p>
                 </div>
-                <p className="purple-text mt-2">{stat}</p>
+                <p className="purple-text mt-3">{stat}</p>
             </div>
   )
 }
