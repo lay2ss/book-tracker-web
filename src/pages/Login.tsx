@@ -106,7 +106,7 @@ const Login = () => {
           
           <div className={`text-white relative -left-full h-full w-[200%] transform transition-transform duration-600 ease-in-out
             ${isSignUp ? 'translate-x-1/2' : 'translate-x-0'}`}
-            style={{ background: 'linear-gradient(to right, #2C0B4D, #b99ef6)' }}>
+            style={{ background: 'linear-gradient(to right, #4e1c80, #1A1625)' }}>
             
             {/* left panel (sign up) */}
             <div className={`absolute flex flex-col items-center justify-center h-full w-1/2 px-8 text-center top-0 transform transition-transform duration-600 ease-in-out
