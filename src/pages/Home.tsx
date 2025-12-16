@@ -39,7 +39,7 @@ const Home = () => {
                         bookTitle="Book title"/>
                 </div>
             </div>
-            <div className="px-5 bg-dark">
+            <div className="px-5 bg-black">
                 <h1 className="text-2xl font-bold purple-text">Finished</h1>
                 <div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
                     <BookCard 
