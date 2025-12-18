@@ -5,7 +5,7 @@ const Home = () => {
 
   return (
     <section className='h-screen w-full font-inter p-5 relative mx-auto text-white'>
-        <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-tl-2xl rounded-tr-2xl mx-auto bottom-0 left-1/2 transform -translate-x-1/2  h-screen absolute border-3 border-[#252033]'>
+        <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-tl-2xl rounded-tr-2xl mx-auto bottom-0 left-1/2 transform -translate-x-1/2  h-screen absolute border-l-3 border-r-3 border-t-3 border-[#252033]'>
         <div className="flex flex-col mx-auto">
             <div className="p-5">
                 <div className="relative w-full">
@@ -39,7 +39,7 @@ const Home = () => {
                         bookTitle="Book title"/>
                 </div>
             </div>
-            <div className="px-5 bg-black">
+            <div className="px-5">
                 <h1 className="text-2xl font-bold purple-text">Finished</h1>
                 <div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
                     <BookCard 
