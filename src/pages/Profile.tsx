@@ -28,13 +28,18 @@ const Profile = () => {
             />
           </div>
         </div>
-        <div className="">
-          <h1 className="text-2xl font-bold purple-text mt-5">Reading Goals</h1>
-          <div className="flex mt-5 border-[#252033] border-2 rounded-xl p-3 justify-center md:w-fit">
-            <GoalTracker 
-              current={34} 
-              max={50} 
-            />
+        <div className="flex md:justify-between flex-wrap mt-5 justify-center gap-5">
+          <div className="">
+            <h1 className="text-2xl font-bold purple-text text-center md:text-start">Reading Goal</h1>
+            <div className="flex mt-5 border-[#252033] border-2 rounded-xl p-3 justify-center md:w-fit">
+              <GoalTracker 
+                current={34} 
+                max={50} 
+              />
+            </div>
+          </div>
+          <div className="md:w-2/3 w-full text-center md:text-start">
+            <h1 className="text-2xl font-bold purple-text">Recent Activity</h1>
           </div>
         </div>
         </main>
