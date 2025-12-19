@@ -1,9 +1,9 @@
 import { useState } from "react";
 interface BookCardProps{
-    bookDescription: string;
+    bookDescription?: string;
     bookCover: string;
     bookTitle: string;
-    authorName: string;
+    authorName?: string;
     year: number;
     rate: number;
 }
