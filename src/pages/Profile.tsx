@@ -1,5 +1,6 @@
 import StatWidget from "../components/StatWidget";
 import GoalTracker from "../components/GoalTracker";
+import BookReview from "../components/BookReview";
 
 const Profile = () => {
   return (
@@ -40,6 +41,13 @@ const Profile = () => {
           </div>
           <div className="md:w-2/3 w-full text-center md:text-start">
             <h1 className="text-2xl font-bold purple-text">Recent Activity</h1>
+            <div className="mt-5 bg-dark-purple gap-4 flex flex-col p-3 rounded-xl">
+              <BookReview
+              cover="src/assets/icon/placeholder.png"
+              title="Book title"
+              review="Book review Lorem ipsum dolor sit amet consectetur adipisicing elit."
+              />
+            </div>
           </div>
         </div>
         </main>
