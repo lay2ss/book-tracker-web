@@ -35,17 +35,17 @@ const Home = () => {
                     <Book 
                         current={60}
                         total={140}
-                        bookCover="src/assets/icon/placeholder.png"
-                        bookTitle="Book title"/>
+                        cover="src/assets/icon/placeholder.png"
+                        title="Book title"/>
                 </div>
             </div>
             <div className="px-5">
                 <h1 className="text-2xl font-bold purple-text">Finished</h1>
                 <div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
                     <BookCard 
-                        bookTitle="Book title"
-                        bookDescription="Book Description Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        bookCover="src/assets/icon/placeholder.png"
+                        title="Book title"
+                        description="Book Description Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                        cover="src/assets/icon/placeholder.png"
                         rate={10}
                         year={2025}
                         authorName="Author name"
