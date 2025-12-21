@@ -1,7 +1,7 @@
 interface BookReviewProps{
     cover: string;
     title: string;
-    review: string;
+    review?: string;
 }
 
 const BookReview: React.FC<BookReviewProps> = ({cover, title, review}) => {
