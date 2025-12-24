@@ -18,7 +18,7 @@ const BookReview: React.FC<BookReviewProps> = ({cover, title, review, rate, date
                           <h2 className="text-lg">{title}</h2>
                           <p className="opacity-90">{review}</p>
                         </div>
-                          <div className="opacity-60 text-sm">
+                          <div className="opacity-65 text-sm">
                             <relative-time datetime={datetime}></relative-time>
                           </div>
                       </div>
