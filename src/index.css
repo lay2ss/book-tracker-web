@@ -56,7 +56,7 @@ html {
   background-color: var(--dark-purple);
 }
 .purple-bg{
-  background-color: var(--dark-purple);
+  background-color: var(--purple-accent);
 }
 .form-style{
   @apply flex flex-col items-center justify-center h-full w-full text-center;
