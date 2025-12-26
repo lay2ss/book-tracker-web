@@ -51,7 +51,7 @@ const Profile = () => {
               cover="src/assets/icon/placeholder.png"
               title="Book title"
               review="Book review Lorem ipsum dolor sit amet consectetur adipisicing elit."
-              rate={3}
+              rate={10}
               datetime="2025-12-23T01:06:16.000Z"
               />
             </div>
