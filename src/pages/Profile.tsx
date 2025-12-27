@@ -10,7 +10,7 @@ const Profile = () => {
           <div className="relative">
             <img src="src/assets/icon/placeholder_profile2.png" alt="profile picture" className="w-min h-min"/>
             <button className="bg-gray-100 w-6 h-6 rounded-full absolute top-10 left-9 cursor pointer p-0.5 cursor-pointer">
-              <img src="src/assets/icon/edit.svg" alt="edit icon" className=""/>
+              <img src="src/assets/icon/edit.svg" alt="pencil icon" className=""/>
             </button>
           </div>
           <div className="flex md:gap-2  flex-wrap gap-2 md:justify-center md:flex-nowrap lg:gap-4">
