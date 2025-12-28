@@ -15,7 +15,9 @@ const Nav = () => {
                 <DesktopNav/>
             </div>
             <div className="flex gap-3 my-auto">
-                <img src="src/assets/icon/placeholder_profile.png" alt="profile picture" className="w-min h-min cursor-pointer"/>
+                <a href="/profile" className={`${location.pathname === "/profile" ? "border-2 border-white rounded-full" : "border-none"}`}>
+                    <img src="src/assets/icon/placeholder_profile.png" alt="profile picture" className="w-min h-min cursor-pointer"/>
+                </a>
                 <button className="hidden md:flex cursor-pointer active:scale-95">
                     <img src="src/assets/icon/logout.svg" alt="log out icon" />
                 </button>
