@@ -7,7 +7,9 @@ const DesktopNav = () => {
             navData.map((item) => 
               (
               <div  key={item.id} className="flex items-center gap-1 hover:border hover:border-[#b99ef6] hover:rounded-xl p-2">
-                <li className="li-style">{item.li}</li>
+                <a href={`/${item.li.toLowerCase()}`}>
+                  {location.pathname === `/${item.li.toLowerCase()}` || (location.pathname === "/" && item.li == "Home")  ? <li className="li-style purple-text">{item.li}</li> : <li className="li-style">{item.li}</li>}
+                </a>
               </div>
             )
             )

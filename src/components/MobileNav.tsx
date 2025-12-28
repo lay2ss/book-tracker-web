@@ -13,7 +13,9 @@ const MobileNav: React.FC<MobileNavProps> = ({toggle}) => {
       <ul className="blur-effect px-5 py-14 flex items-center flex-col gap-3 text-white">
           {
             navData.map((item) => 
-              (<li key={item.id} className="li-style">{item.li}</li>)
+              (<a key={item.id} href={`/${item.li.toLowerCase()}`}> 
+                 {location.pathname === `/${item.li.toLowerCase()}` || (location.pathname === "/" && item.li == "Home") ? <li className="li-style purple-text">{item.li}</li> : <li className="li-style">{item.li}</li>}
+              </a>)
             )
           }
           <li>
