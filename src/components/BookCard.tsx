@@ -17,7 +17,7 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
         <div className="flex gap-5 overflow-auto">
             <div className="relative flex">
                 <img src={cover} alt="cover" className="cursor-pointer"/>
-                <div className="purple-bg absolute bottom-1 left-1 rounded-xl w-fit py-1 px-2 text-sm tracking-wider">
+                <div className="bg-dark-purple absolute bottom-1 left-1 rounded-xl w-fit py-1 px-2 text-sm tracking-wider">
                     <p>{rate}/10</p>
                 </div>
             </div>
