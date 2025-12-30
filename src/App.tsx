@@ -4,10 +4,11 @@ import Nav from './components/Nav';
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from './pages/Profile';
+import Settings from "./pages/Settings";
 
 function AppLayout() {
   const location = useLocation();
-  const showNav = ["/", "/home", "/profile"].includes(location.pathname);
+  const showNav = ["/", "/home", "/profile", "/settings"].includes(location.pathname);
 
   return (
     <>
@@ -16,6 +17,7 @@ function AppLayout() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
