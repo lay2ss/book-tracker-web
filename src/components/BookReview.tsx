@@ -3,11 +3,11 @@ interface BookReviewProps{
     cover: string;
     title: string;
     review?: string;
-    rate: number;
+    rate?: number;
     datetime: string;
 }
 
-const BookReview: React.FC<BookReviewProps> = ({cover, title, review, rate, datetime}) => {
+const BookReview: React.FC<BookReviewProps> = ({cover, title, review, rate = "-", datetime}) => {
   return (
     <div className="flex shrink-0 text-center cursor-pointer">
                 <div className="flex w-full justify-between">
