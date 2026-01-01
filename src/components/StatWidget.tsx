@@ -2,7 +2,7 @@ interface StatWidgetProps{
     stat: number;
     icon: string;
     text: string;
-    alt: string;
+    alt?: string;
 }
 
 const StatWidget: React.FC<StatWidgetProps> = ({stat, icon, text, alt}) => {
