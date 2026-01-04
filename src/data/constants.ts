@@ -5,11 +5,11 @@ export const navData = [
     },
     {
         id: 2,
-        li: "Settings",
+        li: "Profile",
     },
     {
         id: 3,
-        li: "Favorites",
+        li: "Settings",
     },
 ];
 
