@@ -61,7 +61,7 @@ const Profile = () => {
             <h1 className="text-2xl font-bold purple-text">My Collections</h1>
             <div className="mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
               <Collection
-                name="Summer reading"
+                name="Favorites"
                 qnt={23}
               />
             </div>
