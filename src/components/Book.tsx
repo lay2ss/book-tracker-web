@@ -1,8 +1,8 @@
 import CircularProgress from "./CircularProgress";
 
 interface BookProps{
-    current: number;
-    total: number;
+    current?: number;
+    total?: number;
     cover: string;
     title: string;
 }

@@ -1,10 +1,10 @@
 interface CircularProgressProps {
-  currentPage: number;
-  totalPages: number;
+  currentPage?: number;
+  totalPages?: number;
 }
 
 const CircularProgress: React.FC<CircularProgressProps> = ({ currentPage, totalPages }) => {
-  const percent = Math.round((currentPage / totalPages) * 100);
+  const percent = Math.round((Number(currentPage) / Number(totalPages)) * 100);
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (circumference * percent) / 100;
