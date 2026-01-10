@@ -28,7 +28,7 @@ const Login = () => {
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
             </div>
-            <button className='button-style mx-auto flex mt-8 cursor-pointer'>Sign up</button>
+            <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]'>Sign up</button>
             <div className='inter-semibold text-center mt-10 pb-10 opacity-70'>
               <p className=''>Already have an account?
                 <button className='button-style-underline' onClick={toggleMode}>Sign in</button>
@@ -46,7 +46,7 @@ const Login = () => {
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
             </div>
-            <button className='button-style mx-auto flex mt-8 cursor-pointer'>Sign in</button>
+            <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]'>Sign in</button>
             <button className='cursor-pointer inter-semibold opacity-70 mx-auto flex mt-3 hover:underline'>Forgot your password?</button>
             <div className='inter-semibold text-center mt-10 pb-10 opacity-70'>
               <p>Don’t have an account?
@@ -74,7 +74,7 @@ const Login = () => {
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
               </div>
-              <button type='button' className="button-style mt-3 cursor-pointer">
+              <button type='button' className="button-style mt-3 cursor-pointer text-[#252033]">
                 Sign Up
               </button>
             </form>
@@ -94,7 +94,7 @@ const Login = () => {
                 </button>
               </div>
               <a href="#" className="text-sm my-4 hover:underline">Forgot your password?</a>
-              <button  type='button' className="button-style mt-3 cursor-pointer">
+              <button  type='button' className="button-style mt-3 cursor-pointer text-[#252033]">
                 Sign In
               </button>
             </form>
@@ -113,7 +113,7 @@ const Login = () => {
               ${isSignUp ? 'translate-x-0' : '-translate-x-[20%]'}`}>
               <h1 className="font-bold text-3xl mb-2">Welcome Back!</h1>
               <p className="text-sm font-light mb-8">To keep connected with us please login with your personal info</p>
-              <button className="button-style-outline border-white text-white" onClick={toggleMode}>
+              <button className="button-style-outline border-white" onClick={toggleMode}>
                 Sign In
               </button>
             </div>
@@ -123,7 +123,7 @@ const Login = () => {
               ${isSignUp ? 'translate-x-[20%]' : 'translate-x-0'}`}>
               <h1 className="font-bold text-3xl mb-2">Hello, Friend!</h1>
               <p className="text-sm font-light mb-8">Enter your personal details and start journey with us</p>
-              <button className="button-style-outline border-white text-white" onClick={toggleMode}>
+              <button className="button-style-outline border-white" onClick={toggleMode}>
                 Sign Up
               </button>
             </div>
