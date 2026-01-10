@@ -76,7 +76,7 @@ html {
   @apply absolute opacity-50 hover:opacity-100 cursor-pointer transition-transform active:scale-80;
 }
 .button-style{
-  @apply rounded-full text-white text-xs font-bold py-3 px-12 tracking-wider uppercase transition-transform active:scale-95;
+  @apply rounded-xl text-xs font-bold py-3 px-12 tracking-wider uppercase transition-transform active:scale-95;
   background-color: var(--purple-accent);
 }
 .button-style-underline{
@@ -84,7 +84,7 @@ html {
   color: var(--purple-accent);
 }
 .button-style-outline{
-  @apply bg-transparent border rounded-full py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
+  @apply bg-transparent border rounded-xl py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
 }
 .li-style{
   @apply font-bold uppercase text-xs tracking-wider cursor-pointer active:scale-95;
