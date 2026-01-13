@@ -41,10 +41,10 @@ const BookDetails = () => {
         <section className='h-screen w-full font-inter p-5 relative mx-auto text-white'>
             <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-tl-2xl rounded-tr-2xl mx-auto bottom-0 left-1/2 transform -translate-x-1/2 h-screen absolute border-l-3 border-r-3 border-t-3 border-[#252033] p-5'>
             <div className="flex justify-center">
-                <div className="p-6 text-white bg-dark-purple rounded-xl flex gap-5 w-fit">
+                <div className="p-6 text-white bg-dark-purple rounded-xl flex gap-5 w-fit flex-col md:flex-row">
                     <div className="flex flex-col items-center">
                         <img src={book.coverImage || "src/assets/icon/placeholder.png"} alt={book.title} className="h-fit rounded-md gray-shadow min-w-35 w-fit" />
-                        <div className="flex gap-2 flex-col mt-3">
+                        <div className="flex gap-2 flex-col mt-3 md:min-w-40">
                                     <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">
                                         <img src={isAdded? bookMarkIcon2 : bookMarkIcon} alt="bookmark icon" />
                                         Add to Library
@@ -57,7 +57,7 @@ const BookDetails = () => {
                         <p className="text-sm purple-text font-light">
                             {book.authors?.join(", ")}
                         </p> 
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                             {Array.isArray(book.categories) ? splitArrayItems(book.categories).map((item: string, id: number) =>   
                             (<div className="border-[#b99ef6] border rounded-2xl w-fit px-2 flex mt-1 font-light text-sm" key={id}> 
                                 <p>{item}</p>
@@ -74,7 +74,7 @@ const BookDetails = () => {
                                     <p>{book.pageCount} pages</p>
                                 </div>
                             </div>
-                        <div className="max-h-45 text-sm overflow-y-auto">
+                        <div className="md:max-h-45 text-sm overflow-y-auto">
                             <div  className="mt-4">
                                 <ExpandableText text={stripHtmlTags(book.description)} maxLength={400} />
                             </div>
