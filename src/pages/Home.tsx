@@ -1,7 +1,32 @@
 import Book from "../components/Book";
 import BookCard from "../components/BookCard";
+import { searchBooks } from "../services/bookService";
+import { useState } from "react";
 
 const Home = () => {
+
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    const handleSearch = async () => {
+        if (!query) return;
+        setLoading(true);
+        try {
+            const books = await searchBooks(query);
+            setResults(books);
+        } catch (error) {
+            console.error("Error searching for books:", error);
+        } finally {
+        setLoading(false);
+        }
+    };
+
+    const truncateText = (text: string, maxLength: number) => {
+    if (!text) return "";
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    };
+
 
   return (
     <section className='h-screen w-full font-inter p-5 relative mx-auto text-white'>
@@ -9,17 +34,25 @@ const Home = () => {
         <div className="flex flex-col mx-auto">
             <div className="p-5">
                 <div className="relative w-full">
-                    <input type="text" placeholder="Search for a book" className="border-none py-2 px-3 rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6] bg-dark-purple w-full"/>
-                    <button className="right-12 top-2 icon-style">
+                    <input 
+                        type="text"
+                        placeholder="Search for a book" 
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleSearch();
+                        }
+                    }}
+                        className="border-none py-2 px-3 rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6] bg-dark-purple w-full"/>
+                    <button className="right-4 top-2 icon-style" onClick={handleSearch}>
                         <img src="src/assets/icon/search.svg" alt="search icon"/>
-                    </button>
-                    <button className="right-3 top-2 icon-style">
-                        <img src="src/assets/icon/filter.svg" alt="filter icon"/>
                     </button>
                 </div>
             </div>
-            <div className="px-5">
-                <div className="flex py-4 px-5 justify-center rounded-full border border-[#b99ef6] flex-wrap max-w-[400px] mx-auto">
+            <div className="px-5 mt-3">
+                <div className="flex py-4 px-5 justify-center rounded-xl border border-[#b99ef6] flex-wrap max-w-[400px] mx-auto">
                     <div className="flex items-center">
                     <div>
                         <img src="src/assets/icon/fire.svg" alt="calendar icon" />
@@ -29,6 +62,33 @@ const Home = () => {
                 </div>
             </div>
         </div>
+
+        <div className="p-5">
+            {loading? (<p className="text-gray-400 text-center">Loading...</p>
+        ) : (
+          <div className="flex flex-wrap gap-4">
+            {results.length > 0 ? (
+              results.map((book) => (
+                <BookCard
+                  key={book.id}
+                  title={truncateText(book.title, 25)}
+                  description={truncateText(book.description, 90)}
+                  cover={book.coverImage || "src/assets/icon/placeholder.png"}
+                  authorName={book.authors?.join(", ")}
+                  show="hidden"
+                  id={book.id}
+                  year={book.publishedYear}
+                  genre={book.categories}
+                  pages={book.pageCount}
+                />
+              ))
+            ) : (
+              <p></p>
+            )}
+          </div>
+        )}
+        </div>
+
             <div className="p-5">
                 <h1 className="text-2xl font-bold purple-text">Currently reading</h1>
                 <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
@@ -42,14 +102,9 @@ const Home = () => {
             <div className="px-5">
                 <h1 className="text-2xl font-bold purple-text">Finished</h1>
                 <div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
-                    <BookCard 
-                        title="Book title"
-                        description="Book Description Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        cover="src/assets/icon/placeholder.png"
-                        rate={10}
-                        year={2025}
-                        authorName="Author name"
-                    />
+                    {/* <BookCard 
+                        
+                    /> */}
                 </div>
             </div>
         </main>
