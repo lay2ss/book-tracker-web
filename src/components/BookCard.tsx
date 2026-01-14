@@ -57,10 +57,12 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                         </div>
                             <div className="flex justify-between min-w-[340px]">
                                 <div className="flex gap-3">
-                                    <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">
-                                        <img src={isAdded? "src/assets/icon/bookmark_added.svg" : "src/assets/icon/bookmark_add.svg"} alt="bookmark icon" />
-                                        Add to Library
-                                    </button>
+                                    <Link to={`/book/add/${id}`}>
+                                        <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">
+                                            <img src={isAdded? "src/assets/icon/bookmark_added.svg" : "src/assets/icon/bookmark_add.svg"} alt="bookmark icon" />
+                                            Add to Library
+                                        </button>
+                                    </Link>
                                     <Link to={`/book/${id}`}>
                                         <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95">Read More</button>
                                     </Link>
