@@ -9,7 +9,7 @@ interface BookCardProps{
     rate?: number;
     show?: string;
     id: string;
-    genre: string;
+    genre?: string;
     pages: number;
 }
 
