@@ -98,3 +98,6 @@ html {
 .addButtonActived{
   @apply w-1/2 py-1 border-[#b99ef6] border rounded-xl text-[#252033] bg-[#b99ef6] cursor-pointer absolute font-bold;
 }
+.picker-style{
+  @apply border p-2 rounded-md bg-[#1a191b] focus:outline-indigo-600 border-[#b99ef6] cursor-pointer;
+}
