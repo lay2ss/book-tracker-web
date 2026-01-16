@@ -6,7 +6,11 @@ const months = [
   "September", "October", "November", "December"
 ];
 
-const years = Array.from({ length: 30 }, (_, i) => 2000 + i);
+const today = new Date();
+const currentMonth = today.getMonth() + 1;
+const currentYear = today.getFullYear();
+
+const years = Array.from({ length: currentYear - 1999 }, (_, i) => 2000 + i);
 
 const DatePicker: React.FC = () => {
   const [month, setMonth] = useState<number>();
@@ -14,8 +18,10 @@ const DatePicker: React.FC = () => {
 
   return (
     <div className="w-fit flex gap-2">
-      <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="picker-style">
-        {months.map((m, i) => (
+      <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="picker-style w-[121px]">
+        {year === currentYear? months.slice(0, currentMonth).map((m, i) => (
+          <option key={i} value={i}>{m}</option>
+        ))  : months.map((m, i) => (
           <option key={i} value={i}>{m}</option>
         ))}
       </select>
