@@ -22,15 +22,15 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
 
   return (
         <div className='flex font-inter bg-dark-purple rounded-2xl w-fit p-5 flex-col max-w-[550px] shrink-0 input-shadow hover:border hover:border-[#b99ef6]'>
-                <div className="flex gap-5 overflow-auto">
-                    <div className="relative flex">
+                <div className="flex gap-5 flex-wrap md:flex-nowrap">
+                    <div className="relative flex justify-center w-full md:justify-start">
                         <img src={cover} alt="cover" className="rounded-md gray-shadow h-fit w-fit min-w-35"/>
                     </div>
                     <div className="flex flex-col justify-between">
                         <div className="text-start">
                             <div className="flex justify-between">
                                 <h2 className="font-bold text-xl">{title}</h2>
-                                <div className={`flex justify-between mt-2`}>
+                                <div className={`flex justify-between`}>
                                     <button className="transition-transform active:scale-80 cursor-pointer" onClick={toggleState}>
                                         <img src={isFavorite? "src/assets/icon/star_active.svg" : "src/assets/icon/star.svg"} alt="star-icon"/>
                                     </button>
@@ -55,19 +55,19 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                                 </div>
                             </div>
                         </div>
-                            <div className="flex justify-between min-w-[340px]">
-                                <div className="flex gap-3">
+                            <div className="flex justify-between md:min-w-[340px] flex-col xs:flex-row gap-3 xs:gap-0 mt-2 md:mt-0">
+                                <div className="flex gap-3 w-full flex-col xs:flex-row">
                                     <Link to={`/book/add/${id}`}>
-                                        <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">
+                                        <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95 w-full xs:w-fit justify-center">
                                             <img src={isAdded? "src/assets/icon/bookmark_added.svg" : "src/assets/icon/bookmark_add.svg"} alt="bookmark icon" />
                                             Add to Library
                                         </button>
                                     </Link>
                                     <Link to={`/book/${id}`}>
-                                        <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95">Read More</button>
+                                        <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 w-full xs:w-fit">Read More</button>
                                     </Link>
                                 </div>
-                                <button className="rounded-xl px-2 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95"><img src="src/assets/icon/check.svg" alt="check icon" /></button>
+                                <button className="rounded-xl px-2 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 justify-center flex"><img src="src/assets/icon/check.svg" alt="check icon" /></button>
                             </div>
                     </div>
                 </div>
