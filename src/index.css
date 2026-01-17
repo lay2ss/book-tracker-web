@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @tailwind utilities;
 
+@theme {
+  --breakpoint-xs: 470px;
+}
+
 html {
   background-color: var(--black);
   height: 100vh;
