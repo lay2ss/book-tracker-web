@@ -64,7 +64,11 @@ const Home = () => {
         </div>
 
         <div className="p-5">
-            {loading? (<p className="text-gray-400 text-center">Loading...</p>
+            {loading? (<div className="flex justify-center items-center w-full"> 
+   <div className="animate-spin inline-block size-6 border-3 border-current border-t-transparent purple-text rounded-full" role="status" aria-label="loading">
+            <span className="sr-only">Loading...</span>
+        </div>
+   </div>
         ) : (
           <div className="flex flex-wrap gap-4">
             {results.length > 0 ? (
