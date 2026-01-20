@@ -107,5 +107,5 @@ html {
   @apply py-1 border-[#b99ef6] border rounded-xl text-[#1A1625] bg-[#b99ef6] cursor-pointer font-bold;
 }
 .picker-style{
-  @apply border p-2 rounded-md focus:outline-indigo-600 border-[#b99ef6] cursor-pointer;
+  @apply border p-2 rounded-md focus:outline-indigo-600 border-[#b99ef6] cursor-pointer bg-[#1a191b];
 }
