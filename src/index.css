@@ -48,7 +48,7 @@ html {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 .blur-effect{
-  @apply bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl;
+  @apply bg-white/1 border-white/10 border-b backdrop-blur-sm rounded-bl-xl rounded-br-xl;
 }
 .bg-dark{
   background-color: var(--bg-dark);
@@ -62,15 +62,19 @@ html {
 .purple-bg{
   background-color: var(--purple-accent);
 }
+.purple-border{
+  border-color: var(--purple-accent);
+}
 .form-style{
   @apply flex flex-col items-center justify-center h-full w-full text-center;
 }
 .input-style{
-  @apply border border-gray-700 p-3 my-1.5 w-full rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6];
+  @apply border p-3 my-1.5 w-full rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6] focus:shadow-[0px_0px_19px_0px_rgba(185,158,246,0.9)];
   font-family:  "Inter", sans-serif;
   background-color: var(--dark-purple);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-color: var(--purple-accent);
 }
 .input-shadow{
    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -88,7 +92,7 @@ html {
   color: var(--purple-accent);
 }
 .button-style-outline{
-  @apply bg-transparent border rounded-xl py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
+  @apply border rounded-xl py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
 }
 .li-style{
   @apply font-bold uppercase text-xs tracking-wider cursor-pointer active:scale-95;
