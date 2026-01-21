@@ -8,10 +8,19 @@ const Home = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
+    const [recentSearches, setRecentSearches] = useState<string[]>([]);
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const handleSearch = async () => {
         if (!query) return;
+
+        setRecentSearches((prev) => {
+        const updated = [query, ...prev.filter((item) => item !== query)];
+        return updated.slice(0, 5);
+        });
+
         setLoading(true);
+
         try {
             const books = await searchBooks(query);
             setResults(books);
@@ -19,6 +28,7 @@ const Home = () => {
             console.error("Error searching for books:", error);
         } finally {
         setLoading(false);
+        setShowDropdown(false);
         }
     };
 
@@ -29,39 +39,55 @@ const Home = () => {
 
 
   return (
-    <section className='h-screen w-full font-inter p-5 relative mx-auto text-white'>
-        <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-tl-2xl rounded-tr-2xl mx-auto bottom-0 left-1/2 transform -translate-x-1/2  h-screen absolute border-l-3 border-r-3 border-t-3 border-[#252033]'>
-        <div className="flex flex-col mx-auto">
-            <div className="p-5">
-                <div className="relative w-full">
-                    <input 
-                        type="text"
-                        placeholder="Search for a book" 
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                        e.preventDefault();
-                        handleSearch();
-                        }
-                    }}
-                        className="border-none py-2 px-3 rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6] bg-dark-purple w-full"/>
-                    <button className="right-4 top-2 icon-style" onClick={handleSearch}>
-                        <img src="src/assets/icon/search.svg" alt="search icon"/>
-                    </button>
+    <section className='w-full font-inter px-5 relative mx-auto text-white'>
+        <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20'>
+            <div className="flex flex-col mx-auto">
+                <div className="p-5">
+                    <div className="relative w-full">
+                        <input 
+                            type="text"
+                            placeholder="Search for a book" 
+                            value={query}
+                            onChange={(e) => {setQuery(e.target.value), setShowDropdown(true);}}
+                            onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                            e.preventDefault();
+                            handleSearch();
+                            }
+                        }}
+                            className="border-none py-2 px-3 rounded-md outline-none ring-1 ring-[#b99ef6] w-full focus:shadow-[0px_0px_19px_0px_rgba(185,158,246,0.9)]"/>
+                        <button className="right-4 top-2 icon-style" onClick={handleSearch}>
+                            <img src="src/assets/icon/search.svg" alt="search icon"/>
+                        </button>
+                        {showDropdown && recentSearches.length > 0 && query && (
+                            <ul className="absolute top-full left-0 right-0 bg-dark mt-1 rounded-md z-10">
+                            {recentSearches.map((item, i) => (
+                                <li
+                                key={i}
+                                onClick={() => {
+                                    setQuery(item);
+                                    handleSearch();
+                                }}
+                                className="px-3 py-2 cursor-pointer hover:opacity-80"
+                                >
+                                {item}
+                                </li>
+                            ))}
+                            </ul>
+                        )}
+                    </div>
+                </div>
+                <div className="mt-2">
+                    <div className="flex p-2 justify-center rounded-full border border-[#b99ef6] flex-wrap max-w-[250px] mx-auto">
+                        <div className="flex items-center">
+                        <div>
+                            <img src="src/assets/icon/fire.svg" alt="fire icon" />
+                        </div>
+                            <p className="ml-1">Reading streak: <span className="font-bold purple-text">5 days</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="px-5 mt-3">
-                <div className="flex py-4 px-5 justify-center rounded-xl border border-[#b99ef6] flex-wrap max-w-[400px] mx-auto">
-                    <div className="flex items-center">
-                    <div>
-                        <img src="src/assets/icon/fire.svg" alt="calendar icon" />
-                    </div>
-                        <p className="ml-1">Reading streak: <span className="font-bold purple-text">5 days</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div className="p-5">
             {loading? (<div className="flex justify-center items-center w-full"> 
@@ -92,9 +118,9 @@ const Home = () => {
           </div>
         )}
         </div>
-
+        <div className="w-full border-b border-white/10"/>
             <div className="p-5">
-                <h1 className="text-2xl font-bold purple-text">Currently reading</h1>
+                <h1 className="text-2xl font-bold">Currently reading</h1>
                 <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
                     <Book 
                         current={60}
@@ -103,8 +129,9 @@ const Home = () => {
                         title="Book title"/>
                 </div>
             </div>
-            <div className="px-5">
-                <h1 className="text-2xl font-bold purple-text">Finished</h1>
+        <div className="w-full border-b border-white/10"/>
+            <div className="p-5">
+                <h1 className="text-2xl font-bold">Finished</h1>
                 <div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
                     {/* <BookCard 
                         
