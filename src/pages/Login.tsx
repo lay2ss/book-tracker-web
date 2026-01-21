@@ -9,9 +9,12 @@ const Login = () => {
   const togglePassword = () => setShowPassword(!showPassword);
 
   return (
-    <section className='flex h-screen w-full justify-center flex-col font-inter overflow-hidden text-white'>
-      
-    <img src="src/assets/logo/logo_name.svg" alt="logo name" className='pb-5 mx-auto w-40' />
+    <section className='flex h-screen w-full justify-center flex-col font-inter overflow-hidden text-white relative'>
+
+    <div className='flex mx-auto items-center pb-5 gap-2'>
+      <img src="src/assets/logo/b_purple_logo.svg" alt="logo name" className='w-13'/>
+      <img src="src/assets/logo/logo_name.svg" alt="logo name" className='w-23' />
+    </div> 
 
       {/* mobile */}
       <div className='md:hidden mx-auto'>
