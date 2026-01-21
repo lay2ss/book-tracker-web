@@ -11,7 +11,7 @@ const MobileNav: React.FC<MobileNavProps> = ({toggle}) => {
       <button onClick={toggle} className="cursor-pointer">
         <img src={closeIcon} alt="close icon" className="fixed z-10 top-9 right-5" />
       </button>
-      <ul className="blur-effect px-5 py-14 flex items-center flex-col gap-3 text-white">
+      <ul className="blur-effect p-3 flex items-center flex-col gap-3 text-white w-full">
           {
             navData.map((item) => 
               (<a key={item.id} href={`/${item.li.toLowerCase()}`}> 
@@ -20,7 +20,7 @@ const MobileNav: React.FC<MobileNavProps> = ({toggle}) => {
             )
           }
           <li>
-              <button className="button-style-outline border-[#b99ef6] purple-text">
+              <button className="button-style-outline border-[#b99ef6] purple-text bg-[#1a191b]">
                   Sign Out
               </button>
           </li>
