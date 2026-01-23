@@ -5,7 +5,6 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from './pages/Profile';
 import Settings from "./pages/Settings";
-import BookDetails from "./components/BookDeatils";
 import AddBook from "./components/AddBook";
 
 function AppLayout() {
@@ -21,7 +20,6 @@ function AppLayout() {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/book/:id" element={<BookDetails />} />
         <Route path="/book/add/:id" element={<AddBook />} />
         <Route path="/login" element={<Login />} />
       </Routes>
