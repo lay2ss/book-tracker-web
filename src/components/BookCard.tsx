@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import BookDetails from "./BookDetails";
 interface BookCardProps{
     description: string;
     cover: string;
@@ -20,8 +21,17 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
     const toggleState = () => setIsFavorite(!isFavorite);
     const addToLibrary = () => setIsAdded(!isAdded);
 
+    const [card, setCard] = useState(false);
+
+    const handleScrollTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
+    };
+
   return (
-        <div className='flex font-inter bg-dark-purple rounded-2xl w-fit p-5 flex-col max-w-[550px] shrink-0 input-shadow hover:border hover:border-[#b99ef6]'>
+        <div className='flex font-inter rounded-2xl w-fit p-5 flex-col max-w-[550px] shrink-0 input-shadow border border-white/20 hover:border-[#b99ef6]'>
                 <div className="flex gap-5 flex-wrap md:flex-nowrap">
                     <div className="relative flex justify-center w-full md:justify-start">
                         <img src={cover} alt="cover" className="rounded-md gray-shadow h-fit w-fit min-w-35"/>
@@ -63,16 +73,15 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                                             Add to Library
                                         </button>
                                     </Link>
-                                    <Link to={`/book/${id}`}>
-                                        <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 w-full xs:w-fit">Read More</button>
-                                    </Link>
+                                        <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 w-full xs:w-fit" onClick={() => {setCard(true), handleScrollTop()}}>Read More</button> 
                                 </div>
                                 <button className="rounded-xl px-2 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 justify-center flex"><img src="src/assets/icon/check.svg" alt="check icon" /></button>
                             </div>
                     </div>
                 </div>
+                    {card && <BookDetails id={id} close={() => setCard(false)}/>}
             </div>
             )
 }
 
-export default BookCard
+export default BookCard;
