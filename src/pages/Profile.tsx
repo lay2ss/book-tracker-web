@@ -51,9 +51,8 @@ const Profile = () => {
             <div className="mt-5 bg-dark-purple gap-4 flex flex-col p-3 rounded-xl">
               <BookReview
               cover="src/assets/icon/placeholder.png"
-              title="Book title"
-              review="Book review Lorem ipsum dolor sit amet consectetur adipisicing elit."
-              rate={10}
+              review="" 
+              rate={5}
               datetime="2025-12-23T01:06:16.000Z"
               />
             </div>
@@ -66,6 +65,11 @@ const Profile = () => {
                 name="Favorites"
                 qnt={23}
               />
+              <div className="flex items-center w-full sm:w-fit">
+                <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center">
+                  <img src="src/assets/icon/add.svg" alt="add icon" className="h-min p-1"/>
+                </button>
+              </div>
             </div>
           </div>
         </div>
