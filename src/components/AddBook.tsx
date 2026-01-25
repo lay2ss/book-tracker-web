@@ -117,7 +117,7 @@ const AddBook = () => {
             <div className="w-full border-b border-white/10 py-3"/>
             <div className="flex flex-col md:flex-row gap-2 py-8 justify-end">
                 <button className="addButtonActived md:w-full xl:w-50 transition-transform active:scale-98">Save</button>
-                <button className="addButtonActived  md:w-full xl:w-50 transition-transform active:scale-98">Add to Collection</button>
+                <button className="addButton  md:w-full xl:w-50 transition-transform active:scale-98">Add to Collection</button>
                 <button className="addButton  md:w-full xl:w-50 transition-transform active:scale-98">Cancel</button>
             </div>
         </main>
