@@ -1,0 +1,37 @@
+import addIcon from "../assets/icon/add.svg"
+
+const CreateCollection = () => {
+
+  return (
+    <section className="h-screen w-full font-inter px-5 mx-auto text-white">
+        <main className="w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20 md:py-25">
+            <div className="text-center">
+                <h1 className="text-2xl font-bold">Create Collection</h1>
+                <p className="opacity-70">Add a new collection to organize your saved books</p>
+            </div>
+            <div className="w-full flex justify-center">
+                <div className="mt-5 md:w-1/2 w-full">
+                    <input type="text" name="" id="name" placeholder="Enter collection name" maxLength={50} className="input-style"/>
+                    <label htmlFor="name"></label>
+                </div>
+            </div>
+            <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center mt-5 xs:px-10 p-2 mx-auto">
+            <div className="flex items-center gap-2">  
+                <img src={addIcon} alt="add icon" className="h-min"/>
+                <p>Select Book</p>
+            </div>
+          </button>
+          <div className="flex justify-center mt-5 opacity-60">
+            <p>No book selected</p>
+          </div>
+          <div className="w-full border-b border-white/10 pt-5"/>
+          <div className="mt-10 flex gap-2 md:justify-end">
+            <button className="addButtonActived w-2/3 transition-transform active:scale-98 md:w-60">Create</button>
+            <button className="addButton w-1/3 transition-transform active:scale-98 md:w-35">Cancel</button>
+          </div>
+        </main>
+    </section>
+  )
+}
+
+export default CreateCollection
