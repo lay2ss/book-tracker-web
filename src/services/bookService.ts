@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_GOOGLE;
+const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
 interface BookSearchResult {
   id: string;
@@ -18,7 +19,8 @@ export const searchBooks = async (query: string): Promise<BookSearchResult[]> =>
     const response = await axios.get(`${API_BASE_URL}/volumes`, {
       params: {
         q: query,
-        maxResults: 10
+        maxResults: 10,
+        key: API_KEY
       }
     });
 
@@ -44,7 +46,11 @@ export const searchBooks = async (query: string): Promise<BookSearchResult[]> =>
 
 export const getBookById = async (bookId: string): Promise<BookSearchResult | null> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/volumes/${bookId}`);
+    const response = await axios.get(`${API_BASE_URL}/volumes/${bookId}`, {
+      params: {
+        key: API_KEY
+      }
+    });
     const item = response.data;
 
     return {
