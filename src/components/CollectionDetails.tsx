@@ -12,8 +12,8 @@ const CollectionDetails = () => {
 }
 
   return (
-    <section className="h-screen w-full font-inter px-5 mx-auto text-white">
-      <main className="w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20 md:py-25">
+    <section className="section-wrapper">
+      <main className="main-wrapper md:py-25">
         <div>
           <div className="flex flex-col text-center lg:text-start">
             <h1 className="text-xl font-bold">{id? capitalizeFirstLetter(id) : ""}</h1>

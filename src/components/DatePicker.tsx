@@ -18,7 +18,7 @@ const DatePicker: React.FC = () => {
 
   return (
     <div className="w-fit flex gap-2">
-      <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="picker-style w-[121px]">
+      <select value={month} onChange={(e) => setMonth(Number(e.target.value))} className="picker-style w-30.25">
         {year === currentYear? months.slice(0, currentMonth).map((m, i) => (
           <option key={i} value={i}>{m}</option>
         ))  : months.map((m, i) => (

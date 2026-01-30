@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
-    <section className='h-screen w-full font-inter p-5 mx-auto text-white'>
-        <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20'>
+    <section className='section-wrapper'>
+        <main className='main-wrapper'>
         <div className="flex flex-wrap md:flex-nowrap w-full justify-center gap-5 items-center">
           {/* <div className="relative flex shrink-0">
             <img src="src/assets/icon/placeholder_profile2.png" alt="profile picture" className="w-min h-min"/>

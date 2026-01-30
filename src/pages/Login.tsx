@@ -61,7 +61,7 @@ const Login = () => {
       </div>
 
       {/* desktop */}
-      <div className='hidden md:block w-[800px] max-w-full min-h-[500px] rounded-[20px] shadow-2xl relative overflow-hidden mx-auto bg-dark-purple'>
+      <div className='hidden md:block w-200 max-w-full min-h-125 rounded-[20px] shadow-2xl relative overflow-hidden mx-auto bg-dark-purple'>
         
         {/* desktop sign up form */}
         <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-1/2 flex items-center justify-center flex-col px-10 

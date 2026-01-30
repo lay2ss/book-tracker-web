@@ -5,8 +5,8 @@ import { Genresdata } from '../data/constants';
 const Settings = () => {
 
   return (
-    <section  className='h-screen w-full font-inter p-5 relative mx-auto text-white'>
-        <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20 flex gap-3 flex-col'>
+    <section  className='section-wrapper'>
+        <main className='main-wrapper flex gap-3 flex-col'>
             <div className="border border-white/20 p-4 rounded-xl">
                 <h1 className="text-xl font-bold text-start">Reading Goal</h1>
                 <div className='flex flex-col'>

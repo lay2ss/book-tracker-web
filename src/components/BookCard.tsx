@@ -31,7 +31,7 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
     };
 
   return (
-        <div className='flex font-inter rounded-2xl w-fit p-5 flex-col max-w-[550px] shrink-0 input-shadow border border-white/20 hover:border-[#b99ef6]'>
+        <div className='flex font-inter rounded-2xl w-fit p-5 flex-col max-w-137.5 shrink-0 input-shadow border border-white/20 hover:border-[#b99ef6]'>
                 <div className="flex gap-5 flex-wrap md:flex-nowrap">
                     <div className="relative flex justify-center w-full md:justify-start">
                         <img src={cover} alt="cover" className="rounded-md gray-shadow h-fit w-fit min-w-35"/>

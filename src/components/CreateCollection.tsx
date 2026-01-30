@@ -3,8 +3,8 @@ import addIcon from "../assets/icon/add.svg"
 const CreateCollection = () => {
 
   return (
-    <section className="h-screen w-full font-inter px-5 mx-auto text-white">
-        <main className="w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20 md:py-25">
+    <section className="section-wrapper">
+        <main className="main-wrapper md:py-25">
             <div className="text-center">
                 <h1 className="text-2xl font-bold">Create Collection</h1>
                 <p className="opacity-70">Add a new collection to organize your saved books</p>

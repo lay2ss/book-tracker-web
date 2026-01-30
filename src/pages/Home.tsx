@@ -39,8 +39,8 @@ const Home = () => {
 
 
   return (
-    <section className='w-full font-inter px-5 relative mx-auto text-white'>
-        <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20'>
+    <section className='section-wrapper'>
+        <main className='main-wrapper'>
             <div className="flex flex-col mx-auto">
                 <div className="p-5">
                     <div className="relative w-full">

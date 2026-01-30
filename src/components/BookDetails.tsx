@@ -47,7 +47,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({id, close}) => {
 
     return (
         <section className='font-inter p-5 mx-auto text-white absolute z-8 top-0 md:top-40 left-1/2 transform -translate-x-1/2 h-full bg-white/0.1 backdrop-blur-xs w-full'>
-            <main className='w-[90vw] lg:w-[80vw] max-w-[1200px] rounded-2xl mx-auto md:mt-2 py-20'>
+            <main className='main-wrapper'>
                 <div className="flex justify-center">
                     <div className="p-6 text-white bg-[#1a191b] rounded-xl flex gap-5 w-fit flex-col md:flex-row purple-border border relative">
                         <button className="transition-transform active:scale-80 absolute right-6 cursor-pointer" onClick={close}>
@@ -87,9 +87,9 @@ const BookDetails: React.FC<BookDetailsProps> = ({id, close}) => {
                                         <p>{book.pageCount} pages</p>
                                     </div>
                                 </div>
-                            <div className="md:max-h-45 text-sm overflow-y-auto">
+                            <div className="md:max-h-55 overflow-y-auto">
                                 <div  className="mt-4 md:min-w-100">
-                                    <ExpandableText text={stripHtmlTags(book.description)} maxLength={400} />
+                                    <ExpandableText text={stripHtmlTags(book.description)} maxLength={350} />
                                 </div>
                             </div>
                         </div>
