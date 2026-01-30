@@ -115,10 +115,12 @@ const AddBook = () => {
                 </div>
             </div>
             <div className="w-full border-b border-white/10 py-3"/>
-            <div className="flex flex-col md:flex-row gap-2 py-8 justify-end">
-                <button className="addButtonActived md:w-full xl:w-50 transition-transform active:scale-98">Save</button>
-                <button className="addButton  md:w-full xl:w-50 transition-transform active:scale-98">Add to Collection</button>
-                <button className="addButton  md:w-full xl:w-50 transition-transform active:scale-98">Cancel</button>
+            <div className="w-full flex flex-col items-end">
+                <div className="flex gap-2 pt-8 justify-end w-full">
+                    <button className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">Save</button>
+                    <button className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
+                </div>
+                <button className="addButton transition-transform w-full active:scale-98 md:w-97 mt-3">Add to Collection</button>
             </div>
         </main>
     </section>
