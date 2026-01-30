@@ -16,6 +16,37 @@ html {
     --bg-dark: #1A1625;
     --black: #1a191b;
 }
+
+*::-webkit-scrollbar {
+  width: 10px;   
+  height: 10px;  
+}
+*::-webkit-scrollbar-track {
+  background: #1e1e1e;  
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #555;   
+  border-radius: 5px;       
+  border: 2px solid #1e1e1e; 
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #888;   
+}
+* {
+  scrollbar-width: thin;        
+  scrollbar-color: #555 #1e1e1e;    
+}
+
+.section-wrapper{
+  @apply w-full px-5 relative mx-auto text-white;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.main-wrapper{
+  @apply w-[90vw] lg:w-[80vw] max-w-300 rounded-2xl mx-auto md:mt-2 py-20;
+}
+
 .font-inter {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
@@ -106,5 +137,5 @@ html {
   @apply py-2 border-[#b99ef6] border rounded-xl text-[#1A1625] bg-[#b99ef6] cursor-pointer font-bold;
 }
 .picker-style{
-  @apply border p-2 rounded-md focus:outline-indigo-600 border-[#b99ef6] cursor-pointer bg-[#1a191b];
+  @apply border p-2 rounded-md focus:outline-[#b99ef6] border-white/20 cursor-pointer bg-[#1a191b];
 }
