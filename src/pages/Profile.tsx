@@ -2,6 +2,7 @@ import StatWidget from "../components/StatWidget";
 import GoalTracker from "../components/GoalTracker";
 import BookReview from "../components/BookReview";
 import Collection from "../components/Collection";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -65,10 +66,12 @@ const Profile = () => {
                 name="Favorites"
                 qnt={23}
               />
-              <div className="flex items-center w-full sm:w-fit">
-                <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center">
-                  <img src="src/assets/icon/add.svg" alt="add icon" className="h-min p-1"/>
-                </button>
+              <div className="flex items-center w-full sm:w-fit justify-center">
+                <Link to={`/collection/create`} className="w-full">
+                  <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center">
+                    <img src="src/assets/icon/add.svg" alt="add icon" className="h-min p-2"/>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
