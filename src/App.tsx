@@ -8,6 +8,7 @@ import Settings from "./pages/Settings";
 import AddBook from "./components/AddBook";
 import CollectionDetails from "./components/CollectionDetails";
 import CreateCollection from "./components/CreateCollection";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function AppLayout() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function AppLayout() {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/book/add/:id" element={<AddBook />} />
         <Route path="/collection/:id/:qnt" element={<CollectionDetails />} />
         <Route path="/collection/create" element={<CreateCollection />} />
