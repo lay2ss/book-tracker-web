@@ -50,7 +50,7 @@ const Login = () => {
                 </button>
             </div>
             <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]'>Sign in</button>
-            <button className='cursor-pointer inter-semibold opacity-70 mx-auto flex mt-3 hover:underline'>Forgot your password?</button>
+            <a href='/forgot-password' className='cursor-pointer inter-semibold opacity-70 mx-auto flex mt-3 hover:underline w-fit'>Forgot your password?</a>
             <div className='inter-semibold text-center mt-10 pb-10 opacity-70'>
               <p>Don’t have an account?
                 <button className='button-style-underline' onClick={toggleMode}>Sign up</button>
@@ -96,7 +96,7 @@ const Login = () => {
                   <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
                 </button>
               </div>
-              <a href="#" className="text-sm my-4 hover:underline">Forgot your password?</a>
+              <a href="/forgot-password" className="text-sm my-4 hover:underline">Forgot your password?</a>
               <button  type='button' className="button-style mt-3 cursor-pointer text-[#252033]">
                 Sign In
               </button>
