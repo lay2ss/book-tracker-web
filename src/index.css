@@ -122,7 +122,7 @@ html {
   color: var(--purple-accent);
 }
 .button-style-outline{
-  @apply border rounded-xl py-2 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
+  @apply border rounded-xl py-3 px-12 font-bold uppercase text-xs tracking-wider active:scale-95 transition-transform cursor-pointer;
 }
 .li-style{
   @apply font-bold uppercase text-xs tracking-wider cursor-pointer active:scale-95;
