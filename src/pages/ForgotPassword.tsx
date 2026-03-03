@@ -13,7 +13,7 @@ const ForgotPassword = () => {
               <div className="relative w-full">
               </div>
               <button type='button' className="button-style mt-3 cursor-pointer text-[#252033]">
-                Continue
+                Send
               </button>
             </form>
         </main>
