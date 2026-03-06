@@ -9,7 +9,7 @@ import AddBook from "./components/AddBook";
 import CollectionDetails from "./components/CollectionDetails";
 import CreateCollection from "./components/CreateCollection";
 import ForgotPassword from "./pages/ForgotPassword";
-import ChangePassword from "./pages/changePassword";
+import ChangePassword from "./pages/ChangePassword";
 
 function AppLayout() {
   const location = useLocation();
