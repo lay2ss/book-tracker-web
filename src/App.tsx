@@ -9,10 +9,11 @@ import AddBook from "./components/AddBook";
 import CollectionDetails from "./components/CollectionDetails";
 import CreateCollection from "./components/CreateCollection";
 import ForgotPassword from "./pages/ForgotPassword";
+import ChangePassword from "./pages/changePassword";
 
 function AppLayout() {
   const location = useLocation();
-  const showNav = ["/", "/home", "/profile", "/settings"].includes(location.pathname) ||
+  const showNav = ["/", "/home", "/profile", "/settings", "/change-password"].includes(location.pathname) ||
   location.pathname.startsWith("/book/") || location.pathname.startsWith("/collection/")
 
   return (
@@ -24,6 +25,7 @@ function AppLayout() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/book/add/:id" element={<AddBook />} />
         <Route path="/collection/:id/:qnt" element={<CollectionDetails />} />
         <Route path="/collection/create" element={<CreateCollection />} />
