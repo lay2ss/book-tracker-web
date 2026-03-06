@@ -40,7 +40,9 @@ const Settings = () => {
             <div className="border border-white/20 p-4 rounded-xl">
                 <h1 className="text-xl font-bold text-start">Account Management</h1>
                 <div className='flex flex-col gap-2 text-sm md:w-fit mt-3'>
-                  <button className='rounded-xl border-[#b99ef6] border transition-transform active:scale-95 h-min py-3 px-5 cursor-pointer'>Change password</button>
+                  <a href="/change-password" className='flex md:w-fit'>
+                    <button className='rounded-xl border-[#b99ef6] border transition-transform active:scale-95 h-min py-3 px-9 cursor-pointer w-full'>Change password</button>
+                  </a>
                   <button className='rounded-xl bg-red-500 transition-transform active:scale-95 h-min py-3 px-5 mt-2 cursor-pointer'>Delete account</button>
                   <p className='text-red-400 text-center md:text-start'>This action cannot be undone</p>
                 </div>
