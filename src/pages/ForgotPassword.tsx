@@ -5,8 +5,8 @@ const ForgotPassword = () => {
         <img src="src/assets/logo/b_purple_logo.svg" alt="logo name" className='w-13'/>
         <img src="src/assets/logo/logo_name.svg" alt="logo name" className='w-23' />
       </div> 
-        <main className="w-[90vw] md:w-[60vw] lg:w-[50vw] rounded-2xl h-min gray-shadow mx-auto p-5 md:p-10">
-          <form className="form-style xl:max-w-1/2 mx-auto">
+        <main className="w-[90vw] md:w-[60vw] lg:w-[50vw] rounded-2xl h-min gray-shadow mx-auto p-5 md:p-10 max-w-175">
+          <form className="form-style xl:max-w-2/3 mx-auto">
               <h2 className="font-bold text-2xl mb-4">Forgot password</h2>
               <p className="mb-4">Enter the email address associated with your account to receive a password reset link.</p>
               <input type="email" placeholder="Email" className="input-style" />
