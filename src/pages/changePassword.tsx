@@ -1,4 +1,6 @@
 import { useState } from "react";
+import visibility_off from "../assets/icon/visibility_off.svg";
+import visibility from "../assets/icon/visibility.svg";
 
 const ChangePassword = () => {
 
@@ -14,13 +16,13 @@ const ChangePassword = () => {
               <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Current password" className="input-style"/>
                 <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
+                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
               </div>
               <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="New password" className="input-style"/>
                 <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
+                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
               </div>
               <div className="relative w-full">
