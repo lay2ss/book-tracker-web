@@ -6,6 +6,8 @@ const ChangePassword = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const togglePassword = () => setShowPassword(!showPassword);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const toggleNewPassword = () => setShowNewPassword(!showNewPassword);
 
     return ( 
     <section className="flex h-screen w-full justify-center flex-col font-inter text-white"> 
@@ -20,9 +22,9 @@ const ChangePassword = () => {
                 </button>
               </div>
               <div className="relative w-full">
-                <input type={showPassword ? 'text' : 'password'} placeholder="New password" className="input-style"/>
-                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
+                <input type={showNewPassword ? 'text' : 'password'} placeholder="New password" className="input-style"/>
+                <button type="button" onClick={toggleNewPassword} className="right-3 top-5 icon-style">
+                  <img src={showNewPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
               </div>
               <div className="relative w-full">
