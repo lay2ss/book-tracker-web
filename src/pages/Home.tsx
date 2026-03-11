@@ -1,5 +1,8 @@
 import Book from "../components/Book";
 import BookCard from "../components/BookCard";
+import searchIcon from "../assets/icon/search.svg";
+import fireIcon from "../assets/icon/fire.svg";
+import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks } from "../services/bookService";
 import { useState } from "react";
 
@@ -57,7 +60,7 @@ const Home = () => {
                         }}
                             className="border-none py-2 px-3 rounded-md outline-none ring-1 ring-[#b99ef6] w-full focus:shadow-[0px_0px_19px_0px_rgba(185,158,246,0.9)]"/>
                         <button className="right-4 top-2 icon-style" onClick={handleSearch}>
-                            <img src="src/assets/icon/search.svg" alt="search icon"/>
+                            <img src={searchIcon} alt="search icon"/>
                         </button>
                         {showDropdown && recentSearches.length > 0 && query && (
                             <ul className="absolute top-full left-0 right-0 bg-dark mt-1 rounded-md z-10">
@@ -81,7 +84,7 @@ const Home = () => {
                     <div className="flex p-2 justify-center rounded-full border border-[#b99ef6] flex-wrap max-w-[250px] mx-auto">
                         <div className="flex items-center">
                         <div>
-                            <img src="src/assets/icon/fire.svg" alt="fire icon" />
+                            <img src={fireIcon} alt="fire icon" />
                         </div>
                             <p className="ml-1">Reading streak: <span className="font-bold purple-text">5 days</span></p>
                         </div>
@@ -103,7 +106,7 @@ const Home = () => {
                   key={book.id}
                   title={truncateText(book.title, 25)}
                   description={truncateText(book.description, 90)}
-                  cover={book.coverImage || "src/assets/icon/placeholder.png"}
+                  cover={book.coverImage || placeHolder}
                   authorName={book.authors?.join(", ")}
                   show="hidden"
                   id={book.id}

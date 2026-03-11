@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import BookDetails from "./BookDetails";
+import starActiveIcon from "../assets/icon/star_active.svg";
+import starIcon from "../assets/icon/star.svg";
+import openBookIcon from "../assets/icon/open_book.svg";
+import bookmarkAddedIcon from "../assets/icon/bookmark_added.svg";
+import bookmarkAddIcon from "../assets/icon/bookmark_add.svg";
+import checkIcon from "../assets/icon/check.svg";
+
 interface BookCardProps{
     description: string;
     cover: string;
@@ -42,7 +49,7 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                                 <h2 className="font-bold text-xl">{title}</h2>
                                 <div className={`flex justify-between`}>
                                     <button className="transition-transform active:scale-80 cursor-pointer" onClick={toggleState}>
-                                        <img src={isFavorite? "src/assets/icon/star_active.svg" : "src/assets/icon/star.svg"} alt="star-icon"/>
+                                        <img src={isFavorite? starActiveIcon : starIcon} alt="star-icon"/>
                                     </button>
                                 </div>
                             </div>
@@ -60,7 +67,7 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                                 <p className="text-xs">{year}</p>
                                 <p>•</p>
                                 <div className="flex gap-1 text-xs items-center">
-                                    <img src="src/assets/icon/open_book.svg" alt="book icon" className="h-5"/>
+                                    <img src={openBookIcon} alt="book icon" className="h-5"/>
                                     <p>{pages} pages</p>
                                 </div>
                             </div>
@@ -69,13 +76,13 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                                 <div className="flex gap-3 w-full flex-col xs:flex-row">
                                     <Link to={`/book/add/${id}`}>
                                         <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95 w-full xs:w-fit justify-center">
-                                            <img src={isAdded? "src/assets/icon/bookmark_added.svg" : "src/assets/icon/bookmark_add.svg"} alt="bookmark icon" />
+                                            <img src={isAdded? bookmarkAddedIcon : bookmarkAddIcon} alt="bookmark icon" />
                                             Add to Library
                                         </button>
                                     </Link>
                                         <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 w-full xs:w-fit" onClick={() => {setCard(true), handleScrollTop()}}>Read More</button> 
                                 </div>
-                                <button className="rounded-xl px-2 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 justify-center flex"><img src="src/assets/icon/check.svg" alt="check icon" /></button>
+                                <button className="rounded-xl px-2 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 justify-center flex"><img src={checkIcon} alt="check icon" /></button>
                             </div>
                     </div>
                 </div>

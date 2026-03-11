@@ -3,7 +3,9 @@ import { getBookById } from "../services/bookService";
 import openBookIcon from "../assets/icon/open_book.svg";
 import bookMarkIcon from "../assets/icon/bookmark_add.svg";
 import bookMarkIcon2 from "../assets/icon/bookmark_added.svg";
+import closeIcon from "../assets/icon/close.svg";
 import ExpandableText from "./ExpandableText";
+import placeHolder from "../assets/icon/placeholder.png";
 import { Link } from "react-router-dom";
 
 interface BookDetailsProps {
@@ -51,10 +53,10 @@ const BookDetails: React.FC<BookDetailsProps> = ({id, close}) => {
                 <div className="flex justify-center">
                     <div className="p-6 text-white bg-[#1a191b] rounded-xl flex gap-5 w-fit flex-col md:flex-row purple-border border relative">
                         <button className="transition-transform active:scale-80 absolute right-6 cursor-pointer" onClick={close}>
-                            <img src="\src\assets\icon\close.svg" alt="close icon" className="" />
+                            <img src={closeIcon} alt="close icon" />
                         </button>
                         <div className="flex flex-col items-center">
-                            <img src={book.coverImage || "src/assets/icon/placeholder.png"} alt={book.title} className="h-fit rounded-md gray-shadow min-w-35 w-fit" />
+                            <img src={book.coverImage || placeHolder} alt={book.title} className="h-fit rounded-md gray-shadow min-w-35 w-fit" />
                             <div className="flex gap-2 flex-col mt-3 md:min-w-40">
                                 <Link to={`/book/add/${id}`}>
                                     <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">

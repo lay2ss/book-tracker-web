@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBookById } from "../services/bookService";
+import placeHolder from "../assets/icon/placeholder.png";
 import DatePicker from "./DatePicker";
 import Rating from "./Rating";
 
@@ -50,7 +51,7 @@ const AddBook = () => {
             <h1 className="text-2xl font-bold  text-center">Add Book to Library</h1>
             <div className="flex justify-center gap-10 mt-5 flex-wrap lg:flex-nowrap lg:justify-between">
                 <div className="flex flex-col w-fit items-center lg:max-w-60  max-w-120 lg:items-start">
-                    <img src={book.coverImage || "src/assets/icon/placeholder.png"} alt={book.title} className="h-fit rounded-md gray-shadow min-w-50 w-fit" />
+                    <img src={book.coverImage || placeHolder} alt={book.title} className="h-fit rounded-md gray-shadow min-w-50 w-fit" />
                     <h1 className="text-xl font-bold mt-2 text-center lg:text-start">{book.title}</h1>
                     <p className="text-sm purple-text font-light">
                         {book.authors?.join(", ")}

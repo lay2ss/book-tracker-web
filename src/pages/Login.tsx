@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import logoname from "../assets/logo/logo_name.svg";
+import b_purple_logo from "../assets/logo/b_purple_logo.svg";
+import visibility_off from "../assets/icon/visibility_off.svg";
+import visibility from "../assets/icon/visibility.svg";
 
 const Login = () => {
   
@@ -12,8 +16,8 @@ const Login = () => {
     <section className='flex h-screen w-full justify-center flex-col font-inter overflow-hidden text-white relative'>
 
     <div className='flex mx-auto items-center pb-5 gap-2'>
-      <img src="src/assets/logo/b_purple_logo.svg" alt="logo name" className='w-13'/>
-      <img src="src/assets/logo/logo_name.svg" alt="logo name" className='w-23' />
+      <img src={b_purple_logo} alt="logo name" className='w-13'/>
+      <img src={logoname} alt="logo name" className='w-23' />
     </div> 
 
       {/* mobile */}
@@ -28,7 +32,7 @@ const Login = () => {
             <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style"/>
                 <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
+                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
             </div>
             <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]'>Sign up</button>
@@ -46,7 +50,7 @@ const Login = () => {
             <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
                 <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
+                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
             </div>
             <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]'>Sign in</button>
@@ -74,7 +78,7 @@ const Login = () => {
               <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
                 <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
+                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
               </div>
               <button type='button' className="button-style mt-3 cursor-pointer text-[#252033]">
@@ -93,7 +97,7 @@ const Login = () => {
               <div className="relative w-full">
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
                 <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? "src/assets/icon/visibility_off.svg" : "src/assets/icon/visibility.svg"} alt="view" className="w-5" />
+                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
               </div>
               <a href="/forgot-password" className="text-sm my-4 hover:underline">Forgot your password?</a>
