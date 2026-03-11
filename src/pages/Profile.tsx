@@ -2,6 +2,10 @@ import StatWidget from "../components/StatWidget";
 import GoalTracker from "../components/GoalTracker";
 import BookReview from "../components/BookReview";
 import Collection from "../components/Collection";
+import addIcon from "../assets/icon/add.svg";
+import bookIcon from "../assets/icon/book.svg";
+import pageIcon from "../assets/icon/page.svg";
+import fireIcon from "../assets/icon/fire.svg";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
@@ -19,19 +23,19 @@ const Profile = () => {
             <StatWidget 
             stat={34}
             text="Read this year"
-            icon="src/assets/icon/book.svg"
+            icon={bookIcon}
             alt="book"
             />
             <StatWidget 
             stat={5678}
             text="Total pages"
-            icon="src/assets/icon/page.svg"
+            icon={pageIcon}
             alt="page"
             />
             <StatWidget 
             stat={56}
             text="Reading streak"
-            icon="src/assets/icon/fire.svg"
+            icon={fireIcon}
             alt="fire"
             />
           </div>
@@ -69,7 +73,7 @@ const Profile = () => {
               <div className="flex items-center w-full sm:w-fit justify-center">
                 <Link to={`/collection/create`} className="w-full">
                   <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center">
-                    <img src="src/assets/icon/add.svg" alt="add icon" className="h-min p-2"/>
+                    <img src={addIcon} alt="add icon" className="h-min p-2"/>
                   </button>
                 </Link>
               </div>

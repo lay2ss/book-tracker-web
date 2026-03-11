@@ -1,6 +1,6 @@
 interface StatWidgetProps{
     stat: number;
-    icon: string;
+    icon: any;
     text: string;
     alt?: string;
 }

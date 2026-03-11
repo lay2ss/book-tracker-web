@@ -1,3 +1,5 @@
+import openBookIcon from "../assets/icon/open_book.svg";
+
 interface GoalTrackerProps {
   current: number;
   max: number;
@@ -76,7 +78,7 @@ const GoalTracker: React.FC<GoalTrackerProps> = ({
 
           <div className="my-1">
             {icon ? icon : (
-              <img src="src/assets/icon/open_book.svg" alt="open book icon" />
+              <img src={openBookIcon} alt="open book icon" />
             )}
           </div>
         </div>
