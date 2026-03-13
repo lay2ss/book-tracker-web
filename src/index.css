@@ -139,3 +139,6 @@ html {
 .picker-style{
   @apply border p-2 rounded-md focus:outline-[#b99ef6] border-white/20 cursor-pointer bg-[#1a191b];
 }
+.password-page{
+  @pply flex h-screen w-full flex-col font-inter text-white;
+}
