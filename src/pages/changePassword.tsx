@@ -10,7 +10,7 @@ const ChangePassword = () => {
     const toggleNewPassword = () => setShowNewPassword(!showNewPassword);
 
     return ( 
-    <section className="flex h-screen w-full justify-center flex-col font-inter text-white"> 
+    <section className="justify-center password-page"> 
         <main className="w-[90vw] md:w-[60vw] lg:w-[50vw] max-w-175 rounded-2xl h-min gray-shadow mx-auto p-5 md:p-10">
           <form className="form-style xl:max-w-2/3 mx-auto">
               <h2 className="font-bold text-2xl mb-4">Change password</h2>
