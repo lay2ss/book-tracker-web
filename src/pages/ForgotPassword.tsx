@@ -3,7 +3,7 @@ import b_purple_logo from "../assets/logo/b_purple_logo.svg";
 
 const ForgotPassword = () => {
   return (
-    <section className="flex h-screen w-full justify-start flex-col font-inter text-white pt-20">
+    <section className="justify-start pt-20 password-page">
       <div className='flex mx-auto items-center gap-2 pb-5'>
         <img src={b_purple_logo} alt="logo name" className='w-13'/>
         <img src={logoname} alt="logo name" className='w-23' />
