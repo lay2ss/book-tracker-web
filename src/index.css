@@ -140,5 +140,8 @@ html {
   @apply border p-2 rounded-md focus:outline-[#b99ef6] border-white/20 cursor-pointer bg-[#1a191b];
 }
 .password-page{
-  @pply flex h-screen w-full flex-col font-inter text-white;
+  @apply flex h-screen w-full flex-col text-white;
+}
+.password-page-main{
+  @apply w-[90vw] md:w-[60vw] lg:w-[50vw] rounded-2xl h-min mx-auto p-5 md:p-10 max-w-175;
 }

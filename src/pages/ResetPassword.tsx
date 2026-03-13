@@ -10,12 +10,12 @@ const ResetPassword = () => {
     const togglePassword = () => setShowPassword(!showPassword);
 
   return (
-    <section className="justify-start pt-20 password-page">
+    <section className="justify-start pt-20 password-page font-inter">
       <div className='flex mx-auto items-center gap-2 pb-5'>
         <img src={b_purple_logo} alt="logo name" className='w-13'/>
         <img src={logoname} alt="logo name" className='w-23' />
       </div> 
-        <main className="w-[90vw] md:w-[60vw] lg:w-[50vw] max-w-175 rounded-2xl h-min gray-shadow mx-auto p-5 md:p-10">
+        <main className="password-page-main gray-shadow">
           <form className="form-style xl:max-w-2/3 mx-auto">
               <h2 className="font-bold text-2xl mb-4">Reset password</h2>
               <p className="mb-4">Enter your new password</p>
