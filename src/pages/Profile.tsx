@@ -13,12 +13,6 @@ const Profile = () => {
     <section className='section-wrapper'>
         <main className='main-wrapper'>
         <div className="flex flex-wrap md:flex-nowrap w-full justify-center gap-5 items-center">
-          {/* <div className="relative flex shrink-0">
-            <img src="src/assets/icon/placeholder_profile2.png" alt="profile picture" className="w-min h-min"/>
-            <button className="bg-black border-2 border-[#252033] w-6 h-6 rounded-full absolute top-10 left-9 cursor pointer p-0.5 cursor-pointer">
-              <img src="src/assets/icon/edit.svg" alt="pencil icon"/>
-            </button>
-          </div> */}
           <div className="flex md:gap-2  flex-wrap gap-2 md:justify-center md:flex-nowrap lg:gap-4">
             <StatWidget 
             stat={34}
