@@ -2,7 +2,6 @@ import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { useState } from "react";
 import logoutIcon from "../assets/icon/logout.svg";
-import profilePicture from "../assets/icon/placeholder_profile.png";
 import menuBarIcon from "../assets/icon/menu_bar.svg";
 import closeIcon from "../assets/icon/close.svg";
 import logoname from "../assets/logo/logo_name.svg";
@@ -23,9 +22,6 @@ const Nav = () => {
                     <DesktopNav/>
                 </div>
                 <div className="flex gap-3 my-auto">
-                    {/* <a href="/profile" className={`${location.pathname === "/profile" ? "border-2 purple-border rounded-full" : "border-none"}`}>
-                        <img src={profilePicture} alt="profile picture" className="w-min h-min cursor-pointer"/>
-                    </a> */}
                     <button className="hidden md:flex cursor-pointer active:scale-95">
                         <img src={logoutIcon} alt="log out icon" />
                     </button>
