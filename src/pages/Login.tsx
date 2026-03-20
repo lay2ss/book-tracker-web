@@ -3,8 +3,48 @@ import logoname from "../assets/logo/logo_name.svg";
 import b_purple_logo from "../assets/logo/b_purple_logo.svg";
 import visibility_off from "../assets/icon/visibility_off.svg";
 import visibility from "../assets/icon/visibility.svg";
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const { login: authLogin } = useAuth();
+  const [formData, setFormData] = useState({ email: '', password: '', name: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  const endpoint = isSignUp ? '/register' : '/login';
+  
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/users${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      authLogin(data); 
+    } else {
+      alert(data.message);
+    }
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
   
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -27,17 +67,43 @@ const Login = () => {
           {/* mobile sign up form */}
           <div className={`p-10 ${isSignUp ? 'block' : 'hidden'}`}>
             <h2 className='inter-bold text-3xl text-center pt-10 pb-5'>Create Account</h2>
-            <input type="text" placeholder="Name" className="input-style" />
-            <input type="email" placeholder="Email" className="input-style" />
+            <input type="text"
+            name='name' 
+            placeholder="Name" 
+            className="input-style"
+            value={formData.name}
+            onChange={handleChange}
+             />
+            <input type="email" 
+            name='email'
+            placeholder="Email" 
+            className="input-style"
+            value={formData.email}
+            onChange={handleChange} />
             <div className="relative w-full">
-                <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style"/>
-                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
+                <input type={showPassword ? 'text' : 'password'}
+                name='password' 
+                placeholder="Password" 
+                className="input-style"
+                onChange={handleChange}
+                value={formData.password}/>
+                <button type="button" 
+                onClick={togglePassword} 
+                className="right-3 top-5 icon-style">
                   <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
                 </button>
             </div>
-            <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]'>Sign up</button>
+            <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]' onClick={handleSubmit} disabled={loading}>{loading? 
+            (<div className="flex justify-center items-center w-full"> 
+              <div className="animate-spin inline-block size-6 border-3 border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading">
+                <span className="sr-only">Loading...</span>
+              </div> 
+            </div>) 
+              : 
+            (<p>Sign up</p>)}
+            </button>
             <div className='inter-semibold text-center mt-10 pb-10 opacity-70'>
-              <p className=''>Already have an account?
+              <p>Already have an account?
                 <button className='button-style-underline' onClick={toggleMode}>Sign in</button>
               </p>
             </div>
