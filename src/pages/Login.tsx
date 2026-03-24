@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import logoname from "../assets/logo/logo_name.svg";
 import b_purple_logo from "../assets/logo/b_purple_logo.svg";
-import visibility_off from "../assets/icon/visibility_off.svg";
-import visibility from "../assets/icon/visibility.svg";
 import { useAuth } from '../contexts/AuthContext';
+import Loading from '../components/Loading';
+import Input from '../components/Input';
 
 const Login = () => {
 
@@ -47,10 +47,7 @@ const Login = () => {
 };
   
   const [isSignUp, setIsSignUp] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
   const toggleMode = () => setIsSignUp(!isSignUp);
-  const togglePassword = () => setShowPassword(!showPassword);
 
   return (
     <section className='flex h-screen w-full justify-center flex-col font-inter overflow-hidden text-white relative'>
@@ -67,38 +64,14 @@ const Login = () => {
           {/* mobile sign up form */}
           <div className={`p-10 ${isSignUp ? 'block' : 'hidden'}`}>
             <h2 className='inter-bold text-3xl text-center pt-10 pb-5'>Create Account</h2>
-            <input type="text"
-            name='name' 
-            placeholder="Name" 
-            className="input-style"
-            value={formData.name}
-            onChange={handleChange}
-             />
-            <input type="email" 
-            name='email'
-            placeholder="Email" 
-            className="input-style"
-            value={formData.email}
-            onChange={handleChange} />
-            <div className="relative w-full">
-                <input type={showPassword ? 'text' : 'password'}
-                name='password' 
-                placeholder="Password" 
-                className="input-style"
-                onChange={handleChange}
-                value={formData.password}/>
-                <button type="button" 
-                onClick={togglePassword} 
-                className="right-3 top-5 icon-style">
-                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
-                </button>
-            </div>
+            <Input
+            OnChange={handleChange}
+            ValueName={formData.name}
+            ValueEmail={formData.email}
+            ValuePassword={formData.password}
+            />
             <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]' onClick={handleSubmit} disabled={loading}>{loading? 
-            (<div className="flex justify-center items-center w-full"> 
-              <div className="animate-spin inline-block size-6 border-3 border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading">
-                <span className="sr-only">Loading...</span>
-              </div> 
-            </div>) 
+            (<Loading/>) 
               : 
             (<p>Sign up</p>)}
             </button>
@@ -112,14 +85,16 @@ const Login = () => {
           {/* mobile sign in form */}
           <div className={`p-10 ${!isSignUp ? 'block' : 'hidden'}`}>
             <h2 className='inter-bold text-3xl text-center pt-10 pb-5 cursor-pointer'>Sign In</h2>
-            <input type="email" placeholder="Email" className="input-style" />
-            <div className="relative w-full">
-                <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
-                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
-                </button>
-            </div>
-            <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]'>Sign in</button>
+            <Input
+            OnChange={handleChange}
+            ValueEmail={formData.email}
+            ValuePassword={formData.password}
+            show='hidden'
+            />
+            <button className='button-style mx-auto flex mt-8 cursor-pointer text-[#252033]' onClick={handleSubmit} disabled={loading}>{loading? 
+            (<Loading/>) 
+              : 
+            (<p>Sign in</p>)}</button>
             <a href='/forgot-password' className='cursor-pointer inter-semibold opacity-70 mx-auto flex mt-3 hover:underline w-fit'>Forgot your password?</a>
             <div className='inter-semibold text-center mt-10 pb-10 opacity-70'>
               <p>Don’t have an account?
@@ -139,16 +114,17 @@ const Login = () => {
             
             <form className="form-style">
               <h1 className="font-bold text-3xl mb-4">Create Account</h1>
-              <input type="text" placeholder="Name" className="input-style" />
-              <input type="email" placeholder="Email" className="input-style" />
-              <div className="relative w-full">
-                <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
-                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
-                </button>
-              </div>
-              <button type='button' className="button-style mt-3 cursor-pointer text-[#252033]">
-                Sign Up
+              <Input
+              OnChange={handleChange}
+              ValueName={formData.name}
+              ValueEmail={formData.email}
+              ValuePassword={formData.password}
+              />
+              <button type='button' onClick={handleSubmit} disabled={loading} className="button-style mt-3 cursor-pointer text-[#252033]">
+                {loading? 
+                (<Loading/>) 
+                  : 
+                (<p>Sign up</p>)}
               </button>
             </form>
         </div>
@@ -159,16 +135,18 @@ const Login = () => {
             
             <form className="form-style">
               <h1 className="font-bold text-3xl mb-4 gray-text">Sign In</h1>
-              <input type="email" placeholder="Email" className="input-style" />
-              <div className="relative w-full">
-                <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="input-style" />
-                <button type="button" onClick={togglePassword} className="right-3 top-5 icon-style">
-                  <img src={showPassword ? visibility_off : visibility} alt="view" className="w-5" />
-                </button>
-              </div>
+              <Input
+              OnChange={handleChange}
+              ValueEmail={formData.email}
+              ValuePassword={formData.password}
+              show='hidden'
+              />
               <a href="/forgot-password" className="text-sm my-4 hover:underline">Forgot your password?</a>
-              <button  type='button' className="button-style mt-3 cursor-pointer text-[#252033]">
-                Sign In
+              <button onClick={handleSubmit} type='button' disabled={loading} className="button-style mt-3 cursor-pointer text-[#252033]">
+                {loading? 
+                (<Loading/>) 
+                  : 
+                (<p>Sign in</p>)}
               </button>
             </form>
         </div>
