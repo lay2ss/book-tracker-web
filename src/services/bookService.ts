@@ -1,4 +1,5 @@
 import axios from "axios";
+import { api } from "./api";
 
 const API_BASE_URL = import.meta.env.VITE_API_GOOGLE;
 const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
@@ -66,5 +67,41 @@ export const getBookById = async (bookId: string): Promise<BookSearchResult | nu
   } catch (error) {
     console.error('Error getting book details:', error);
     return null;
+  }
+};
+
+// add book
+export const addBook = async (
+  book: BookSearchResult, 
+  status: string, 
+  rating: number, 
+  comment: string, 
+  readYear: number, 
+  page: number, 
+  isFavorite: boolean, 
+  collectionsIds: string[]) => {
+  try {
+
+    const authorString = book.authors && book.authors.length > 0 
+      ? book.authors.join(", ") 
+      : "Unknown Author";
+
+    const response = await api.post('/api/books/', {
+      externalId: book.id,
+      title: book.title,
+      author: authorString,
+      coverImage: book.coverImage,
+      status: status,
+      rating: rating,
+      comment: comment,
+      readYear: readYear,
+      page: page,
+      isFavorite: isFavorite || false,
+      collectionsIds
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Add book error:', error);
+    throw error;
   }
 };
