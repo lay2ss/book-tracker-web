@@ -1,13 +1,47 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getBookById } from "../services/bookService";
+import { addBook, getBookById } from "../services/bookService";
 import placeHolder from "../assets/icon/placeholder.png";
 import DatePicker from "./DatePicker";
 import Rating from "./Rating";
+import { useNavigate } from "react-router-dom";
 
 const AddBook = () => {
     const { id } = useParams<{ id: string }>();
     const [book, setBook] = useState<any>(null);
+    const navigate = useNavigate();
+
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState("");
+    const [currentPage, setCurrentPage] = useState(0);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [readDate, setReadDate] = useState({ 
+    month: new Date().getMonth(), 
+    year: new Date().getFullYear() 
+    });
+
+    const handleSave = async () => {
+
+        const status = isActive? "READING" : "FINISHED";
+
+        try{
+            await addBook(
+            book, 
+            status, 
+            rating, 
+            comment, 
+            readDate.month,
+            readDate.year, 
+            currentPage, 
+            isFavorite, 
+            [],
+        );
+        alert("Book saved");
+        navigate('/home');
+        } catch (err) {
+            console.error(err);
+        }      
+    };
 
     const [checked, setChecked] = useState(false);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setChecked(e.target.checked);
@@ -75,7 +109,7 @@ const AddBook = () => {
                             <div className="w-fit relative">
                                 <div className={`bg-[#5453556c] p-5 w-30 ${checked? "absolute cursor-not-allowed" : "hidden"}`}></div>
                                 <div className={`bg-[#5453556c] p-5 w-20 right-0 ${checked? "absolute cursor-not-allowed" : "hidden"}`}></div>
-                                <DatePicker />  
+                                <DatePicker onDateChange={(m, y) => setReadDate({ month: m, year: y })}/>  
                             </div>
                             <div className="flex gap-2 items-center mt-2 lg:mt-0">
                                 <input type="checkbox" name="" id="todaysDate" className="cursor-pointer appearance-none  border w-4 h-4 rounded-full border-[#b99ef6] checked:bg-[#b99ef6]"
@@ -91,7 +125,13 @@ const AddBook = () => {
                             Current Page
                         </h2>
                         <div className="flex gap-2 items-center">
-                            <input type="number" name="" id="currentPage" min={0} max={book.pageCount} className="border border-white/20 mt-2 max-w-18 focus:outline-[#b99ef6] rounded-md p-1" />
+                            <input type="number" 
+                            value={currentPage}
+                            onChange={(e) => setCurrentPage(Number(e.target.value))} 
+                            id="currentPage" 
+                            min={0} 
+                            max={book.pageCount} 
+                            className="border border-white/20 mt-2 max-w-18 focus:outline-[#b99ef6] rounded-md p-1" />
                             <label htmlFor="currentPage"></label>
                             <p>of {book.pageCount} pages</p>
                         </div>
@@ -102,14 +142,17 @@ const AddBook = () => {
                                 Your rating
                             </h2>
                             <div className="mt-2">
-                                <Rating />
+                                <Rating onChange={setRating} />
                             </div>
                         </div>
                         <div>
                             <h2 className="text-xl font-bold mt-4">
                                 Personal note
                             </h2>
-                            <textarea className="w-full h-32 p-3 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b99ef6] resize-none placeholder-white/30 mt-2 max-w-216" name="" id="note" placeholder="Loved it, hated it, or somewhere in between? Share your take."></textarea>
+                            <textarea
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)} 
+                            className="w-full h-32 p-3 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b99ef6] resize-none placeholder-white/30 mt-2 max-w-216" name="" id="note" placeholder="Loved it, hated it, or somewhere in between? Share your take."></textarea>
                             <label htmlFor="note"></label>
                         </div>
                     </div>
@@ -118,8 +161,8 @@ const AddBook = () => {
             <div className="w-full border-b border-white/10 py-3"/>
             <div className="w-full flex flex-col items-end">
                 <div className="flex gap-2 pt-8 justify-end w-full">
-                    <button className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">Save</button>
-                    <button className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
+                    <button onClick={handleSave} className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">Save</button>
+                    <button onClick={() => navigate('/home')} className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
                 </div>
                 <button className="addButton transition-transform w-full active:scale-98 md:w-97 mt-3">Add to Collection</button>
             </div>
