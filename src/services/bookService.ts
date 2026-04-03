@@ -78,7 +78,7 @@ export const addBook = async (
   comment: string,
   readMonth: number, 
   readYear: number,
-  page: number, 
+  currentPage: number,
   isFavorite: boolean, 
   collectionsIds: string[]) => {
   try {
@@ -97,13 +97,25 @@ export const addBook = async (
       comment: comment,
       readMonth: readMonth + 1,
       readYear: readYear,
-      page: page,
+      currentPage: currentPage,
+      totalPage: book.pageCount,
       isFavorite: isFavorite || false,
       collectionsIds
     });
     return response.data;
   } catch (error) {
     console.error('Add book error:', error);
+    throw error;
+  }
+};
+
+//get books
+export const getBooks = async () => {
+  try {
+    const response = await api.get('/api/books/');
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching books:', error);
     throw error;
   }
 };
