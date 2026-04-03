@@ -4,7 +4,9 @@ import searchIcon from "../assets/icon/search.svg";
 import fireIcon from "../assets/icon/fire.svg";
 import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks } from "../services/bookService";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getBooks } from "../services/bookService";
+import Loading from "../components/Loading";
 
 const Home = () => {
 
@@ -13,6 +15,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [books, setBooks] = useState<any[]>([]);
 
     const handleSearch = async () => {
         if (!query) return;
@@ -40,6 +43,21 @@ const Home = () => {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     };
 
+    useEffect(() => {
+    const loadBooks = async () => {
+      try {
+        setLoading(true);
+        const data = await getBooks();
+        setBooks(data);
+      } catch (error) {
+        console.error("Failed to load books:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBooks();
+  }, []);
 
   return (
     <section className='section-wrapper'>
@@ -123,14 +141,20 @@ const Home = () => {
         </div>
         <div className="w-full border-b border-white/10"/>
             <div className="p-5">
-                <h1 className="text-2xl font-bold">Currently reading</h1>
-                <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
-                    <Book 
-                        current={60}
-                        total={140}
-                        cover="src/assets/icon/placeholder.png"
-                        title="Book title"/>
-                </div>
+                <h1 className="text-2xl font-bold">Currently reading</h1>{loading? <Loading/> : (
+                    <div>
+                    {books.length === 0 ? (
+                        <p className="opacity-80 font-medium">You haven't started reading any books yet.</p>
+                            ) : (<div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
+                                {books.map((book) => (
+                                    <Book key={book.externalId}
+                                    current={book.currentPage}
+                                    total={book.totalPage}
+                                    cover={book.coverImage}
+                                    title={book.title}/>))}
+                                </div>)}
+                    </div>
+                                        )} 
             </div>
         <div className="w-full border-b border-white/10"/>
             <div className="p-5">
