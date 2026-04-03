@@ -5,11 +5,13 @@ import placeHolder from "../assets/icon/placeholder.png";
 import DatePicker from "./DatePicker";
 import Rating from "./Rating";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const AddBook = () => {
     const { id } = useParams<{ id: string }>();
     const [book, setBook] = useState<any>(null);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
@@ -22,6 +24,7 @@ const AddBook = () => {
 
     const handleSave = async () => {
 
+        setLoading(true);
         const status = isActive? "READING" : "FINISHED";
 
         try{
@@ -40,7 +43,9 @@ const AddBook = () => {
         navigate('/home');
         } catch (err) {
             console.error(err);
-        }      
+        }  finally {
+            setLoading(false);
+        }     
     };
 
     const [checked, setChecked] = useState(false);
@@ -161,7 +166,10 @@ const AddBook = () => {
             <div className="w-full border-b border-white/10 py-3"/>
             <div className="w-full flex flex-col items-end">
                 <div className="flex gap-2 pt-8 justify-end w-full">
-                    <button onClick={handleSave} className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">Save</button>
+                    <button onClick={handleSave} disabled={loading} className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">{loading? 
+                                (<Loading/>) 
+                                : 
+                                (<p>Save</p>)}</button>
                     <button onClick={() => navigate('/home')} className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
                 </div>
                 <button className="addButton transition-transform w-full active:scale-98 md:w-97 mt-3">Add to Collection</button>
