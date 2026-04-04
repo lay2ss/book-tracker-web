@@ -109,6 +109,32 @@ export const addBook = async (
   }
 };
 
+// update book
+export const updateBook = async (
+  status: string, 
+  rating: number, 
+  comment: string,
+  readMonth: number, 
+  readYear: number,
+  currentPage: number,
+  dbId: any
+) => {
+  try {
+    const response = await api.patch(`/api/books/${dbId}`, {
+      status: status,
+      rating: rating,
+      comment: comment,
+      readMonth: readMonth + 1,
+      readYear: readYear,
+      currentPage: currentPage,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Update book error:', error);
+    throw error;
+  }
+};
+
 //get books
 export const getBooks = async () => {
   try {
