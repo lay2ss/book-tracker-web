@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from './pages/Profile';
 import Settings from "./pages/Settings";
-import AddBook from "./components/AddBook";
+import SaveBook from "./components/SaveBook";
 import CollectionDetails from "./components/CollectionDetails";
 import CreateCollection from "./components/CreateCollection";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -31,7 +31,8 @@ function AppLayout() {
         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/change-password" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
-        <Route path="/book/add/:id" element={<PrivateRoute><AddBook /></PrivateRoute>} />
+        <Route path="/book/add/:id" element={<PrivateRoute><SaveBook /></PrivateRoute>} />
+        <Route path="/book/edit/:id/:dbId" element={<PrivateRoute><SaveBook /></PrivateRoute>} />
         <Route path="/collection/:id/:qnt" element={<PrivateRoute><CollectionDetails /></PrivateRoute>} />
         <Route path="/collection/create" element={<PrivateRoute><CreateCollection /></PrivateRoute>} />
       </Routes>
