@@ -6,6 +6,7 @@ import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks } from "../services/bookService";
 import { useState, useEffect } from "react";
 import { getBooks } from "../services/bookService";
+import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 
 const Home = () => {
@@ -141,17 +142,22 @@ const Home = () => {
         </div>
         <div className="w-full border-b border-white/10"/>
             <div className="p-5">
-                <h1 className="text-2xl font-bold">Currently reading</h1>{loading? <Loading/> : (
+                <h1 className="text-2xl font-bold">Currently reading</h1>
+                {loading? <Loading/> : (
                     <div>
                     {books.length === 0 ? (
                         <p className="opacity-80 font-medium">You haven't started reading any books yet.</p>
                             ) : (<div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
-                                {books.map((book) => (
+                                {books.map((book) => (book.status === "READING"?
+                                    <Link to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book key={book.externalId}
                                     current={book.currentPage}
                                     total={book.totalPage}
                                     cover={book.coverImage}
-                                    title={book.title}/>))}
+                                    title={book.title}
+                                    />
+                                    </Link> : <div></div>
+                                    ))}
                                 </div>)}
                     </div>
                                         )} 
@@ -159,11 +165,19 @@ const Home = () => {
         <div className="w-full border-b border-white/10"/>
             <div className="p-5">
                 <h1 className="text-2xl font-bold">Finished</h1>
-                <div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
-                    {/* <BookCard 
-                        
-                    /> */}
-                </div>
+                {loading? <Loading/> : (
+                    <div>
+                    {books.length === 0 ? (
+                        <p className="opacity-80 font-medium">You haven't finished any books yet.</p>
+                            ) : (<div className="flex gap-3 sm:gap-4 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
+                                {books.map((book) => (book.status === "FINISHED"?
+                                    <Book key={book.externalId}
+                                    cover={book.coverImage}
+                                    title={book.title}
+                                    show="hidden"/>  : <div></div>))} 
+                                </div>)}
+                    </div>
+                                        )}
             </div>
         </main>
     </section>
