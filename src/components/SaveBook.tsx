@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Loading from "./Loading";
 import { updateBook } from "../services/bookService";
+import { deleteBook } from "../services/bookService";
 
 const SaveBook = () => {
     const { id } = useParams<{ id: string }>();
@@ -68,6 +69,23 @@ const SaveBook = () => {
             dbId
         );
         alert("Book updated");
+        navigate('/home');
+        } catch (err) {
+            console.error(err);
+        }  finally {
+            setLoading(false);
+        }     
+    };
+
+    const handleDelete = async () => {
+
+        setLoading(true);
+
+        try{
+            await deleteBook(
+            dbId
+        );
+        alert("Book deleted");
         navigate('/home');
         } catch (err) {
             console.error(err);
@@ -193,7 +211,7 @@ const SaveBook = () => {
             <div className="w-full border-b border-white/10 py-3"/>
             <div className="w-full flex flex-col items-end">
                 <div className="gap-2 pt-8 justify-end w-full flex flex-col sm:flex-row">
-                    <button className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>Delete</button>
+                    <button onClick={handleDelete} className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>Delete</button>
                     <div className="flex gap-2 justify-end w-full">
                         <button onClick={location.pathname.startsWith("/book/add/")? handleSave : handleUpdate} disabled={loading} className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">{loading? 
                                     (<Loading/>) 
