@@ -145,3 +145,14 @@ export const getBooks = async () => {
     throw error;
   }
 };
+
+//delete book
+export const deleteBook = async (dbId: any) => {
+  try {
+    const response = await api.delete(`/api/books/${dbId}`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error deleting book:', error);
+    throw error;
+  }
+};
