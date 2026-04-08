@@ -152,7 +152,7 @@ const SaveBook = () => {
                         </div>
                     </div>
                     <div className={`${!isActive? "block" : "hidden"}`}>
-                        <h2 className="text-xl font-bold mt-13">
+                        <h2 className="text-xl font-bold mt-15">
                             Completion Date
                         </h2>
                         <div className="flex flex-col lg:flex-row lg:gap-10 mt-2">
@@ -171,7 +171,7 @@ const SaveBook = () => {
                         </div>
                     </div>
                     <div className={`${isActive? "block" : "hidden"}`}>
-                        <h2 className="text-xl font-bold mt-13">
+                        <h2 className="text-xl font-bold mt-15">
                             Current Page
                         </h2>
                         <div className="flex gap-2 items-center">
