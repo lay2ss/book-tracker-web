@@ -14,6 +14,7 @@ const Home = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
+    const [loadingFeed, setLoadingFeed] = useState(false);
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [books, setBooks] = useState<any[]>([]);
@@ -47,13 +48,13 @@ const Home = () => {
     useEffect(() => {
     const loadBooks = async () => {
       try {
-        setLoading(true);
+        setLoadingFeed(true);
         const data = await getBooks();
         setBooks(data);
       } catch (error) {
         console.error("Failed to load books:", error);
       } finally {
-        setLoading(false);
+        setLoadingFeed(false);
       }
     };
 
@@ -141,15 +142,14 @@ const Home = () => {
         )}
         </div>
         <div className="w-full border-b border-white/10"/>
-        {loading? <div className="mt-50"><Loading/></div> : 
+        {loadingFeed? <div className="mt-50"><Loading/></div> : 
         (<div>
             <div className="p-5">
                 <h1 className="text-2xl font-bold">Currently reading</h1>
                 
                     <div>
-                    {books.length === 0 ? (
-                        <p className="opacity-80 font-medium">You haven't started reading any books yet.</p>
-                            ) : (<div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
+                    {books.some(book => book.status === "READING")  ?
+                        (<div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
                                 {books.map((book) => (book.status === "READING" &&
                                     <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book 
@@ -160,7 +160,8 @@ const Home = () => {
                                     />
                                     </Link>
                                     ))}
-                                </div>)}
+                                </div>):
+                        (<p className="opacity-80 font-light">You haven't started reading any books yet.</p>)}
                     </div>
                                         
             </div>
@@ -168,9 +169,8 @@ const Home = () => {
             <div className="p-5">
                 <h1 className="text-2xl font-bold">Finished</h1>
                     <div>
-                    {books.length === 0 ? (
-                        <p className="opacity-80 font-medium">You haven't finished any books yet.</p>
-                            ) : (<div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
+                    {books.some(book => book.status === "FINISHED")  ? 
+                        (<div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
                                 {books.map((book) => (book.status === "FINISHED" &&
                                 <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book
@@ -178,7 +178,8 @@ const Home = () => {
                                     title={book.title}
                                     show="hidden"/>  
                                 </Link>))} 
-                                </div>)}
+                                </div>) :
+                        (<p className="opacity-80 font-light">You haven't finished any books yet.</p>)}
                     </div>
             </div>
         </div>
