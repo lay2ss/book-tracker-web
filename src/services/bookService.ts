@@ -146,6 +146,17 @@ export const getBooks = async () => {
   }
 };
 
+//get book by id
+export const getBookByDbId = async (dbId: any) => {
+  try {
+    const response = await api.get(`/api/books/${dbId}`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching book:', error);
+    throw error;
+  }
+};
+
 //delete book
 export const deleteBook = async (dbId: any) => {
   try {
