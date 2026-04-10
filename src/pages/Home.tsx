@@ -155,7 +155,7 @@ const Home = () => {
                                     <Book 
                                     current={book.currentPage}
                                     total={book.totalPage}
-                                    cover={book.coverImage}
+                                    cover={book.coverImage || placeHolder}
                                     title={book.title}
                                     />
                                     </Link>
@@ -174,7 +174,7 @@ const Home = () => {
                                 {books.map((book) => (book.status === "FINISHED" &&
                                 <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book
-                                    cover={book.coverImage}
+                                    cover={book.coverImage || placeHolder}
                                     title={book.title}
                                     show="hidden"/>  
                                 </Link>))} 
