@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import Loading from "./Loading";
 import { updateBook } from "../services/bookService";
 import { deleteBook } from "../services/bookService";
+import { getBookByDbId } from "../services/bookService";
 
 const SaveBook = () => {
     const { id } = useParams<{ id: string }>();
@@ -17,6 +18,7 @@ const SaveBook = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loading, setLoading] = useState(false);
+    const [deleting, setdeleting] = useState(false);
 
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
@@ -26,6 +28,31 @@ const SaveBook = () => {
     month: new Date().getMonth(), 
     year: new Date().getFullYear() 
     });
+
+    useEffect(() => {
+    const loadBookDetails = async () => {
+      try {
+        setLoading(true);
+        const bookData = await getBookByDbId(dbId!); 
+        
+        bookData.status === "READING"? (setIsActive(true), setIsActiveRead(false)) : (setIsActive(false), setIsActiveRead(true));
+        setRating(bookData.rating || 0);
+        setComment(bookData.comment || "");
+        setCurrentPage(bookData.currentPage || 0);
+        
+        setReadDate({
+          month: bookData.readMonth - 1,
+          year: bookData.readYear
+        });
+      } catch (error) {
+            console.error("Error loading book details", error);
+      } finally {
+            setLoading(false);
+        } 
+    };
+
+    loadBookDetails();
+  }, [dbId]);
 
     const handleSave = async () => {
 
@@ -38,8 +65,8 @@ const SaveBook = () => {
             status, 
             rating, 
             comment, 
-            readDate.month,
-            readDate.year, 
+            status === "READING"? 0 : readDate.month,
+            status === "READING"? 0 : readDate.year, 
             currentPage, 
             isFavorite, 
             [],
@@ -79,7 +106,7 @@ const SaveBook = () => {
 
     const handleDelete = async () => {
 
-        setLoading(true);
+        setdeleting(true);
 
         try{
             await deleteBook(
@@ -90,13 +117,10 @@ const SaveBook = () => {
         } catch (err) {
             console.error(err);
         }  finally {
-            setLoading(false);
+            setdeleting(false);
         }     
     };
 
-    const [checked, setChecked] = useState(false);
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setChecked(e.target.checked);
- 
     const [isActive, setIsActive] = useState(true);
     const [isActiveRead, setIsActiveRead] = useState(false);
     const toggleState = () => {isActiveRead === false? 
@@ -121,13 +145,6 @@ const SaveBook = () => {
             <span className="sr-only">Loading...</span>
         </div>
    </div>
-    
-
-    const today = new Date();
-    const monthYear = today.toLocaleDateString("en-US", {
-        month: "long",
-        year: "numeric", 
-    });
 
     return (
     <section className='section-wrapper'>
@@ -157,16 +174,10 @@ const SaveBook = () => {
                         </h2>
                         <div className="flex flex-col lg:flex-row lg:gap-10 mt-2">
                             <div className="w-fit relative">
-                                <div className={`bg-[#5453556c] p-5 w-30 ${checked? "absolute cursor-not-allowed" : "hidden"}`}></div>
-                                <div className={`bg-[#5453556c] p-5 w-20 right-0 ${checked? "absolute cursor-not-allowed" : "hidden"}`}></div>
-                                <DatePicker onDateChange={(m, y) => setReadDate({ month: m, year: y })}/>  
-                            </div>
-                            <div className="flex gap-2 items-center mt-2 lg:mt-0">
-                                <input type="checkbox" name="" id="todaysDate" className="cursor-pointer appearance-none  border w-4 h-4 rounded-full border-[#b99ef6] checked:bg-[#b99ef6]"
-                                checked={checked}
-                                onChange={handleChange}
-                                />
-                                <label htmlFor="todaysDate">Use today's date &#40;{monthYear}&#41;</label>
+                                <DatePicker
+                                initialMonth={readDate.month}
+                                initialYear={readDate.year} 
+                                onDateChange={(m, y) => setReadDate({ month: m, year: y })}/>  
                             </div>
                         </div>
                     </div>
@@ -192,7 +203,9 @@ const SaveBook = () => {
                                 Your rating
                             </h2>
                             <div className="mt-2">
-                                <Rating onChange={setRating} />
+                                <Rating 
+                                onChange={setRating}
+                                value={rating} />
                             </div>
                         </div>
                         <div>
@@ -211,7 +224,10 @@ const SaveBook = () => {
             <div className="w-full border-b border-white/10 py-3"/>
             <div className="w-full flex flex-col items-end">
                 <div className="gap-2 pt-8 justify-end w-full flex flex-col sm:flex-row">
-                    <button onClick={handleDelete} className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>Delete</button>
+                    <button onClick={handleDelete} disabled={deleting} className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>{deleting? 
+                                    (<Loading/>) 
+                                    : 
+                                    (<p>Delete</p>)}</button>
                     <div className="flex gap-2 justify-end w-full">
                         <button onClick={location.pathname.startsWith("/book/add/")? handleSave : handleUpdate} disabled={loading} className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">{loading? 
                                     (<Loading/>) 
