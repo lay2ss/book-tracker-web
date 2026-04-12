@@ -167,3 +167,25 @@ export const deleteBook = async (dbId: any) => {
     throw error;
   }
 };
+
+//create collection
+export const createCollection = async (name: string) => {
+  try {
+    const response = await api.post("/api/collections/", {name: name});
+    return response.data; 
+  } catch (error) {
+    console.error('Error creating collection:', error);
+    throw error;
+  }
+};
+
+//get collections
+export const getCollections = async () => {
+  try {
+    const response = await api.get('/api/collections/');
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching collections:', error);
+    throw error;
+  }
+};
