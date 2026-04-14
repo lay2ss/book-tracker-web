@@ -189,3 +189,14 @@ export const getCollections = async () => {
     throw error;
   }
 };
+
+//get collection by id
+export const getCollectionById = async (id: any) => {
+  try {
+    const response = await api.get(`/api/collections/${id}`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching collection:', error);
+    throw error;
+  }
+};
