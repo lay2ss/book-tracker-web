@@ -157,6 +157,7 @@ const Home = () => {
                                     total={book.totalPage}
                                     cover={book.coverImage || placeHolder}
                                     title={book.title}
+                                    showX="hidden"
                                     />
                                     </Link>
                                     ))}
@@ -176,7 +177,8 @@ const Home = () => {
                                     <Book
                                     cover={book.coverImage || placeHolder}
                                     title={book.title}
-                                    show="hidden"/>  
+                                    show="hidden"
+                                    showX="hidden"/>  
                                 </Link>))} 
                                 </div>) :
                         (<p className="opacity-80 font-light">You haven't finished any books yet.</p>)}
