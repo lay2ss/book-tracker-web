@@ -7,8 +7,52 @@ import bookIcon from "../assets/icon/book.svg";
 import pageIcon from "../assets/icon/page.svg";
 import fireIcon from "../assets/icon/fire.svg";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getBooks } from "../services/bookService";
+import { getCollections } from "../services/bookService";
+import Loading from "../components/Loading";
 
 const Profile = () => {
+
+  const [loadingBooks, setLoadingBooks] = useState(false);
+  const [books, setBooks] = useState<any[]>([]);
+
+  const [loading, setLoading] = useState(false);
+  const [collections, setCollections] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadBooks = async () => {
+      try {
+        setLoadingBooks(true);
+        const data = await getBooks();
+        setBooks(data);
+      } catch (error) {
+        console.error("Failed to load books:", error);
+      } finally {
+        setLoadingBooks(false);
+      }
+    };
+
+    loadBooks();
+  }, []);
+
+  useEffect(() => {
+    const loadCollections = async () => {
+      try {
+        setLoading(true);
+        const data = await getCollections();
+        setCollections(data);
+        console.log(data)
+      } catch (error) {
+        console.error("Failed to load collections:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCollections();
+  }, []);
+
   return (
     <section className='section-wrapper'>
         <main className='main-wrapper'>
@@ -59,18 +103,27 @@ const Profile = () => {
           <div className="w-full border-b border-white/10 pt-5"/>
           <div className="w-full text-center md:text-start">
             <h1 className="text-2xl font-bold">My Collections</h1>
-            <div className="mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
-              <Collection
-                name="Favorites"
-                qnt={23}
-              />
-              <div className="flex items-center w-full sm:w-fit justify-center">
-                <Link to={`/collection/create`} className="w-full">
-                  <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center">
-                    <img src={addIcon} alt="add icon" className="h-min p-2"/>
-                  </button>
-                </Link>
-              </div>
+            <div>
+              {loading? <div className="mt-5"><Loading/></div> : (<div className="w-full mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
+                  <Collection
+                  name="Favorites"
+                  qnt={23}
+                  />
+                  {collections.map((collection) => (
+                    <Link className="w-full sm:w-50" key={collection.id} to={`/collection/${collection.id}`}>
+                        <Collection
+                        name={collection.name}
+                        qnt={collection._count.books}/>  
+                    </Link>))}
+
+                <div className="flex items-center w-full sm:w-fit justify-center">
+                  <Link to={`/collection/create`} className="w-full">
+                    <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center">
+                      <img src={addIcon} alt="add icon" className="h-min p-2"/>
+                    </button>
+                  </Link>
+                </div>
+                  </div>)}
             </div>
           </div>
         </div>
