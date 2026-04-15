@@ -200,3 +200,25 @@ export const getCollectionById = async (id: any) => {
     throw error;
   }
 };
+
+//add book to collection
+export const addBookToCollection = async (bookId: any, id: any) => {
+  try {
+    const response = await api.post(`/api/collections/${id}/add-book`, {bookId: bookId});
+    return response.data; 
+  } catch (error) {
+    console.error('Error adding book to collection:', error);
+    throw error;
+  }
+};
+
+//remove book from collection
+export const removeBookFromCollection = async (bookId: any, id: any) => {
+  try {
+    const response = await api.post(`/api/collections/${id}/remove-book`, {bookId: bookId});
+    return response.data; 
+  } catch (error) {
+    console.error('Error removing book from collection:', error);
+    throw error;
+  }
+};
