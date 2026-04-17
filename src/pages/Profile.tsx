@@ -8,8 +8,7 @@ import pageIcon from "../assets/icon/page.svg";
 import fireIcon from "../assets/icon/fire.svg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getBooks } from "../services/bookService";
-import { getCollections } from "../services/bookService";
+import { getBooks, getCollections } from "../services/bookService";
 import Loading from "../components/Loading";
 
 const Profile = () => {
