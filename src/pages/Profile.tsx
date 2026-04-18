@@ -41,7 +41,6 @@ const Profile = () => {
         setLoading(true);
         const data = await getCollections();
         setCollections(data);
-        console.log(data)
       } catch (error) {
         console.error("Failed to load collections:", error);
       } finally {
