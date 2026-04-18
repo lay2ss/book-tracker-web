@@ -3,9 +3,8 @@ import BookCard from "../components/BookCard";
 import searchIcon from "../assets/icon/search.svg";
 import fireIcon from "../assets/icon/fire.svg";
 import placeHolder from "../assets/icon/placeholder.png";
-import { searchBooks } from "../services/bookService";
+import { searchBooks, getBooks } from "../services/bookService";
 import { useState, useEffect } from "react";
-import { getBooks } from "../services/bookService";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 
@@ -171,7 +170,7 @@ const Home = () => {
                 <h1 className="text-2xl font-bold">Finished</h1>
                     <div>
                     {books.some(book => book.status === "FINISHED")  ? 
-                        (<div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px overflow-x-auto">
+                        (<div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px] overflow-x-auto">
                                 {books.map((book) => (book.status === "FINISHED" &&
                                 <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book
