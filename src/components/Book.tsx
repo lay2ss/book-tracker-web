@@ -8,16 +8,17 @@ interface BookProps{
     title: string;
     show?: string;
     showX?: string;
+    remove?: any;
 }
 
-const Book: React.FC<BookProps> = ({ current, total, cover, title, show, showX }) =>{
+const Book: React.FC<BookProps> = ({ current, total, cover, title, show, showX, remove }) =>{
   return (
         <div className="relative">
-            <div className={`flex shrink-0 text-center cursor-pointer ${showX}`}>
-                <div className="bg-dark border purple-border rounded-md absolute top-2 right-2 cursor-pointer">
+            <button onClick={remove} className={`flex shrink-0 text-center cursor-pointer ${showX}`}>
+                <div className="bg-dark inset-ring-1 inset-ring-white/30 rounded-md absolute top-2 right-2 cursor-pointer hover:inset-ring-white/70">
                     <img src={closeIcon} alt="close icon"/>
                 </div>
-            </div>
+            </button>
             <div className="flex gap-3">
                 <div className="shrink-0">
                     <img src={cover} alt="book cover" className="max-w-35 w-fit h-fit"/>
