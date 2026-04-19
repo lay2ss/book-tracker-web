@@ -222,3 +222,14 @@ export const removeBookFromCollection = async (bookId: any, id: any) => {
     throw error;
   }
 };
+
+//delete collection
+export const deleteCollection = async (id: any) => {
+  try {
+    const response = await api.delete(`/api/collections/${id}`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error deleting collection:', error);
+    throw error;
+  }
+};
