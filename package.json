@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@github/relative-time-element": "^5.0.0",
+    "@headlessui/react": "^2.2.10",
+    "@heroicons/react": "^2.2.0",
     "axios": "^1.13.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
