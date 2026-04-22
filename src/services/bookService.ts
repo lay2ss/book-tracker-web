@@ -233,3 +233,14 @@ export const deleteCollection = async (id: any) => {
     throw error;
   }
 };
+
+//update collection name
+export const updateCollectionName = async (name: string, id: any) => {
+  try {
+    const response = await api.patch(`/api/collections/${id}`, {name: name});
+    return response.data; 
+  } catch (error) {
+    console.error('Error updating collection name:', error);
+    throw error;
+  }
+};
