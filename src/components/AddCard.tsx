@@ -30,16 +30,18 @@ const AddCard: React.FC<AddCardProps> = ({onCancel}) => {
     }, []);
 
   return (
-    <main className="flex mx-auto">
+    <main className="relative min-w-80">
         <div className="border border-white/20 p-4 rounded-xl bg-[#1a191b]">
         {loading? <Loading /> :
         (<div className="flex flex-wrap gap-3 sm:gap-5 font-inter text-sm sm:text-[16px] overflow-y-auto max-w-200 max-h-130">
                 {books.map((book) => (
                     <Book key={book.id}  
                     cover={book.coverImage || placeHolder}
-                    title={book.title}
                     show="hidden"
-                    showX="hidden"/>  
+                    showX="hidden"
+                    showHover=""
+                    hoverTitle={book.title}
+                    select={true}/>  
                 ))}
             </div>
         )}
