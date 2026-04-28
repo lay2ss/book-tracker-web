@@ -60,7 +60,6 @@ const AddCard: React.FC<AddCardProps> = ({onCancel, collectionId}) => {
                 {books.map((book) => (
                     <Book key={book.id}
                     id={book.id}  
-                    select={true}
                     cover={book.coverImage || placeHolder}
                     show="hidden"
                     showX="hidden"
