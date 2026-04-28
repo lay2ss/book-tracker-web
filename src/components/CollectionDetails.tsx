@@ -134,7 +134,8 @@ const CollectionDetails = () => {
             </button>
             <div className={`${showAddCard? "absolute top-20 left-1/2 -translate-x-1/2" : "hidden"}`}>
               <AddCard 
-              onCancel={() => setShowAddCard(!showAddCard)}/>
+              onCancel={() => setShowAddCard(!showAddCard)}
+              collectionId={id}/>
             </div>
           </div>
         }
