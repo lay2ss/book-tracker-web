@@ -13,13 +13,13 @@ interface BookProps{
     remove?: any;
     isSelected?: boolean;
     onSelect?: (id: string) => void;
-    id: string;
+    id?: string;
 }
 
 const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, showX, remove, isSelected, hoverTitle, onSelect , showHover = "hidden"}) =>{
 
   return (
-        <div className={`relative ${isSelected? 'border-2 rounded-md purple-border' : ''}`} onClick={() => onSelect?.(id)}>
+        <div className={`relative ${isSelected? 'border-2 rounded-md purple-border' : ''}`} onClick={() => onSelect?.(String(id))}>
             <div className={`opacity-0 hover:opacity-85 absolute left-1/2 -translate-x-1/2 text-xs outline-white/10 rounded-md bg-[#1a191b] p-1 w-full h-full ${showHover}`}>
                 <div className="flex items-center justify-center w-full h-full">
                     <p className="text-center">{hoverTitle}</p>
