@@ -201,13 +201,13 @@ export const getCollectionById = async (id: any) => {
   }
 };
 
-//add book to collection
-export const addBookToCollection = async (bookId: any, id: any) => {
+//add books to collection
+export const addBooksToCollection = async (bookIds: string[], id: any) => {
   try {
-    const response = await api.post(`/api/collections/${id}/add-book`, {bookId: bookId});
+    const response = await api.post(`/api/collections/${id}/add-book`, {bookIds: bookIds});
     return response.data; 
   } catch (error) {
-    console.error('Error adding book to collection:', error);
+    console.error('Error adding books to collection:', error);
     throw error;
   }
 };
