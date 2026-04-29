@@ -1,4 +1,3 @@
-import addIcon from "../assets/icon/add.svg";
 import { useState } from "react";
 import { createCollection } from "../services/bookService";
 import Loading from "./Loading";
@@ -47,15 +46,6 @@ const CreateCollection = () => {
                     <label htmlFor="name"></label>
                 </div>
             </div>
-            <button className="flex w-full justify-center border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center mt-5 xs:px-10 p-2 mx-auto">
-            <div className="flex items-center gap-2">  
-                <img src={addIcon} alt="add icon" className="h-min"/>
-                <p>Select Book</p>
-            </div>
-          </button>
-          <div className="flex justify-center mt-5 opacity-60">
-            <p>No book selected</p>
-          </div>
           <div className="w-full border-b border-white/10 pt-5"/>
           <div className="mt-10 flex gap-2 md:justify-end">
             <button onClick={handleCreate} disabled={loading} className="addButtonActived w-2/3 transition-transform active:scale-98 md:w-60">{loading? 
