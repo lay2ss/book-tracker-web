@@ -5,7 +5,7 @@ import { getCollectionById, removeBookFromCollection, deleteCollection, updateCo
 import { useState, useEffect } from "react";
 import Book from "./Book";
 import Dropdown from "./Dropdown";
-import AddCard from "./AddCard";
+import AddCardBooks from "./AddCardBooks";
 
 const CollectionDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -133,7 +133,7 @@ const CollectionDetails = () => {
               </div>
             </button>
             <div className={`${showAddCard? "absolute top-20 left-1/2 -translate-x-1/2" : "hidden"}`}>
-              <AddCard 
+              <AddCardBooks 
               onCancel={() => setShowAddCard(!showAddCard)}
               collectionId={id}/>
             </div>
