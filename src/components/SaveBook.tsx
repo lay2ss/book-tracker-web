@@ -10,6 +10,7 @@ import Loading from "./Loading";
 import { updateBook } from "../services/bookService";
 import { deleteBook } from "../services/bookService";
 import { getBookByDbId } from "../services/bookService";
+import AddCardCollections from "./AddCardCollections";
 
 const SaveBook = () => {
     const { id } = useParams<{ id: string }>();
@@ -19,6 +20,8 @@ const SaveBook = () => {
     const location = useLocation();
     const [loading, setLoading] = useState(false);
     const [deleting, setdeleting] = useState(false);
+    const [showAddCard, setShowAddCard] = useState(false);
+    const [selectedCollectionsIds, setSelectedCollectionsIds] = useState<string[]>([]);
 
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
@@ -30,6 +33,7 @@ const SaveBook = () => {
     });
 
     useEffect(() => {
+    if (!dbId) return;
     const loadBookDetails = async () => {
       try {
         setLoading(true);
@@ -69,7 +73,7 @@ const SaveBook = () => {
             status === "READING"? 0 : readDate.year, 
             currentPage, 
             isFavorite, 
-            [],
+            selectedCollectionsIds,
         );
         alert("Book saved");
         navigate('/home');
@@ -139,6 +143,14 @@ const SaveBook = () => {
         };
         fetchBook();
     }, [id]);
+
+    const handleSelectCollection = (id: string) => {
+    setSelectedCollectionsIds((prev) => 
+    prev.includes(id) 
+    ? prev.filter(collectionId => collectionId !== id) 
+    : [...prev, id] 
+    );
+  };
 
     if (!book) return <div className="h-screen flex justify-center items-center w-full"> 
    <div className="animate-spin inline-block size-6 border-3 border-current border-t-transparent purple-text rounded-full" role="status" aria-label="loading">
@@ -222,21 +234,29 @@ const SaveBook = () => {
                 </div>
             </div>
             <div className="w-full border-b border-white/10 py-3"/>
-            <div className="w-full flex flex-col items-end">
-                <div className="gap-2 pt-8 justify-end w-full flex flex-col sm:flex-row">
-                    <button onClick={handleDelete} disabled={deleting} className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>{deleting? 
-                                    (<Loading/>) 
-                                    : 
-                                    (<p>Delete</p>)}</button>
-                    <div className="flex gap-2 justify-end w-full">
+            <div className="w-full flex flex-col">
+                <div className="gap-2 pt-8 w-full flex flex-col sm:flex-row">
+                    <div className="flex gap-2 w-full">
                         <button onClick={location.pathname.startsWith("/book/add/")? handleSave : handleUpdate} disabled={loading} className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">{loading? 
                                     (<Loading/>) 
                                     : 
                                     (<p>Save</p>)}</button>
                         <button onClick={() => navigate('/home')} className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
                     </div> 
+                    <button onClick={handleDelete} disabled={deleting} className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>{deleting? 
+                                    (<Loading/>) 
+                                    : 
+                                    (<p>Delete</p>)}</button>
                 </div>
-                <button className="addButton transition-transform w-full active:scale-98 md:w-97 mt-3">Add to Collection</button>
+                <button onClick={() => setShowAddCard(!showAddCard)} className={`addButton transition-transform w-full active:scale-98 md:w-97 mt-3 ${location.pathname.startsWith("/book/add/")? "" : "hidden"}`}>Add to Collection</button>
+            <div className={`${showAddCard? "absolute top-80 left-1/2 -translate-x-1/2" : "hidden"}`}>
+              /* <AddCardCollections
+              onCancel={() => {setShowAddCard(!showAddCard), setSelectedCollectionsIds([])}}
+              onSelect={handleSelectCollection}
+              isSelected={selectedCollectionsIds}
+              onAdd={() => setShowAddCard(!showAddCard)}
+              /> */
+            </div>
             </div>
         </main>
     </section>
