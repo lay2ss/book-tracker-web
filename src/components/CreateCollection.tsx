@@ -52,7 +52,7 @@ const CreateCollection = () => {
                                     (<Loading/>) 
                                     : 
                                     (<p>Create</p>)}</button>
-            <button onClick={() => navigate('/profile')} className="addButton w-1/3 transition-transform active:scale-98 md:w-35">Cancel</button>
+            <button onClick={() => navigate(-1)} className="addButton w-1/3 transition-transform active:scale-98 md:w-35">Cancel</button>
           </div>
         </main>
     </section>
