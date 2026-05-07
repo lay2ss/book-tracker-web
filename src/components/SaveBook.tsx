@@ -125,6 +125,13 @@ const SaveBook = () => {
         }     
     };
 
+    const handleScrollTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
+    };
+
     const [isActive, setIsActive] = useState(true);
     const [isActiveRead, setIsActiveRead] = useState(false);
     const toggleState = () => {isActiveRead === false? 
@@ -133,12 +140,15 @@ const SaveBook = () => {
         (setIsActiveRead(false), setIsActive(true))};
 
     useEffect(() => {
+        setLoading(true)
         const fetchBook = async () => {
         try {
             const data = await getBookById(id!);
             setBook(data);
         } catch (error) {
             console.error("Error loading book:", error);
+        } finally {
+            setLoading(false);
         }
         };
         fetchBook();
@@ -241,21 +251,21 @@ const SaveBook = () => {
                                     (<Loading/>) 
                                     : 
                                     (<p>Save</p>)}</button>
-                        <button onClick={() => navigate('/home')} className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
+                        <button onClick={() => navigate(-1)} className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
                     </div> 
                     <button onClick={handleDelete} disabled={deleting} className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>{deleting? 
                                     (<Loading/>) 
                                     : 
                                     (<p>Delete</p>)}</button>
                 </div>
-                <button onClick={() => setShowAddCard(!showAddCard)} className={`addButton transition-transform w-full active:scale-98 md:w-97 mt-3 ${location.pathname.startsWith("/book/add/")? "" : "hidden"}`}>Add to Collection</button>
-            <div className={`${showAddCard? "absolute top-80 left-1/2 -translate-x-1/2" : "hidden"}`}>
-              /* <AddCardCollections
+                <button onClick={() => {setShowAddCard(!showAddCard), handleScrollTop()}} className={`addButton transition-transform w-full active:scale-98 md:w-97 mt-3 ${location.pathname.startsWith("/book/add/")? "" : "hidden"}`}>Add to Collection</button>
+            <div className={`${showAddCard? "flex" : "hidden"}`}>
+            <AddCardCollections
               onCancel={() => {setShowAddCard(!showAddCard), setSelectedCollectionsIds([])}}
               onSelect={handleSelectCollection}
               isSelected={selectedCollectionsIds}
               onAdd={() => setShowAddCard(!showAddCard)}
-              /> */
+            />
             </div>
             </div>
         </main>
