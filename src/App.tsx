@@ -34,6 +34,7 @@ function AppLayout() {
         <Route path="/book/add/:id" element={<PrivateRoute><SaveBook /></PrivateRoute>} />
         <Route path="/book/edit/:id/:dbId" element={<PrivateRoute><SaveBook /></PrivateRoute>} />
         <Route path="/collection/:id" element={<PrivateRoute><CollectionDetails /></PrivateRoute>} />
+        <Route path="/collection/favorites" element={<PrivateRoute><CollectionDetails /></PrivateRoute>} />
         <Route path="/collection/create" element={<PrivateRoute><CreateCollection /></PrivateRoute>} />
       </Routes>
     </>
