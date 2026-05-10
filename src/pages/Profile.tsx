@@ -15,6 +15,7 @@ const Profile = () => {
 
   const [loadingBooks, setLoadingBooks] = useState(false);
   const [books, setBooks] = useState<any[]>([]);
+  const [favorites, setFavorites] = useState<any[]>([]);
 
   const [loading, setLoading] = useState(false);
   const [collections, setCollections] = useState<any[]>([]);
@@ -25,6 +26,8 @@ const Profile = () => {
         setLoadingBooks(true);
         const data = await getBooks();
         setBooks(data);
+        const dataFavorites = data.filter((book: any) => book.isFavorite === true);
+        setFavorites(dataFavorites);
       } catch (error) {
         console.error("Failed to load books:", error);
       } finally {
@@ -103,10 +106,12 @@ const Profile = () => {
             <h1 className="text-2xl font-bold">My Collections</h1>
             <div>
               {loading? <div className="mt-5"><Loading/></div> : (<div className="w-full mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
+                <Link to={'/collection/favorites'} className="w-full sm:w-50">
                   <Collection
                   name="Favorites"
-                  qnt={23}
+                  qnt={favorites.length}
                   />
+                </Link>
                   {collections.map((collection) => (
                     <Link className="w-full sm:w-50" key={collection.id} to={`/collection/${collection.id}`}>
                         <Collection
