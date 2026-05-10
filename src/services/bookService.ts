@@ -157,6 +157,17 @@ export const getBookByDbId = async (dbId: any) => {
   }
 };
 
+//get favorite books
+export const getFavoriteBooks = async () => {
+  try {
+    const response = await api.get('/api/books/get/favorites');
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching favorite books:', error);
+    throw error;
+  }
+};
+
 //delete book
 export const deleteBook = async (dbId: any) => {
   try {
