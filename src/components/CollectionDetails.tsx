@@ -1,28 +1,36 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import addIcon from "../assets/icon/add.svg";
 import Loading from "./Loading";
-import { getCollectionById, removeBookFromCollection, deleteCollection, updateCollectionName} from "../services/bookService";
+import { getCollectionById, removeBookFromCollection, deleteCollection, updateCollectionName, getFavoriteBooks, toggleFavorite} from "../services/bookService";
 import { useState, useEffect } from "react";
 import Book from "./Book";
 import Dropdown from "./Dropdown";
 import AddCardBooks from "./AddCardBooks";
 import placeHolder from "../assets/icon/placeholder.png";
 import arrowBackIcon from "../assets/icon/arrow_back.svg";
+import { useLocation } from "react-router-dom";
 
 const CollectionDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [showEdit, setshowEdit] = useState(false);
   const [showAddCard, setShowAddCard] = useState(false);
   const [collection, setCollection] = useState<any>({});
   const [books, setBooks] = useState<any[]>([]); 
+  const [favorites, setFavorites] = useState<any[]>([]);
   const navigate = useNavigate();
 
   const handleRemove = async (bookId: any) => {
     try {
       setLoading(true);
-      await removeBookFromCollection(bookId, id);
+      if (location.pathname.startsWith("/collection/favorites"))
+      {
+        await toggleFavorite(bookId, false);
+      } else {
+        await removeBookFromCollection(bookId, id);
+      };
       alert("Book removed");
       window.location.reload();
     } catch (error) {
@@ -74,6 +82,23 @@ const CollectionDetails = () => {
         })
     };
   
+  location.pathname.startsWith("/collection/favorites")?
+
+   useEffect(() => {
+      const loadFavoriteBooks = async () => {
+        try {
+          setLoading(true);
+          const data = await getFavoriteBooks();
+          setFavorites(data);
+        } catch (error) {
+          console.error("Failed to load favorite books", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+       loadFavoriteBooks();
+    }, []) :
+
   useEffect(() => {
       const loadCollectionDetails = async () => {
         try {
@@ -96,6 +121,7 @@ const CollectionDetails = () => {
 }
 
   const qnt = books.length;
+  const qntFavorites = favorites.length;
 
   return (
     <section className="section-wrapper">
@@ -121,15 +147,22 @@ const CollectionDetails = () => {
             <div className="flex flex-col text-center">
               <div className="w-full flex mx-auto items-center justify-between">
                 <img src={arrowBackIcon} alt="arrow back icon" className="cursor-pointer" onClick={() => navigate(-1)}/>
-                <h1 className="text-xl font-bold">{collection? capitalizeFirstLetter(collection.name) : ""}</h1>
-                <Dropdown 
-                onDelete={() => handleDelete()}
-                onEdit={() => setshowEdit(!showEdit)} />
+                <h1 className="text-xl font-bold">{location.pathname.startsWith("/collection/favorites")? "Favorites" : capitalizeFirstLetter(collection.name)}</h1>
+                <div className={`${location.pathname.startsWith("/collection/favorites")? 'block' : 'hidden'}`}></div>
+                <div className={`${location.pathname.startsWith("/collection/favorites")? 'hidden' : 'block'}`}>
+                  <Dropdown 
+                  onDelete={() => handleDelete()}
+                  onEdit={() => setshowEdit(!showEdit)} />
+                </div>
               </div>
-              <p className="opacity-65">{Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : "no books added"}</p>
+              <p className="opacity-65">{location.pathname.startsWith("/collection/favorites")?
+                Number(qntFavorites)? qntFavorites == 1? qntFavorites + " book" : qntFavorites + " books" : "no books added"
+                :
+                Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : "no books added"}</p>
             </div>
             <div className="flex gap-4 flex-wrap mt-5">
-              {books.map((book) => (
+              { location.pathname.startsWith("/collection/favorites")?
+              favorites.map((book) => (
                   <Book
                   key={book.externalId}
                   hoverTitle={book.title}
@@ -139,19 +172,29 @@ const CollectionDetails = () => {
                   show="hidden"
                   goToBook={() => navigate(`/book/edit/${book.externalId}/${book.id}`)}
                   />
-              ))}
+              )) :
+                books.map((book) => (
+                  <Book
+                  key={book.externalId}
+                  hoverTitle={book.title}
+                  showHover="" 
+                  remove={() => handleRemove(book.id)} 
+                  cover={book.coverImage || placeHolder}
+                  show="hidden"
+                  goToBook={() => navigate(`/book/edit/${book.externalId}/${book.id}`)}
+                  />
+            ))}
             </div>
-            <button disabled={showEdit} className={`flex w-full justify-center mx-auto border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center mt-5 xs:px-10 p-2 ${showAddCard? "hidden" : "flex"}`} onClick={() => setShowAddCard(!showAddCard)}>
-              <div onClick={handleScrollTop} className="flex items-center gap-2">  
+            <button disabled={showEdit} className={`flex w-full justify-center mx-auto border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center mt-5 xs:px-10 p-2 ${location.pathname.startsWith("/collection/favorites")? "hidden" : "flex"}`} onClick={() => {handleScrollTop(), setShowAddCard(true)}}>
+              <div className="flex items-center gap-2">  
                   <img src={addIcon} alt="add icon" className="h-min"/>
                   <p>Add Book</p>
               </div>
             </button>
-            <div className={`${showAddCard? "flex" : "hidden"}`}>
               <AddCardBooks 
-              onCancel={() => setShowAddCard(!showAddCard)}
-              collectionId={id}/>
-            </div>
+              onCancel={() => setShowAddCard(false)}
+              collectionId={id}
+              isOpen={showAddCard}/>
           </div>
         }
       </main>
