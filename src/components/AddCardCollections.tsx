@@ -8,28 +8,32 @@ interface AddCardProps{
     isSelected: any;
     onSelect?: (id: string) => void;
     onAdd?: any;
+    isOpen?: boolean;
 }
 
-const AddCardCollections: React.FC<AddCardProps> = ({onCancel, isSelected, onSelect, onAdd}) => {
+const AddCardCollections: React.FC<AddCardProps> = ({onCancel, isSelected, onSelect, onAdd, isOpen}) => {
 
     const [loading, setLoading] = useState(false);
     const [collections, setCollections] = useState<any[]>([]);
 
   useEffect(() => {
-    const loadCollections = async () => {
-      try {
-        setLoading(true);
-        const data = await getCollections();
-        setCollections(data);
-      } catch (error) { 
-        console.error("Failed to load collections:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (isOpen) {
+      const loadCollections = async () => {
+        try {
+          setLoading(true);
+          const data = await getCollections();
+          setCollections(data);
+        } catch (error) { 
+          console.error("Failed to load collections:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      loadCollections();
+    }
+  }, [isOpen]);
 
-    loadCollections();
-  }, []);
+  if (!isOpen) return null;
 
   return (
     <section className="font-inter p-5 text-white absolute z-8 top-30 h-full bg-white/0.1 backdrop-blur-xs w-full left-1/2 transform -translate-x-1/2">

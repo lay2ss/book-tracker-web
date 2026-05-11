@@ -7,29 +7,33 @@ import placeHolder from "../assets/icon/placeholder.png";
 interface AddCardProps{
     onCancel: any;
     collectionId: any;
+    isOpen?: Boolean;
 }
 
-const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId}) => {
+const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen}) => {
 
     const [loading, setLoading] = useState(false);
     const [books, setBooks] = useState<any[]>([]);
     const [selectedBookIds, setSelectedBookIds] = useState<string[]>([]);
 
     useEffect(() => {
-    const loadBooks = async () => {
-        try {
-        setLoading(true);
-        const data = await getBooks();
-        setBooks(data);
-        } catch (error) {
-        console.error("Failed to load books:", error);
-        } finally {
-        setLoading(false);
+        if (isOpen) {
+            const loadBooks = async () => {
+                try {
+                    setLoading(true);
+                    const data = await getBooks();
+                    setBooks(data);
+                } catch (error) {
+                    console.error("Failed to load books:", error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            loadBooks();
         }
-    };
+    }, [isOpen]);
 
-    loadBooks();
-    }, []);
+    if (!isOpen) return null;
 
     const handleSelectBook = (id: string) => {
     setSelectedBookIds((prev) => 
