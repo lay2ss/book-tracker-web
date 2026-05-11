@@ -11,6 +11,8 @@ import { updateBook } from "../services/bookService";
 import { deleteBook } from "../services/bookService";
 import { getBookByDbId } from "../services/bookService";
 import AddCardCollections from "./AddCardCollections";
+import starActiveIcon from "../assets/icon/star_active.svg";
+import starIcon from "../assets/icon/star_bg.svg";
 
 const SaveBook = () => {
     const { id } = useParams<{ id: string }>();
@@ -43,6 +45,7 @@ const SaveBook = () => {
         setRating(bookData.rating || 0);
         setComment(bookData.comment || "");
         setCurrentPage(bookData.currentPage || 0);
+        setIsFavorite(!!bookData.isFavorite);
         
         setReadDate({
           month: bookData.readMonth - 1,
@@ -97,10 +100,11 @@ const SaveBook = () => {
             readDate.month,
             readDate.year, 
             currentPage,
-            dbId
+            dbId,
+            isFavorite
         );
         alert("Book updated");
-        navigate('/home');
+        navigate(-1);
         } catch (err) {
             console.error(err);
         }  finally {
@@ -174,7 +178,14 @@ const SaveBook = () => {
             <h1 className="text-2xl font-bold  text-center">{location.pathname.startsWith("/book/add/")? "Add Book to Library" : "Edit Book" }</h1>
             <div className="flex justify-center gap-10 mt-5 flex-wrap lg:flex-nowrap lg:justify-between">
                 <div className="flex flex-col w-fit items-center lg:max-w-60  max-w-120 lg:items-start">
-                    <img src={book.coverImage || placeHolder} alt={book.title} className="h-fit rounded-md gray-shadow min-w-50 w-fit" />
+                    <div className="relative">
+                        <img src={book.coverImage || placeHolder} alt={book.title} className="h-fit rounded-md gray-shadow min-w-50 w-fit" />
+                        <div className={`absolute top-2 right-2`}>
+                            <button className="transition-transform active:scale-80 cursor-pointer" onClick={() => setIsFavorite(!isFavorite)}>
+                                <img src={isFavorite? starActiveIcon : starIcon} alt="star-icon" className="w-6"/>
+                            </button>
+                        </div>
+                    </div>
                     <h1 className="text-xl font-bold mt-2 text-center lg:text-start">{book.title}</h1>
                     <p className="text-sm purple-text font-light">
                         {book.authors?.join(", ")}
@@ -258,15 +269,14 @@ const SaveBook = () => {
                                     : 
                                     (<p>Delete</p>)}</button>
                 </div>
-                <button onClick={() => {setShowAddCard(!showAddCard), handleScrollTop()}} className={`addButton transition-transform w-full active:scale-98 md:w-97 mt-3 ${location.pathname.startsWith("/book/add/")? "" : "hidden"}`}>Add to Collection</button>
-            <div className={`${showAddCard? "flex" : "hidden"}`}>
+                <button onClick={() => {setShowAddCard(true), handleScrollTop()}} className={`addButton transition-transform w-full active:scale-98 md:w-97 mt-3 ${location.pathname.startsWith("/book/add/")? "" : "hidden"}`}>Add to Collection</button>
             <AddCardCollections
-              onCancel={() => {setShowAddCard(!showAddCard), setSelectedCollectionsIds([])}}
+              onCancel={() => {setShowAddCard(false), setSelectedCollectionsIds([])}}
               onSelect={handleSelectCollection}
               isSelected={selectedCollectionsIds}
               onAdd={() => setShowAddCard(!showAddCard)}
+              isOpen={showAddCard}
             />
-            </div>
             </div>
         </main>
     </section>
