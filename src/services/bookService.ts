@@ -117,7 +117,8 @@ export const updateBook = async (
   readMonth: number, 
   readYear: number,
   currentPage: number,
-  dbId: any
+  dbId: any,
+  isFavorite: boolean
 ) => {
   try {
     const response = await api.patch(`/api/books/${dbId}`, {
@@ -127,6 +128,7 @@ export const updateBook = async (
       readMonth: readMonth + 1,
       readYear: readYear,
       currentPage: currentPage,
+      isFavorite: isFavorite
     });
     return response.data;
   } catch (error) {
@@ -252,6 +254,17 @@ export const updateCollectionName = async (name: string, id: any) => {
     return response.data; 
   } catch (error) {
     console.error('Error updating collection name:', error);
+    throw error;
+  }
+};
+
+//toggle favorite
+export const toggleFavorite = async (dbId: any, isFavorite: boolean) => {
+  try {
+    const response = await api.patch(`/api/books/${dbId}/favorite`, {isFavorite: isFavorite});
+    return response.data; 
+  } catch (error) {
+    console.error('Error updating favorite state:', error);
     throw error;
   }
 };
