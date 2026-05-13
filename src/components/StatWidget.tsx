@@ -1,5 +1,5 @@
 interface StatWidgetProps{
-    stat: number;
+    stat: any;
     icon: any;
     text: string;
     alt?: string;
@@ -14,7 +14,7 @@ const StatWidget: React.FC<StatWidgetProps> = ({stat, icon, text, alt}) => {
                         {text}
                     </p>
                 </div>
-                <p className="purple-text mt-1">{stat}</p>
+                <div className="purple-text mt-1">{stat}</div>
             </div>
   )
 }
