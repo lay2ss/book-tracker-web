@@ -7,6 +7,7 @@ import { searchBooks, getBooks } from "../services/bookService";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
+import Streak from "../components/Streak";
 
 const Home = () => {
 
@@ -105,7 +106,7 @@ const Home = () => {
                         <div>
                             <img src={fireIcon} alt="fire icon" />
                         </div>
-                            <p className="ml-1">Reading streak: <span className="font-bold purple-text">5 days</span></p>
+                            <p className="ml-1">Reading streak: <span className="font-bold purple-text">{loadingFeed? "..." : <Streak books={books}/>} days</span></p>
                         </div>
                     </div>
                 </div>
