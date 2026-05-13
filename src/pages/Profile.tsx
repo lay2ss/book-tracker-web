@@ -7,15 +7,19 @@ import bookIcon from "../assets/icon/book.svg";
 import pageIcon from "../assets/icon/page.svg";
 import fireIcon from "../assets/icon/fire.svg";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getBooks, getCollections } from "../services/bookService";
 import Loading from "../components/Loading";
+import Streak from "../components/Streak";
 
 const Profile = () => {
 
   const [loadingBooks, setLoadingBooks] = useState(false);
   const [books, setBooks] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<any[]>([]);
+  const [recent, setRecent] = useState<any[]>([]);
+  const [finished, setFinished] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [collections, setCollections] = useState<any[]>([]);
@@ -25,9 +29,18 @@ const Profile = () => {
       try {
         setLoadingBooks(true);
         const data = await getBooks();
+        const recentBooks = data.filter((book:any) => book.comment && book.comment.trim() !== "");
+        const favoriteBooks = data.filter((book: any) => book.isFavorite === true);
+        const now = new Date();
+        const year = now.getFullYear;
+        const booksFinished = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year);
+        const totalPagesFinished = data.filter((book: any) => book.status === "FINISHED")
+        .reduce((sum: number, book:any) => sum + (book.totalPage || 0), 0);
+        setFavorites(favoriteBooks);
+        setRecent(recentBooks);
+        setFinished(booksFinished);
+        setTotalPages(totalPagesFinished);
         setBooks(data);
-        const dataFavorites = data.filter((book: any) => book.isFavorite === true);
-        setFavorites(dataFavorites);
       } catch (error) {
         console.error("Failed to load books:", error);
       } finally {
@@ -60,19 +73,19 @@ const Profile = () => {
         <div className="flex flex-wrap md:flex-nowrap w-full justify-center gap-5 items-center">
           <div className="flex md:gap-2  flex-wrap gap-2 md:justify-center md:flex-nowrap lg:gap-4">
             <StatWidget 
-            stat={34}
+            stat={loadingBooks? <Loading/> : finished.length}
             text="Read this year"
             icon={bookIcon}
             alt="book"
             />
             <StatWidget 
-            stat={5678}
+            stat={loadingBooks? <Loading/> : totalPages}
             text="Total pages"
             icon={pageIcon}
             alt="page"
             />
             <StatWidget 
-            stat={56}
+            stat={loadingBooks? <Loading/> : <Streak books={books} />}
             text="Reading streak"
             icon={fireIcon}
             alt="fire"
@@ -92,13 +105,22 @@ const Profile = () => {
           </div>
           <div className="md:w-2/3 w-full text-center md:text-start">
             <h1 className="text-2xl font-bold">Recent Activity</h1>
-            <div className="mt-5 bg-dark-purple gap-4 flex flex-col p-3 rounded-xl">
-              <BookReview
-              cover="src/assets/icon/placeholder.png"
-              review="" 
-              rate={5}
-              datetime="2025-12-23T01:06:16.000Z"
-              />
+            <div>
+              {loadingBooks? <div className="mt-5"><Loading/></div> : 
+              (
+                <div className="mt-5 bg-dark-purple gap-4 flex flex-col p-3 rounded-xl max-h-100 overflow-y-auto">
+                  {recent.map((book) => (
+                    <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
+                      <BookReview
+                      cover={book.coverImage || "src/assets/icon/placeholder.png"}
+                      review={book.comment || ""} 
+                      rate={book.rating}
+                      datetime={book.updatedAt}
+                      />
+                    </Link>
+                  ))}
+                </div>
+                )}
             </div>
           </div>
           <div className="w-full border-b border-white/10 pt-5"/>
