@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import BookDetails from "./BookDetails";
-import starActiveIcon from "../assets/icon/star_active.svg";
-import starIcon from "../assets/icon/star.svg";
 import openBookIcon from "../assets/icon/open_book.svg";
-import bookmarkAddedIcon from "../assets/icon/bookmark_added.svg";
 import bookmarkAddIcon from "../assets/icon/bookmark_add.svg";
 import checkIcon from "../assets/icon/check.svg";
 
@@ -22,12 +19,6 @@ interface BookCardProps{
 }
 
 const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorName, year, rate, show = "", id, genre, pages }) => {
-    const [isFavorite, setIsFavorite] = useState(false);
-    const [isAdded, setIsAdded] = useState(false);
-
-    const toggleState = () => setIsFavorite(!isFavorite);
-    const addToLibrary = () => setIsAdded(!isAdded);
-
     const [card, setCard] = useState(false);
 
     const handleScrollTop = () => {
@@ -47,11 +38,6 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                         <div className="text-start">
                             <div className="flex justify-between">
                                 <h2 className="font-bold text-xl">{title}</h2>
-                                <div className={`flex justify-between`}>
-                                    <button className="transition-transform active:scale-80 cursor-pointer" onClick={toggleState}>
-                                        <img src={isFavorite? starActiveIcon : starIcon} alt="star-icon"/>
-                                    </button>
-                                </div>
                             </div>
                             <p className="text-sm opacity-50 font-light">
                                 {authorName}
@@ -75,8 +61,8 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                             <div className="flex justify-between md:min-w-[340px] flex-col xs:flex-row gap-3 xs:gap-0 mt-2 md:mt-0">
                                 <div className="flex gap-3 w-full flex-col xs:flex-row">
                                     <Link to={`/book/add/${id}`}>
-                                        <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95 w-full xs:w-fit justify-center">
-                                            <img src={isAdded? bookmarkAddedIcon : bookmarkAddIcon} alt="bookmark icon" />
+                                        <button className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95 w-full xs:w-fit justify-center">
+                                            <img src={bookmarkAddIcon} alt="bookmark icon" />
                                             Add to Library
                                         </button>
                                     </Link>
