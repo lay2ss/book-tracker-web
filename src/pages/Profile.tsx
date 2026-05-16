@@ -73,19 +73,19 @@ const Profile = () => {
         <div className="flex flex-wrap md:flex-nowrap w-full justify-center gap-5 items-center">
           <div className="flex md:gap-2  flex-wrap gap-2 md:justify-center md:flex-nowrap lg:gap-4">
             <StatWidget 
-            stat={loadingBooks? <Loading/> : finished.length}
+            stat={loadingBooks? "..." : finished.length}
             text="Read this year"
             icon={bookIcon}
             alt="book"
             />
             <StatWidget 
-            stat={loadingBooks? <Loading/> : totalPages}
+            stat={loadingBooks? "..." : totalPages}
             text="Total pages"
             icon={pageIcon}
             alt="page"
             />
             <StatWidget 
-            stat={loadingBooks? <Loading/> : <Streak books={books} />}
+            stat={loadingBooks? "..." : <Streak books={books} />}
             text="Reading streak"
             icon={fireIcon}
             alt="fire"
