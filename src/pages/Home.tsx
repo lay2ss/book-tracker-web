@@ -106,7 +106,7 @@ const Home = () => {
                         <div>
                             <img src={fireIcon} alt="fire icon" />
                         </div>
-                            <p className="ml-1">Reading streak: <span className="font-bold purple-text">{loadingFeed? "..." : <Streak books={books}/>} days</span></p>
+                            <p className="ml-1">Reading streak: <span className="font-bold purple-text">{loadingFeed? "..." : <Streak books={books}/>}</span></p>
                         </div>
                     </div>
                 </div>
