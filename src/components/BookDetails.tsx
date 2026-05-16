@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getBookById } from "../services/bookService";
 import openBookIcon from "../assets/icon/open_book.svg";
 import bookMarkIcon from "../assets/icon/bookmark_add.svg";
-import bookMarkIcon2 from "../assets/icon/bookmark_added.svg";
 import closeIcon from "../assets/icon/close.svg";
 import ExpandableText from "./ExpandableText";
 import placeHolder from "../assets/icon/placeholder.png";
@@ -60,11 +59,10 @@ const BookDetails: React.FC<BookDetailsProps> = ({id, close}) => {
                             <div className="flex gap-2 flex-col mt-3 md:min-w-40">
                                 <Link to={`/book/add/${id}`}>
                                     <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">
-                                        <img src={isAdded? bookMarkIcon2 : bookMarkIcon} alt="bookmark icon" />
+                                        <img src={bookMarkIcon} alt="bookmark icon" />
                                         Add to Library
                                     </button>
-                                </Link>
-                                <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95">Mark as Read</button>                               
+                                </Link>                            
                             </div>
                         </div>
                         <div className="max-w-110">

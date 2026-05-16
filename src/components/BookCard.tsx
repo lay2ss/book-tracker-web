@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import BookDetails from "./BookDetails";
 import openBookIcon from "../assets/icon/open_book.svg";
-import bookmarkAddIcon from "../assets/icon/bookmark_add.svg";
-import checkIcon from "../assets/icon/check.svg";
+import bookmarkIcon from "../assets/icon/bookmark_add.svg";
 
 interface BookCardProps{
     description: string;
@@ -62,13 +61,12 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                                 <div className="flex gap-3 w-full flex-col xs:flex-row">
                                     <Link to={`/book/add/${id}`}>
                                         <button className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95 w-full xs:w-fit justify-center">
-                                            <img src={bookmarkAddIcon} alt="bookmark icon" />
+                                            <img src={bookmarkIcon} alt="bookmark icon" />
                                             Add to Library
                                         </button>
                                     </Link>
                                         <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 w-full xs:w-fit" onClick={() => {setCard(true), handleScrollTop()}}>Read More</button> 
                                 </div>
-                                <button className="rounded-xl px-2 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 justify-center flex"><img src={checkIcon} alt="check icon" /></button>
                             </div>
                     </div>
                 </div>
