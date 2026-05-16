@@ -268,3 +268,25 @@ export const toggleFavorite = async (dbId: any, isFavorite: boolean) => {
     throw error;
   }
 };
+
+//get user preferences
+export const getPreferences = async () => {
+  try {
+    const response = await api.get('/api/users/preferences/');
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching preferences:', error);
+    throw error;
+  }
+};
+
+//update user preferences
+export const updatePreferences = async (favoriteGenres: string[], uiSettings: any) => {
+  try {
+    const response = await api.patch(`/api/users/preferences`, {genres: favoriteGenres, settings: uiSettings});
+    return response.data; 
+  } catch (error) {
+    console.error('Error updating preferences:', error);
+    throw error;
+  }
+};
