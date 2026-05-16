@@ -36,7 +36,7 @@ const Streak: React.FC<StreakProps> = ({books}) => {
       break;
     }
   }
-  return streak;
+  return streak > 1 ? streak + " days" : streak + " day";
 }
 
 export default Streak
