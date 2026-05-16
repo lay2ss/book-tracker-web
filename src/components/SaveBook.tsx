@@ -11,8 +11,8 @@ import { updateBook } from "../services/bookService";
 import { deleteBook } from "../services/bookService";
 import { getBookByDbId } from "../services/bookService";
 import AddCardCollections from "./AddCardCollections";
-import starActiveIcon from "../assets/icon/star_active.svg";
-import starIcon from "../assets/icon/star_bg.svg";
+import heartActiveIcon from "../assets/icon/heart_active.svg";
+import heartIcon from "../assets/icon/heart.svg";
 
 const SaveBook = () => {
     const { id } = useParams<{ id: string }>();
@@ -178,11 +178,11 @@ const SaveBook = () => {
             <h1 className="text-2xl font-bold  text-center">{location.pathname.startsWith("/book/add/")? "Add Book to Library" : "Edit Book" }</h1>
             <div className="flex justify-center gap-10 mt-5 flex-wrap lg:flex-nowrap lg:justify-between">
                 <div className="flex flex-col w-fit items-center lg:max-w-60  max-w-120 lg:items-start">
-                    <div className="relative">
+                    <div className="flex bg-white/5 rounded-md">
                         <img src={book.coverImage || placeHolder} alt={book.title} className="h-fit rounded-md gray-shadow min-w-50 w-fit" />
-                        <div className={`absolute top-2 right-2`}>
-                            <button className="transition-transform active:scale-80 cursor-pointer" onClick={() => setIsFavorite(!isFavorite)}>
-                                <img src={isFavorite? starActiveIcon : starIcon} alt="star-icon" className="w-6"/>
+                        <div className={`flex top-2 right-2 w-10`}>
+                            <button className="transition-transform active:scale-80 cursor-pointer mx-auto" onClick={() => setIsFavorite(!isFavorite)}>
+                                <img src={isFavorite? heartActiveIcon : heartIcon} alt="star-icon" className="w-6"/>
                             </button>
                         </div>
                     </div>
