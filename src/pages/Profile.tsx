@@ -7,8 +7,8 @@ import bookIcon from "../assets/icon/book.svg";
 import pageIcon from "../assets/icon/page.svg";
 import fireIcon from "../assets/icon/fire.svg";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useMemo } from "react";
-import { getBooks, getCollections } from "../services/bookService";
+import { useState, useEffect } from "react";
+import { getBooks, getCollections, getPreferences } from "../services/bookService";
 import Loading from "../components/Loading";
 import Streak from "../components/Streak";
 
@@ -20,6 +20,10 @@ const Profile = () => {
   const [recent, setRecent] = useState<any[]>([]);
   const [finished, setFinished] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [loadingSettings, setLoadingSettings] = useState(false);
+  const [goal, setGoal] = useState(false);
+  const [number, setNumber] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [collections, setCollections] = useState<any[]>([]);
@@ -67,6 +71,24 @@ const Profile = () => {
     loadCollections();
   }, []);
 
+  useEffect(() => {
+    const loadPreferences = async () => {
+      try {
+        setLoadingSettings(true);
+        const data = await getPreferences();
+        const dataUiSettings = data.uiSettings
+        dataUiSettings.Goal === "Annual"? setGoal(true) : setGoal(false);
+        setNumber(dataUiSettings.Number || 0);
+      } catch (error) {
+        console.error("Failed to load preferences:", error);
+      } finally {
+        setLoadingSettings(false);
+      }
+    };
+  
+    loadPreferences();
+  }, []);
+
   return (
     <section className='section-wrapper'>
         <main className='main-wrapper'>
@@ -97,10 +119,16 @@ const Profile = () => {
           <div>
             <h1 className="text-2xl font-bold text-center md:text-start">Reading Goal</h1>
             <div className="flex mt-5 border-white/20 border rounded-xl p-3 justify-center md:w-fit">
+            {loadingSettings? <Loading/> 
+            
+              :
+    
               <GoalTracker 
-                current={34} 
-                max={50} 
+                current={finished.length} 
+                max={number} 
+                label={goal? "Yearly Goal" : "Monthly Goal"}
               />
+            }
             </div>
           </div>
           <div className="md:w-2/3 w-full text-center md:text-start">
