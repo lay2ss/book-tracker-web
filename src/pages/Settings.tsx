@@ -1,28 +1,87 @@
 import '../checkbox.css';
 import Genres from '../components/Genres';
 import { Genresdata } from '../data/constants';
+import { getPreferences, updatePreferences } from '../services/bookService';
+import { useEffect, useState } from 'react';
+import Loading from '../components/Loading';
 
 const Settings = () => {
+  
+  const [loading, setLoading] = useState(false);
+  const [loadingSettings, setLoadingSettings] = useState(false);
+  const [goal, setGoal] = useState(false);
+  const [number, setNumber] = useState(0);
+  
+  useEffect(() => {
+    const loadPreferences = async () => {
+      try {
+        setLoadingSettings(true);
+        const data = await getPreferences();
+        const dataUiSettings = data.uiSettings
+        dataUiSettings.Goal === "Annual"? setGoal(true) : setGoal(false);
+        setNumber(dataUiSettings.Number || 0);
+      } catch (error) {
+        console.error("Failed to load preferences:", error);
+      } finally {
+        setLoadingSettings(false);
+      }
+    };
+  
+    loadPreferences();
+  }, []);
+
+  const handleGoal = async () => {
+      setLoading(true);
+      try{
+          await updatePreferences(
+          [],
+          goal === false? {Goal: 'Monthly', Number: number} : {Goal: "Annual", Number: number}
+      );
+      alert("Goal set");
+      } catch (err) {
+          console.error(err);
+      }  finally {
+          setLoading(false);
+      }     
+  };
 
   return (
     <section  className='section-wrapper'>
         <main className='main-wrapper flex gap-3 flex-col'>
             <div className="border border-white/20 p-4 rounded-xl">
                 <h1 className="text-xl font-bold text-start">Reading Goal</h1>
+                {loadingSettings? <Loading/> 
+                :
+                (
                 <div className='flex flex-col'>
                   <div className='flex items-center'>
-                    <p>Annual</p> 
+                    <p>Monthly</p> 
                     <div className="checkbox-apple">
-                        <input className="yep" id="check" type="checkbox"/>
+                        <input 
+                        className="yep" 
+                        id="check" 
+                        type="checkbox" 
+                        checked={goal}
+                        onChange={() => setGoal(!goal)}
+                        />
                         <label htmlFor="check"></label>
                     </div>
-                    <p>Monthly</p>
+                    <p>Annual</p>
                   </div>
                   <div className='flex items-center justify-between gap-2 flex-wrap md:flex-nowrap'>
-                    <input type="number" max={1000} min={0} className='border border-white/20 p-2 w-20 rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6] text-sm' />
-                    <button className='rounded-xl text-[#252033] text-xs font-bold tracking-wider transition-transform active:scale-95 bg-[#b99ef6] h-min py-3 px-5 mt-2 md:mt-0 cursor-pointer'>Save</button>
+                    <input 
+                    type="number" 
+                    max={1000}  
+                    min={0} 
+                    name="pageNumber"
+                    value={number}
+                    onChange={(e) => setNumber(e.target.value === '' ? 0 : Number(e.target.value))}
+                    className='border border-white/20 p-2 w-20 rounded-md outline-none focus:ring-1 focus:ring-[#b99ef6] text-sm' />
+                    <button disabled={loading} onClick={handleGoal} className='rounded-xl text-[#252033] text-xs font-bold tracking-wider transition-transform active:scale-95 bg-[#b99ef6] h-min py-3 px-5 mt-2 md:mt-0 cursor-pointer'>{loading? <Loading/> : "Save"}</button>
                   </div>
                 </div>
+                )
+                }
             </div>
             <div className="border border-white/20 p-4 rounded-xl">
               <h1 className="text-xl font-bold text-start">Favorites Genres</h1>
