@@ -18,7 +18,8 @@ const Profile = () => {
   const [books, setBooks] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<any[]>([]);
   const [recent, setRecent] = useState<any[]>([]);
-  const [finished, setFinished] = useState<any[]>([]);
+  const [finishedThisYear, setFinishedThisYear] = useState<any[]>([]);
+  const [finishedThisMonth, setFinishedThisMonth] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(0);
 
   const [loadingSettings, setLoadingSettings] = useState(false);
@@ -36,15 +37,19 @@ const Profile = () => {
         const recentBooks = data.filter((book:any) => book.comment && book.comment.trim() !== "");
         const favoriteBooks = data.filter((book: any) => book.isFavorite === true);
         const now = new Date();
-        const year = now.getFullYear;
-        const booksFinished = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year);
+        const year = now.getFullYear();
+        const month = now.getMonth();
+        const booksFinishedThisYear = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year);
+        const booksFinishedThisMonth = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year && book.readMonth === month + 1);
         const totalPagesFinished = data.filter((book: any) => book.status === "FINISHED")
         .reduce((sum: number, book:any) => sum + (book.totalPage || 0), 0);
         setFavorites(favoriteBooks);
         setRecent(recentBooks);
-        setFinished(booksFinished);
+        setFinishedThisYear(booksFinishedThisYear);
+        setFinishedThisMonth(booksFinishedThisMonth);
         setTotalPages(totalPagesFinished);
         setBooks(data);
+        console.log(finishedThisMonth)
       } catch (error) {
         console.error("Failed to load books:", error);
       } finally {
@@ -95,7 +100,7 @@ const Profile = () => {
         <div className="flex flex-wrap md:flex-nowrap w-full justify-center gap-5 items-center">
           <div className="flex md:gap-2  flex-wrap gap-2 md:justify-center md:flex-nowrap lg:gap-4">
             <StatWidget 
-            stat={loadingBooks? "..." : finished.length}
+            stat={loadingBooks? "..." : finishedThisYear.length}
             text="Read this year"
             icon={bookIcon}
             alt="book"
@@ -124,7 +129,7 @@ const Profile = () => {
               :
     
               <GoalTracker 
-                current={finished.length} 
+                current={goal? finishedThisYear.length : finishedThisMonth.length} 
                 max={number} 
                 label={goal? "Yearly Goal" : "Monthly Goal"}
               />
