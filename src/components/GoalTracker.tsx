@@ -85,7 +85,7 @@ const GoalTracker: React.FC<GoalTrackerProps> = ({
       </div>
       
       <span className="font-semibold text-lg -mt-4">
-        {label}
+        {current >= max? "You achieved your goal :D" : label}
       </span>
     </div>
   );
