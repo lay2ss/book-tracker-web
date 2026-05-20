@@ -70,6 +70,42 @@ export const getBookById = async (bookId: string): Promise<BookSearchResult | nu
   }
 };
 
+export const getRecommendationsByGenres = async (genres: string[]): Promise<any[]> => {
+  if (!genres || genres.length === 0) return [];
+
+  const genreQuery = `subject:(${genres.join('|')})`;
+
+  try {
+    const response = await axios.get(`${API_BASE_URL}/volumes`, {
+      params: {
+        q: genreQuery,      
+        maxResults: 10,
+        orderBy: 'relevance',
+        key: API_KEY     
+      }
+    });
+
+    if (!response.data.items) {
+      return [];
+    }
+
+    return response.data.items.map((item: any) => ({
+      id: item.id,
+      title: item.volumeInfo.title || 'Unknown Title',
+      authors: item.volumeInfo.authors || ['Unknown Author'],
+      coverImage: item.volumeInfo.imageLinks?.thumbnail || null,
+      description: item.volumeInfo.description || null,
+      categories: item.volumeInfo.categories || "Unknown Genre",
+      pageCount: item.volumeInfo.pageCount || 0,
+      publishedYear: item.volumeInfo.publishedDate ? item.volumeInfo.publishedDate.substring(0, 4) : 'N/A'
+    }));
+
+  } catch (error) {
+    console.error("Error fetching Google Books recommendations:", error);
+    return [];
+  }
+};
+
 // add book
 export const addBook = async (
   book: BookSearchResult, 
