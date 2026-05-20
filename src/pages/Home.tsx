@@ -3,7 +3,7 @@ import BookCard from "../components/BookCard";
 import searchIcon from "../assets/icon/search.svg";
 import fireIcon from "../assets/icon/fire.svg";
 import placeHolder from "../assets/icon/placeholder.png";
-import { searchBooks, getBooks } from "../services/bookService";
+import { searchBooks, getBooks, getPreferences, getRecommendationsByGenres } from "../services/bookService";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
@@ -15,9 +15,11 @@ const Home = () => {
     const [results, setResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [loadingFeed, setLoadingFeed] = useState(false);
+    const [loadingDashboard, setLoadingDashboard] = useState(false);
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [books, setBooks] = useState<any[]>([]);
+    const [recommendations, setRecommendations] = useState<any[]>([]);
 
     const handleSearch = async () => {
         if (!query) return;
@@ -59,7 +61,28 @@ const Home = () => {
     };
 
     loadBooks();
-  }, []);
+    }, []);
+
+    useEffect(() => {
+        const loadDashboard = async () => {
+        try {
+            setLoadingDashboard(true)
+            const prefs = await getPreferences(); 
+            const userGenres = prefs.favoriteGenres; 
+
+        if (userGenres && userGenres.length > 0) {
+            const booksFromGoogle = await getRecommendationsByGenres(userGenres);
+            setRecommendations(booksFromGoogle);
+        }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoadingDashboard(false);
+        }
+    };
+
+    loadDashboard();
+    }, []);
 
   return (
     <section className='section-wrapper'>
@@ -140,6 +163,35 @@ const Home = () => {
             )}
           </div>
         )}
+        </div>
+        <div className="w-full border-b border-white/10"/>
+        <div className="p-5">
+            <h1 className="text-2xl font-bold">Your next reading?</h1>
+            {loadingDashboard? <Loading/> 
+
+            :
+            
+            <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold">
+                {recommendations.length > 0 ? (
+                recommendations.map((book) => (
+                    <BookCard
+                    key={book.id}
+                    title={truncateText(book.title, 25)}
+                    description={truncateText(book.description, 90)}
+                    cover={book.coverImage || placeHolder}
+                    authorName={book.authors?.join(", ")}
+                    show="hidden"
+                    id={book.id}
+                    year={book.publishedYear}
+                    genre={book.categories}
+                    pages={book.pageCount}
+                    />
+                ))
+                ) : (
+                (<p className="opacity-80 font-light">No recommendations yet :/</p>)
+                )}
+            </div>
+            }
         </div>
         <div className="w-full border-b border-white/10"/>
         {loadingFeed? <div className="mt-50"><Loading/></div> : 
