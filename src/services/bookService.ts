@@ -326,3 +326,14 @@ export const updatePreferences = async (favoriteGenres: string[], uiSettings: an
     throw error;
   }
 };
+
+//change password
+export const changePassword = async (oldPswd: string, newPswd: string) => {
+  try {
+    const response = await api.patch(`/api/users/change-password`, {oldPassword: oldPswd, newPassword: newPswd});
+    return response.data; 
+  } catch (error) {
+    console.error('Error updating password:', error);
+    throw error;
+  }
+};
