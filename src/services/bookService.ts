@@ -337,3 +337,14 @@ export const changePassword = async (oldPswd: string, newPswd: string) => {
     throw error;
   }
 };
+
+//forgot password
+export const forgotPassword = async (email: string) => {
+  try {
+    const response = await api.post(`/api/users/forgot-password`, {email: email});
+    return response.data; 
+  } catch (error) {
+    console.error('Error sending password reset link:', error);
+    throw error;
+  }
+};
