@@ -166,12 +166,12 @@ const Home = () => {
         </div>
         <div className="w-full border-b border-white/10"/>
         <div className="p-5">
-            <h1 className="text-2xl font-bold">Your next reading?</h1>
+            <h1 className="text-2xl pb-5 font-bold">Your next reading?</h1>
             {loadingDashboard? <Loading/> 
 
             :
             
-            <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold">
+            <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-5 font-inter font-semibold">
                 {recommendations.length > 0 ? (
                 recommendations.map((book) => (
                     <BookCard
