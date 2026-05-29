@@ -6,10 +6,22 @@ import menuBarIcon from "../assets/icon/menu_bar.svg";
 import closeIcon from "../assets/icon/close.svg";
 import logoname from "../assets/logo/logo_name.svg";
 import b_purple_logo from "../assets/logo/b_purple_logo.svg";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("recent_book_searches");
+        navigate("/login", { replace: true });
+    }
+
   return (
     <nav className={`w-full font-inter mx-auto fixed z-10 top-0 md:bg-white/0.5 md:backdrop-blur-sm md:border-b md:border-white/10 bg-white/0.5 ${!isOpen? "backdrop-blur-sm" : "" }`}>
         <div className="w-full mx-auto md:px-4 px-2">
@@ -22,7 +34,7 @@ const Nav = () => {
                     <DesktopNav/>
                 </div>
                 <div className="flex gap-3 my-auto">
-                    <button className="hidden md:flex cursor-pointer active:scale-95">
+                    <button onClick={handleLogout} className="hidden md:flex cursor-pointer active:scale-95">
                         <img src={logoutIcon} alt="log out icon" />
                     </button>
                     <div className="relative flex md:hidden">
@@ -32,6 +44,7 @@ const Nav = () => {
                         <div className={`fixed right-0 top-0 z-5 h-fit w-full ${isOpen? 'flex' : 'hidden'}`}>
                             <MobileNav
                             toggle={toggleMenu}
+                            logout={handleLogout}
                             />
                         </div>
                     </div>
