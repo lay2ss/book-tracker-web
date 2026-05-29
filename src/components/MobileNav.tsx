@@ -3,9 +3,10 @@ import closeIcon from "../assets/icon/close.svg";
 
 interface MobileNavProps {
   toggle: any;
+  logout: any;
 }
 
-const MobileNav: React.FC<MobileNavProps> = ({toggle}) => {
+const MobileNav: React.FC<MobileNavProps> = ({toggle, logout}) => {
   return (
       <>
       <button onClick={toggle} className="cursor-pointer">
@@ -20,7 +21,7 @@ const MobileNav: React.FC<MobileNavProps> = ({toggle}) => {
             )
           }
           <li>
-              <button className="button-style-outline border-[#b99ef6] purple-text bg-[#1a191b]">
+              <button onClick={logout} className="button-style-outline border-[#b99ef6] purple-text bg-[#1a191b]">
                   Sign Out
               </button>
           </li>
