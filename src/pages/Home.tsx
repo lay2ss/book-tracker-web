@@ -16,17 +16,24 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [loadingFeed, setLoadingFeed] = useState(false);
     const [loadingDashboard, setLoadingDashboard] = useState(false);
-    const [recentSearches, setRecentSearches] = useState<string[]>([]);
+
+    const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    const saved = localStorage.getItem("recent_book_searches");
+    return saved ? JSON.parse(saved) : [];
+    });
+
     const [showDropdown, setShowDropdown] = useState(false);
     const [books, setBooks] = useState<any[]>([]);
     const [recommendations, setRecommendations] = useState<any[]>([]);
 
     const handleSearch = async () => {
-        if (!query) return;
+        if (!query.trim()) return;
 
         setRecentSearches((prev) => {
-        const updated = [query, ...prev.filter((item) => item !== query)];
-        return updated.slice(0, 5);
+        const filtered = prev.filter((item) => item !== query.trim());
+        const updated = [query.trim(), ...filtered].slice(0, 5);
+        localStorage.setItem("recent_book_searches", JSON.stringify(updated));
+        return updated;
         });
 
         setLoading(true);
@@ -93,6 +100,7 @@ const Home = () => {
                         <input 
                             type="text"
                             placeholder="Search for a book" 
+                            autoComplete="off"
                             value={query}
                             onChange={(e) => {setQuery(e.target.value), setShowDropdown(true);}}
                             onKeyDown={(e) => {
@@ -214,7 +222,7 @@ const Home = () => {
                                     </Link>
                                     ))}
                                 </div>):
-                        (<p className="opacity-80 font-light">You haven't started reading any books yet.</p>)}
+                        (<p className="opacity-80 font-light">Save some books :D</p>)}
                     </div>
                                         
             </div>
@@ -233,7 +241,7 @@ const Home = () => {
                                     showX="hidden"/>  
                                 </Link>))} 
                                 </div>) :
-                        (<p className="opacity-80 font-light">You haven't finished any books yet.</p>)}
+                        (<p className="opacity-80 font-light">You can also save books as finished ;D</p>)}
                     </div>
             </div>
         </div>
