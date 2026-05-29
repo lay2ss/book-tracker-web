@@ -130,7 +130,7 @@ const Profile = () => {
     
               <GoalTracker 
                 current={goal? finishedThisYear.length : finishedThisMonth.length} 
-                max={number} 
+                max={number? number : 1} 
                 label={goal? "Yearly Goal" : "Monthly Goal"}
               />
             }
@@ -142,7 +142,8 @@ const Profile = () => {
               {loadingBooks? <div className="mt-5"><Loading/></div> : 
               (
                 <div className="mt-5 bg-dark-purple gap-4 flex flex-col p-3 rounded-xl max-h-100 overflow-y-auto">
-                  {recent.map((book) => (
+                  {recent.length < 1? (<p>no recent activity</p>) :
+                   recent.map((book) => (
                     <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                       <BookReview
                       cover={book.coverImage || "src/assets/icon/placeholder.png"}
