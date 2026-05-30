@@ -4,6 +4,9 @@ import { Genresdata } from '../data/constants';
 import { getPreferences, updatePreferences } from '../services/bookService';
 import { useEffect, useState } from 'react';
 import Loading from '../components/Loading';
+import Alert from '../components/Alert';
+import { deleteUser } from '../services/bookService';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
   
@@ -13,6 +16,8 @@ const Settings = () => {
   const [goal, setGoal] = useState(false);
   const [number, setNumber] = useState(0);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [deleting, setDeleting] = useState(false);
+  const navigate = useNavigate();
   
   useEffect(() => {
     const loadPreferences = async () => {
@@ -74,6 +79,37 @@ const Settings = () => {
       : [...prev, genreName]               
     );
   };
+
+  const handleDelete = async () => {
+
+      setDeleting(true);
+
+      try{
+        await deleteUser();
+        alert("Profile deleted");
+
+        navigate('/login');
+      } catch (err: any) {
+        console.error(err);
+        if (err.response && err.response.data) {
+          const backendMessage = err.response.data.message || "Invalid request.";
+          alert(backendMessage);
+        } else {
+          alert("Something went wrong. Please try again later.");
+          }
+      }  finally {
+        setDeleting(false);
+      }      
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("recent_book_searches");
+    navigate("/login", { replace: true });
+  }
 
   return (
     <section  className='section-wrapper'>
@@ -144,10 +180,17 @@ const Settings = () => {
                   <a href="/change-password" className='flex md:w-fit'>
                     <button className='rounded-xl border-[#b99ef6] border transition-transform active:scale-95 h-min py-3 px-9 cursor-pointer w-full'>Change password</button>
                   </a>
-                  <button className='rounded-xl bg-red-500 transition-transform active:scale-95 h-min py-3 px-5 mt-2 cursor-pointer'>Delete account</button>
-                  <p className='text-red-400 text-center md:text-start'>This action cannot be undone</p>
+                  <Alert
+                  handleDelete={handleDelete}
+                  loading={deleting}
+                  isSignOut={false}
+                  />
                 </div>
             </div>
+              <Alert
+                  handleSignout={handleLogout}
+                  isSignOut={true}
+              />
         </main>
     </section>
   )
