@@ -359,3 +359,14 @@ export const resetPassword = async (password: string, token: any) => {
     throw error;
   }
 };
+
+//delete user profile
+export const deleteUser = async () => {
+  try {
+    const response = await api.delete(`/api/users/profile`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error deleting profile:', error);
+    throw error;
+  }
+};
