@@ -21,7 +21,7 @@ const SaveBook = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loading, setLoading] = useState(false);
-    const [deleting, setdeleting] = useState(false);
+    const [deleting, setDeleting] = useState(false);
     const [showAddCard, setShowAddCard] = useState(false);
     const [selectedCollectionsIds, setSelectedCollectionsIds] = useState<string[]>([]);
 
@@ -114,7 +114,7 @@ const SaveBook = () => {
 
     const handleDelete = async () => {
 
-        setdeleting(true);
+        setDeleting(true);
 
         try{
             await deleteBook(
@@ -125,7 +125,7 @@ const SaveBook = () => {
         } catch (err) {
             console.error(err);
         }  finally {
-            setdeleting(false);
+            setDeleting(false);
         }     
     };
 
