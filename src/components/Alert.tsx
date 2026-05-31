@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
@@ -8,20 +6,22 @@ import Loading from './Loading'
 interface AlertProps{
     handleDelete?: any;
     loading?: boolean;
-    isSignOut: boolean;
-    handleSignout?: any
+    isSignOut?: boolean;
+    handleSignout?: any;
+    buttonText?: any;
+    buttonAlert?: any;
 }
 
-const Alert: React.FC<AlertProps> = ({handleDelete, loading, isSignOut, handleSignout}) => {
+const Alert: React.FC<AlertProps> = ({handleDelete, loading, isSignOut, handleSignout, buttonText, buttonAlert}) => {
   const [open, setOpen] = useState(false)
 
   return (
     <div className='font-inter w-full flex justify-end'>
       <button
         onClick={() => setOpen(true)}
-        className={`rounded-xl bg-red-500 transition-transform active:scale-95 h-min py-3 px-5 mt-2 cursor-pointer w-full ${isSignOut? 'hidden' : ''}`}
+        className={`rounded-xl hover:bg-red-400  bg-red-500 transition-transform active:scale-95 h-min py-3 px-5 font-bold cursor-pointer w-full ${isSignOut? 'hidden' : ''}`}
       >
-        Delete account
+        {buttonText}
       </button>
       <button 
         onClick={() => setOpen(true)}
@@ -47,11 +47,11 @@ const Alert: React.FC<AlertProps> = ({handleDelete, loading, isSignOut, handleSi
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <DialogTitle as="h3" className="text-base font-semibold text-white">
-                      {isSignOut? 'Log out' : 'Delete account'}
+                        {buttonText}
                     </DialogTitle>
                     <div className="mt-2">
                       <p className="text-sm text-gray-400">
-                        {isSignOut? "Are you sure you want to log out of your account?" : "Are you sure you want to delete your account? All of your data will be permanently removed. This action cannot be undone."}
+                        {buttonAlert}
                       </p>
                     </div>
                   </div>
