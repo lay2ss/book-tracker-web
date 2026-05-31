@@ -13,6 +13,7 @@ import { getBookByDbId } from "../services/bookService";
 import AddCardCollections from "./AddCardCollections";
 import heartActiveIcon from "../assets/icon/heart_active.svg";
 import heartIcon from "../assets/icon/heart.svg";
+import Alert from "./Alert";
 
 const SaveBook = () => {
     const { id } = useParams<{ id: string }>();
@@ -138,10 +139,6 @@ const SaveBook = () => {
 
     const [isActive, setIsActive] = useState(true);
     const [isActiveRead, setIsActiveRead] = useState(false);
-    const toggleState = () => {isActiveRead === false? 
-        (setIsActive(false), setIsActiveRead(true)) 
-            : 
-        (setIsActiveRead(false), setIsActive(true))};
 
     useEffect(() => {
         setLoading(true)
@@ -197,8 +194,8 @@ const SaveBook = () => {
                             Reading Status
                         </h2>
                         <div className="flex mt-2 relative w-full">
-                            <button onClick={toggleState} className={`absolute w-1/2 ${isActive? "addButtonActived" : "addButton"}`}>Reading</button>
-                            <button onClick={toggleState}  className={`right-5 md:right-10 absolute w-1/2 ${isActiveRead? "addButtonActived" : "addButton"}` }>Finished</button>
+                            <button onClick={() => {setIsActive(true), setIsActiveRead(false)}} className={`absolute w-1/2 ${isActive? "addButtonActived z-2" : "addButton z-0"}`}>Reading</button>
+                            <button onClick={() => {setIsActive(false), setIsActiveRead(true)}}  className={`right-5 md:right-10 absolute w-1/2 ${isActiveRead? "addButtonActived" : "addButton"}` }>Finished</button>
                         </div>
                     </div>
                     <div className={`${!isActive? "block" : "hidden"}`}>
@@ -257,17 +254,22 @@ const SaveBook = () => {
             <div className="w-full border-b border-white/10 py-3"/>
             <div className="w-full flex flex-col">
                 <div className="gap-2 pt-8 w-full flex flex-col sm:flex-row">
-                    <div className="flex gap-2 w-full">
+                    <div className="flex gap-2 w-full mb-2">
                         <button onClick={location.pathname.startsWith("/book/add/")? handleSave : handleUpdate} disabled={loading} className="addButtonActived transition-transform active:scale-98 w-2/3 md:w-60">{loading? 
                                     (<Loading/>) 
                                     : 
                                     (<p>Save</p>)}</button>
                         <button onClick={() => navigate(-1)} className="w-1/3 addButton md:w-35 transition-transform active:scale-98">Cancel</button>
                     </div> 
-                    <button onClick={handleDelete} disabled={deleting} className={`py-3 px-5 border border-red-500 rounded-xl bg-red-500 cursor-pointer transition-transform active:scale-98 h-fit ${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>{deleting? 
-                                    (<Loading/>) 
-                                    : 
-                                    (<p>Delete</p>)}</button>
+                    <div className={`${location.pathname.startsWith("/book/add/")? "hidden" : ""}`}>
+                        <Alert
+                        buttonText="Delete"
+                        loading={deleting}
+                        handleDelete={handleDelete}
+                        buttonAlert={(<span>Are you sure you want to delete this saved book?
+                        <br />This action cannot be undone.</span>)}    
+                        />
+                    </div>
                 </div>
                 <button onClick={() => {setShowAddCard(true), handleScrollTop()}} className={`addButton transition-transform w-full active:scale-98 md:w-97 mt-3 ${location.pathname.startsWith("/book/add/")? "" : "hidden"}`}>Add to Collection</button>
             <AddCardCollections
