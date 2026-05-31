@@ -1,26 +1,14 @@
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { useState } from "react";
-import logoutIcon from "../assets/icon/logout.svg";
 import menuBarIcon from "../assets/icon/menu_bar.svg";
 import closeIcon from "../assets/icon/close.svg";
 import logoname from "../assets/logo/logo_name.svg";
 import b_purple_logo from "../assets/logo/b_purple_logo.svg";
-import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("recent_book_searches");
-        navigate("/login", { replace: true });
-    }
 
   return (
     <nav className={`w-full font-inter mx-auto fixed z-10 top-0 md:bg-white/0.5 md:backdrop-blur-sm md:border-b md:border-white/10 bg-white/0.5 ${!isOpen? "backdrop-blur-sm" : "" }`}>
@@ -34,18 +22,15 @@ const Nav = () => {
                     <DesktopNav/>
                 </div>
                 <div className="flex gap-3 my-auto">
-                    <button onClick={handleLogout} className="hidden md:flex cursor-pointer active:scale-95">
-                        <img src={logoutIcon} alt="log out icon" />
-                    </button>
                     <div className="relative flex md:hidden">
                         <button onClick={toggleMenu} className="z-10">
                             <img src={isOpen? closeIcon : menuBarIcon } alt="menu bar icon" className={`h-min my-auto cursor-pointer ${isOpen? 'hidden' : 'block'}`}/>
                         </button>
-                        <div className={`fixed right-0 top-0 z-5 h-fit w-full ${isOpen? 'flex' : 'hidden'}`}>
-                            <MobileNav
-                            toggle={toggleMenu}
-                            logout={handleLogout}
-                            />
+                        <div className={`fixed inset-0 z-50 transition-opacity duration-400 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+                            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={toggleMenu} />
+                            <div className={`fixed right-0 top-0 w-[70vw] transition-transform duration-400 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                                <MobileNav toggle={toggleMenu} />
+                            </div>
                         </div>
                     </div>
                 </div>
