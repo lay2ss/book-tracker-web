@@ -136,7 +136,7 @@ const CollectionDetails = () => {
                 onChange={(e) => setName(e.target.value)}
                 type="text" 
                 placeholder="Enter new collection name"
-                className="p-3 rounded-md"/>
+                className="p-3 rounded-md bg-white/10 focus:ring-1 focus:ring-[#b99ef6] outline-none"/>
               <div className="flex gap-2 pt-5 justify-end">
                 <button onClick={handleEdit} className='h-min py-3 px-5 cursor-pointer text-[#1A1625] addButtonActived'>Save</button>
                 <button onClick={() => {setshowEdit(!showEdit), setName("")}} className='h-min py-3 px-5 cursor-pointer addButton'>Cancel</button>

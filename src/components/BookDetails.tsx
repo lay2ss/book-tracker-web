@@ -58,7 +58,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({id, close}) => {
                             <img src={book.coverImage || placeHolder} alt={book.title} className="h-fit rounded-md gray-shadow min-w-35 w-fit" />
                             <div className="flex gap-2 flex-col mt-3 md:min-w-40">
                                 <Link to={`/book/add/${id}`}>
-                                    <button onClick={addToLibrary} className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">
+                                    <button onClick={addToLibrary} className="bg-[#b99ef6] hover:bg-[#b99ef6]/80 text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95">
                                         <img src={bookMarkIcon} alt="bookmark icon" />
                                         Add to Library
                                     </button>

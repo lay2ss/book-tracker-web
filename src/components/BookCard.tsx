@@ -60,12 +60,12 @@ const BookCard: React.FC<BookCardProps> = ({ description, cover, title, authorNa
                             <div className="flex justify-between md:min-w-[340px] flex-col xs:flex-row gap-3 xs:gap-0 mt-2 md:mt-0">
                                 <div className="flex gap-3 w-full flex-col xs:flex-row">
                                     <Link to={`/book/add/${id}`}>
-                                        <button className="purple-bg text-[#252033] flex rounded-xl px-3 py-1 items-center font-bold cursor-pointer transition-transform active:scale-95 w-full xs:w-fit justify-center">
+                                        <button className="bg-[#b99ef6] hover:bg-[#b99ef6]/80 text-[#252033] flex rounded-xl px-3 py-2 items-center font-bold cursor-pointer transition-transform active:scale-95 w-full xs:w-fit justify-center">
                                             <img src={bookmarkIcon} alt="bookmark icon" />
                                             Add to Library
                                         </button>
                                     </Link>
-                                        <button className="rounded-xl px-3 py-1 border-[#b99ef6] border cursor-pointer transition-transform active:scale-95 w-full xs:w-fit" onClick={() => {setCard(true), handleScrollTop()}}>Read More</button> 
+                                        <button className="rounded-xl px-3 py-2 bg-white/10 hover:bg-white/20 cursor-pointer transition-transform active:scale-95 w-full xs:w-fit" onClick={() => {setCard(true), handleScrollTop()}}>Read More</button> 
                                 </div>
                             </div>
                     </div>
