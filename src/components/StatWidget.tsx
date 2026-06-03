@@ -7,7 +7,7 @@ interface StatWidgetProps{
 
 const StatWidget: React.FC<StatWidgetProps> = ({stat, icon, text, alt}) => {
   return (
-            <div className="stats-style border purple-border">
+            <div className="stats-style">
                 <div className="flex gap-2">
                     <img src={icon} alt={`${alt} icon`} />
                     <p>
