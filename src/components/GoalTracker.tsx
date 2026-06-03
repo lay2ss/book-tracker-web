@@ -19,7 +19,7 @@ const GoalTracker: React.FC<GoalTrackerProps> = ({
   size = 200,
   strokeWidth = 12,
   primaryColor = "text-[#b99ef6]",
-  secondaryColor = "text-[#252033]",
+  secondaryColor = "text-white/20",
 }) => {
 
   const center = size / 2;
