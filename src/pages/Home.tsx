@@ -109,7 +109,7 @@ const Home = () => {
                             handleSearch();
                             }
                         }}
-                            className="border-none py-2 px-3 rounded-md outline-none ring-1 ring-[#b99ef6] w-full focus:shadow-[0px_0px_19px_0px_rgba(185,158,246,0.9)]"/>
+                            className="border-none py-2 px-3 rounded-md outline-none ring-1 ring-[#b99ef6]/70 w-full focus:ring-[#b99ef6]"/>
                         <button className="right-4 top-2 icon-style" onClick={handleSearch}>
                             <img src={searchIcon} alt="search icon"/>
                         </button>
@@ -132,7 +132,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="mt-2">
-                    <div className="flex p-2 justify-center rounded-full border border-[#b99ef6] flex-wrap max-w-[250px] mx-auto">
+                    <div className="flex p-2 justify-center rounded-full bg-white/10 flex-wrap max-w-[250px] mx-auto">
                         <div className="flex items-center">
                         <div>
                             <img src={fireIcon} alt="fire icon" />
