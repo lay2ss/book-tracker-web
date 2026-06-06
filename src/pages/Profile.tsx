@@ -123,7 +123,7 @@ const Profile = () => {
         <div className="flex md:justify-between flex-wrap mt-5 justify-center gap-5">
           <div>
             <h1 className="text-2xl font-bold text-center md:text-start">Reading Goal</h1>
-            <div className="flex mt-5 border-white/20 border rounded-xl p-3 justify-center md:w-fit">
+            <div className="flex mt-5 bg-white/5 rounded-xl p-3 justify-center md:w-fit">
             {loadingSettings? <Loading/> 
             
               :
@@ -141,7 +141,7 @@ const Profile = () => {
             <div>
               {loadingBooks? <div className="mt-5"><Loading/></div> : 
               (
-                <div className="mt-5 bg-dark-purple gap-4 flex flex-col p-3 rounded-xl max-h-100 overflow-y-auto">
+                <div className="mt-5 bg-white/5 gap-4 flex flex-col p-3 rounded-xl max-h-100 overflow-y-auto">
                   {recent.length < 1? (<p>no recent activity</p>) :
                    recent.map((book) => (
                     <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
