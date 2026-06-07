@@ -1,6 +1,6 @@
 import '../checkbox.css';
 import Genres from '../components/Genres';
-import { Genresdata } from '../data/constants';
+import { genresData } from '../data/constants';
 import { getPreferences, updatePreferences } from '../services/bookService';
 import { useEffect, useState } from 'react';
 import Loading from '../components/Loading';
@@ -159,7 +159,7 @@ const Settings = () => {
                 <div>
                   <h2 className='mt-1'>Select your favorites genres to get better recommendations</h2>
                   <div className='flex flex-wrap gap-2 mt-3'>
-                    {Genresdata.map((item) => (
+                    {genresData.map((item) => (
                       <div key={item.id}>
                         <Genres 
                           genre={item.genre}
@@ -174,22 +174,27 @@ const Settings = () => {
               </div>
               }
             </div>
-            <div className="border border-white/20 p-4 rounded-xl">
+            <div className="border border-white/20 p-4 rounded-xl mb-2">
                 <h1 className="text-xl font-bold text-start">Account Management</h1>
                 <div className='flex flex-col gap-2 text-sm md:w-fit mt-3'>
-                  <a href="/change-password" className='flex md:w-fit'>
-                    <button className='rounded-xl border-[#b99ef6] border transition-transform active:scale-95 h-min py-3 px-9 cursor-pointer w-full'>Change password</button>
+                  <a href="/change-password" className='flex md:w-fit mb-2'>
+                    <button className='rounded-xl bg-white/10 hover:bg-white/20 transition-transform active:scale-95 h-min py-3 px-9 font-bold cursor-pointer w-full'>Change password</button>
                   </a>
                   <Alert
                   handleDelete={handleDelete}
                   loading={deleting}
-                  isSignOut={false}
+                  buttonText='Delete account'
+                  buttonAlert={(<span>Are you sure you want to delete your account? 
+                    <br />All of your data will be permanently removed. 
+                    <br />This action cannot be undone.</span>)}
                   />
                 </div>
             </div>
               <Alert
                   handleSignout={handleLogout}
                   isSignOut={true}
+                  buttonText='Log out'
+                  buttonAlert='Are you sure you want to log out of your account?'
               />
         </main>
     </section>
