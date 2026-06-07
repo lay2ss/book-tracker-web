@@ -66,10 +66,16 @@ const CollectionDetails = () => {
         name,
         id
     );
-    alert("Collection name updated");
-    window.location.reload();
-    } catch (err) {
+      alert("Collection name updated");
+      window.location.reload();
+    } catch (err: any) {
         console.error(err);
+        if (err.response && err.response.data) {
+          const backendMessage = err.response.data.message || "Invalid request.";
+          alert(backendMessage);
+        } else {
+          alert("Something went wrong. Please try again later.");
+        }
     }  finally {
         setLoading(false);
     }     

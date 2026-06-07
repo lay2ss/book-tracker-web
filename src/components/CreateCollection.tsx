@@ -18,8 +18,14 @@ const CreateCollection = () => {
           );
           alert("Collection created");
           navigate('/profile');
-          } catch (err) {
-              console.error(err);
+          } catch (err: any) {
+            console.error(err);
+            if (err.response && err.response.data) {
+            const backendMessage = err.response.data.message || "Invalid request.";
+            alert(backendMessage);
+            } else {
+            alert("Something went wrong. Please try again later.");
+        }
           }  finally {
               setLoading(false);
           }     
