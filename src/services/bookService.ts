@@ -73,7 +73,9 @@ export const getBookById = async (bookId: string): Promise<BookSearchResult | nu
 export const getRecommendationsByGenres = async (genres: string[]): Promise<any[]> => {
   if (!genres || genres.length === 0) return [];
 
-  const genreQuery = `subject:(${genres.join('|')})`;
+  const formattedGenres = genres.map(genre => genre.replace('-', '+'));
+
+  const genreQuery = `subject:(${formattedGenres.join('|')})`;
 
   try {
     const response = await axios.get(`${API_BASE_URL}/volumes`, {
