@@ -12,7 +12,7 @@ const Collection: React.FC<CollectionProps> = ({name, qnt, isSelected, onSelect,
   return (
       <div onClick={() => onSelect?.(String(id))} className={`bg-dark-purple rounded-xl w-full p-3 sm:w-50 cursor-pointer ${isSelected? 'border-2 rounded-md purple-border' : ''}`}>
           <h2>{name}</h2>
-          <p className="opacity-65 text-sm">{Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : "no books added"}</p>
+          <p className="opacity-65 text-sm">{Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : ":/"}</p>
       </div>
   )
 }
