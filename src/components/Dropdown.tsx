@@ -4,9 +4,10 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 interface DropdownProps{
     onDelete?: any;
     onEdit?: any;
+    onRemove?: any;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({onDelete, onEdit}) => {
+const Dropdown: React.FC<DropdownProps> = ({onDelete, onEdit, onRemove}) => {
   return (
     <Menu as="div" className="relative inline-block font-inter">
       <MenuButton className="inline-flex w-full justify-center rounded-md px-2 py-1 text-sm font-semibold text-white inset-ring-1 inset-ring-white/10 hover:bg-white/10">
@@ -24,6 +25,14 @@ const Dropdown: React.FC<DropdownProps> = ({onDelete, onEdit}) => {
               className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:text-white data-focus:outline-hidden"
             >
               Edit collection name
+            </a>
+          </MenuItem>
+          <MenuItem>
+            <a onClick={onRemove}
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:text-white data-focus:outline-hidden"
+            >
+              Remove Book
             </a>
           </MenuItem>
           <MenuItem>
