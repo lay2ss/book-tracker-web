@@ -200,7 +200,9 @@ const CollectionDetails = () => {
               <AddCardBooks 
               onCancel={() => setShowAddCard(false)}
               collectionId={id}
-              isOpen={showAddCard}/>
+              isOpen={showAddCard}
+              savedBooks={location.pathname.startsWith("/collection/favorites") ? favorites : books}
+              />
           </div>
         }
       </main>
