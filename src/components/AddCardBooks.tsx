@@ -8,9 +8,10 @@ interface AddCardProps{
     onCancel: any;
     collectionId: any;
     isOpen?: Boolean;
+    savedBooks: any[];
 }
 
-const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen}) => {
+const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, savedBooks}) => {
 
     const [loading, setLoading] = useState(false);
     const [books, setBooks] = useState<any[]>([]);
@@ -41,7 +42,11 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen}) 
         ? prev.filter(bookId => bookId !== id) 
         : [...prev, id] 
     );
-  };
+    };
+
+    const booksNotSaved = books.filter(book => {
+    return !savedBooks.some(savedBook => savedBook.id === book.id);
+    });
 
   const handleSaveToCollection = async () => {
     try {
@@ -69,7 +74,7 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen}) 
             <div className="border border-white/20 p-4 rounded-xl bg-[#1a191b]">
             {loading? <Loading /> :
             (<div className="flex flex-wrap gap-3 sm:gap-5 font-inter text-sm sm:text-[16px] overflow-y-auto max-w-200 max-h-130">
-                    {books.map((book) => (
+                    {booksNotSaved.length >= 1? booksNotSaved.map((book) => (
                         <Book key={book.id}
                         id={book.id}  
                         cover={book.coverImage || placeHolder}
@@ -79,7 +84,7 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen}) 
                         hoverTitle={book.title}
                         isSelected={selectedBookIds.includes(book.id)}
                         onSelect={handleSelectBook}/>  
-                    ))}
+                    )) : (<p className="p-5">All saved books have already been added to this collection.</p>)}
                 </div>
             )}
                 <div className="flex gap-2 pt-5 justify-end">
