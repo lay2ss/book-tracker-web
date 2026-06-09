@@ -15,7 +15,8 @@ const CollectionDetails = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
-  const [showEdit, setshowEdit] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [showX, setShowX] = useState(false);
   const [showAddCard, setShowAddCard] = useState(false);
   const [collection, setCollection] = useState<any>({});
   const [books, setBooks] = useState<any[]>([]); 
@@ -28,8 +29,10 @@ const CollectionDetails = () => {
       if (location.pathname.startsWith("/collection/favorites"))
       {
         await toggleFavorite(bookId, false);
+        setShowX(false);
       } else {
         await removeBookFromCollection(bookId, id);
+        setShowX(false);
       };
       alert("Book removed");
       window.location.reload();
@@ -145,7 +148,7 @@ const CollectionDetails = () => {
                 className="p-3 rounded-md bg-white/10 focus:ring-1 focus:ring-[#b99ef6] outline-none"/>
               <div className="flex gap-2 pt-5 justify-end">
                 <button onClick={handleEdit} className='h-min py-3 px-5 cursor-pointer text-[#1A1625] addButtonActived'>Save</button>
-                <button onClick={() => {setshowEdit(!showEdit), setName("")}} className='h-min py-3 px-5 cursor-pointer addButton'>Cancel</button>
+                <button onClick={() => {setShowEdit(!showEdit), setName("")}} className='h-min py-3 px-5 cursor-pointer addButton'>Cancel</button>
               </div>
               </div>
             </div>
@@ -158,13 +161,15 @@ const CollectionDetails = () => {
                 <div className={`${location.pathname.startsWith("/collection/favorites")? 'hidden' : 'block'}`}>
                   <Dropdown 
                   onDelete={() => handleDelete()}
-                  onEdit={() => setshowEdit(!showEdit)} />
+                  onEdit={() => {setShowEdit(!showEdit), setShowX(false)}}
+                  onRemove={() => setShowX(!showX)}
+                   />
                 </div>
               </div>
               <p className="opacity-65">{location.pathname.startsWith("/collection/favorites")?
-                Number(qntFavorites)? qntFavorites == 1? qntFavorites + " book" : qntFavorites + " books" : "no books added"
+                Number(qntFavorites)? qntFavorites == 1? qntFavorites + " book" : qntFavorites + " books" : ":/"
                 :
-                Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : "no books added"}</p>
+                Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : ":/"}</p>
             </div>
             <div className="flex gap-4 flex-wrap mt-5">
               { location.pathname.startsWith("/collection/favorites")?
@@ -187,11 +192,12 @@ const CollectionDetails = () => {
                   remove={() => handleRemove(book.id)} 
                   cover={book.coverImage || placeHolder}
                   show="hidden"
+                  showX={showX? "" : "hidden"}
                   goToBook={() => navigate(`/book/edit/${book.externalId}/${book.id}`)}
                   />
             ))}
             </div>
-            <button disabled={showEdit} className={`flex w-full justify-center mx-auto border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center mt-5 xs:px-10 p-2 ${location.pathname.startsWith("/collection/favorites")? "hidden" : "flex"}`} onClick={() => {handleScrollTop(), setShowAddCard(true)}}>
+            <button disabled={showEdit} className={`flex w-full justify-center mx-auto border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center mt-5 xs:px-10 p-2 ${location.pathname.startsWith("/collection/favorites")? "hidden" : "flex"}`} onClick={() => {handleScrollTop(), setShowAddCard(true), setShowX(false)}}>
               <div className="flex items-center gap-2">  
                   <img src={addIcon} alt="add icon" className="h-min"/>
                   <p>Add Book</p>
