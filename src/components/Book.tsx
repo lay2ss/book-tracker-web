@@ -1,6 +1,5 @@
 import CircularProgress from "./CircularProgress";
 import closeIcon from "../assets/icon/close.svg";
-import arrowIcon from "../assets/icon/arrow_forward.svg";
 
 interface BookProps{
     current?: number;
@@ -22,7 +21,7 @@ const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, sho
 
   return (
         <div className={`relative ${isSelected? 'border-2 rounded-md purple-border' : ''}`} onClick={() => onSelect?.(String(id))}>
-            <div className={`opacity-0 hover:opacity-85 absolute left-1/2 -translate-x-1/2 text-xs outline-white/10 rounded-md bg-[#1a191b] p-1 w-full h-full ${showHover}`}>
+            <div onClick={goToBook} className={`opacity-0 hover:opacity-85 absolute left-1/2 -translate-x-1/2 text-xs outline-white/10 rounded-md bg-[#1a191b] p-1 w-full h-full ${showHover}`}>
                 <div className="flex items-center justify-center w-full h-full">
                     <p className="text-center">{hoverTitle}</p>
                 </div>
@@ -41,11 +40,6 @@ const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, sho
                     <CircularProgress currentPage={current} totalPages={total} />
                 </div>
             </div>
-            <button onClick={goToBook} className={`flex shrink-0 text-center cursor-pointer ${showX}`}>
-                <div className="bg-[#1a191b] absolute bottom-2 cursor-pointer hover:inset-ring-white/70 w-full opacity-70 hover:opacity-100">
-                    <img src={arrowIcon} alt="close icon" className="mx-auto"/>
-                </div>
-            </button>
         </div>
   )
 }
