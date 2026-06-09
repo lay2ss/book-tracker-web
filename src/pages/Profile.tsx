@@ -49,7 +49,6 @@ const Profile = () => {
         setFinishedThisMonth(booksFinishedThisMonth);
         setTotalPages(totalPagesFinished);
         setBooks(data);
-        console.log(finishedThisMonth)
       } catch (error) {
         console.error("Failed to load books:", error);
       } finally {
