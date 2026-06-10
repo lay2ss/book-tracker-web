@@ -5,20 +5,19 @@ import Collection from "../components/Collection";
 import addIcon from "../assets/icon/add.svg";
 import bookIcon from "../assets/icon/book.svg";
 import pageIcon from "../assets/icon/page.svg";
-import fireIcon from "../assets/icon/fire.svg";
+import booksIcon from "../assets/icon/books.svg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getBooks, getCollections, getPreferences } from "../services/bookService";
 import Loading from "../components/Loading";
-import Streak from "../components/Streak";
 
 const Profile = () => {
 
   const [loadingBooks, setLoadingBooks] = useState(false);
-  const [books, setBooks] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<any[]>([]);
   const [recent, setRecent] = useState<any[]>([]);
   const [finishedThisYear, setFinishedThisYear] = useState<any[]>([]);
+  const [finished, setFinished] = useState<any[]>([]);
   const [finishedThisMonth, setFinishedThisMonth] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -39,16 +38,17 @@ const Profile = () => {
         const now = new Date();
         const year = now.getFullYear();
         const month = now.getMonth();
+        const booksFinished = data.filter((book:any) => book.status === "FINISHED");
         const booksFinishedThisYear = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year);
         const booksFinishedThisMonth = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year && book.readMonth === month + 1);
         const totalPagesFinished = data.filter((book: any) => book.status === "FINISHED")
         .reduce((sum: number, book:any) => sum + (book.totalPage || 0), 0);
         setFavorites(favoriteBooks);
         setRecent(recentBooks);
+        setFinished(booksFinished);
         setFinishedThisYear(booksFinishedThisYear);
         setFinishedThisMonth(booksFinishedThisMonth);
         setTotalPages(totalPagesFinished);
-        setBooks(data);
       } catch (error) {
         console.error("Failed to load books:", error);
       } finally {
@@ -111,9 +111,9 @@ const Profile = () => {
             alt="page"
             />
             <StatWidget 
-            stat={loadingBooks? "..." : <Streak books={books} />}
-            text="Reading streak"
-            icon={fireIcon}
+            stat={loadingBooks? "..." : finished.length}
+            text="Total books"
+            icon={booksIcon}
             alt="fire"
             />
           </div>
