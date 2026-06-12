@@ -114,7 +114,7 @@ const Profile = () => {
             stat={loadingBooks? "..." : finished.length}
             text="Total books"
             icon={booksIcon}
-            alt="fire"
+            alt="books"
             />
           </div>
         </div>
