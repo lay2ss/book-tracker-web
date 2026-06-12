@@ -1,13 +1,11 @@
 import Book from "../components/Book";
 import BookCard from "../components/BookCard";
 import searchIcon from "../assets/icon/search.svg";
-import fireIcon from "../assets/icon/fire.svg";
 import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks, getBooks, getPreferences, getRecommendationsByGenres } from "../services/bookService";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
-import Streak from "../components/Streak";
 
 const Home = () => {
 
@@ -131,19 +129,9 @@ const Home = () => {
                         )}
                     </div>
                 </div>
-                <div className="mt-2">
-                    <div className="flex p-2 justify-center rounded-full bg-white/10 flex-wrap max-w-[250px] mx-auto">
-                        <div className="flex items-center">
-                        <div>
-                            <img src={fireIcon} alt="fire icon" />
-                        </div>
-                            <p className="ml-1">Reading streak: <span className="font-bold purple-text">{loadingFeed? "..." : <Streak books={books}/>}</span></p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-        <div className="p-5">
+        <div className="px-5">
             {loading? (<div className="flex justify-center items-center w-full"> 
    <div className="animate-spin inline-block size-6 border-3 border-current border-t-transparent purple-text rounded-full" role="status" aria-label="loading">
             <span className="sr-only">Loading...</span>
@@ -172,7 +160,7 @@ const Home = () => {
           </div>
         )}
         </div>
-        <div className="w-full border-b border-white/10"/>
+        {/* <div className="w-full border-b border-white/10"/> */}
         <div className="p-5">
             <h1 className="text-2xl pb-5 font-bold">Your next reading?</h1>
             {loadingDashboard? <Loading/> 
