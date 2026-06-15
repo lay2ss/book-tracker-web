@@ -59,7 +59,7 @@ const Login = () => {
 
       {/* mobile */}
       <div className='md:hidden mx-auto'>
-        <main className='bg-dark-purple  w-[90vw] md:w-[70vw] rounded-2xl h-min gray-shadow mx-auto'>
+        <main className='bg-white/5 w-[90vw] md:w-[70vw] rounded-2xl h-min gray-shadow mx-auto'>
           
           {/* mobile sign up form */}
           <div className={`p-10 ${isSignUp ? 'block' : 'hidden'}`}>
@@ -106,7 +106,7 @@ const Login = () => {
       </div>
 
       {/* desktop */}
-      <div className='hidden md:block w-200 max-w-full min-h-125 rounded-[20px] shadow-2xl relative overflow-hidden mx-auto bg-dark-purple'>
+      <div className='hidden md:block w-200 max-w-full min-h-125 rounded-[20px] shadow-2xl relative overflow-hidden mx-auto bg-white/5'>
         
         {/* desktop sign up form */}
         <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-1/2 flex items-center justify-center flex-col px-10 
@@ -157,7 +157,7 @@ const Login = () => {
           
           <div className={`text-white relative -left-full h-full w-[200%] transform transition-transform duration-600 ease-in-out
             ${isSignUp ? 'translate-x-1/2' : 'translate-x-0'}`}
-            style={{ background: 'linear-gradient(to right, #4e1c80, #1A1625)' }}>
+            style={{ background: 'linear-gradient(to right, #413a54, #1A1625)' }}>
             
             {/* left panel (sign up) */}
             <div className={`absolute flex flex-col items-center justify-center h-full w-1/2 px-8 text-center top-0 transform transition-transform duration-600 ease-in-out
