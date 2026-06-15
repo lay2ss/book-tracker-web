@@ -17,6 +17,11 @@ html {
     --black: #1a191b;
 }
 
+::selection {
+  background: #9d77f599;
+  color: #000;        
+}
+
 *::-webkit-scrollbar {
   width: 10px;   
   height: 10px;  
