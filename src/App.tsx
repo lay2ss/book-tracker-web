@@ -5,14 +5,15 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from './pages/Profile';
 import Settings from "./pages/Settings";
-import SaveBook from "./components/SaveBook";
-import CollectionDetails from "./components/CollectionDetails";
-import CreateCollection from "./components/CreateCollection";
+import SaveBook from "./pages/SaveBook";
+import CollectionDetails from "./pages/CollectionDetails";
+import CreateCollection from "./pages/CreateCollection";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 import ResetPassword from "./pages/ResetPassword";
 import { useAuth, AuthProvider } from './contexts/AuthContext';
 import { PrivateRoute } from "./routes/PrivateRoute";
+import Footer from "./components/Footer";
 
 function AppLayout() {
   const location = useLocation();
@@ -39,6 +40,7 @@ function AppLayout() {
         <Route path="/collection/favorites" element={<PrivateRoute><CollectionDetails /></PrivateRoute>} />
         <Route path="/collection/create" element={<PrivateRoute><CreateCollection /></PrivateRoute>} />
       </Routes>
+      <Footer />
     </>
   );
 }

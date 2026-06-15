@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createCollection } from "../services/bookService";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
 
 const CreateCollection = () => {

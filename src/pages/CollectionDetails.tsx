@@ -1,11 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import addIcon from "../assets/icon/add.svg";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { getCollectionById, removeBookFromCollection, deleteCollection, updateCollectionName, getFavoriteBooks, toggleFavorite} from "../services/bookService";
 import { useState, useEffect } from "react";
-import Book from "./Book";
-import Dropdown from "./Dropdown";
-import AddCardBooks from "./AddCardBooks";
+import Book from "../components/Book";
+import Dropdown from "../components/Dropdown";
+import AddCardBooks from "../components/AddCardBooks";
 import placeHolder from "../assets/icon/placeholder.png";
 import arrowBackIcon from "../assets/icon/arrow_back.svg";
 import { useLocation } from "react-router-dom";

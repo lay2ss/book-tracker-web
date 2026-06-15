@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { addBook, getBookById } from "../services/bookService";
 import placeHolder from "../assets/icon/placeholder.png";
-import DatePicker from "./DatePicker";
-import Rating from "./Rating";
+import DatePicker from "../components/DatePicker";
+import Rating from "../components/Rating";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { updateBook } from "../services/bookService";
 import { deleteBook } from "../services/bookService";
 import { getBookByDbId } from "../services/bookService";
-import AddCardCollections from "./AddCardCollections";
+import AddCardCollections from "../components/AddCardCollections";
 import heartActiveIcon from "../assets/icon/heart_active.svg";
 import heartIcon from "../assets/icon/heart.svg";
-import Alert from "./Alert";
+import Alert from "../components/Alert";
 
 const SaveBook = () => {
     const { id } = useParams<{ id: string }>();
