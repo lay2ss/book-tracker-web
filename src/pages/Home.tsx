@@ -160,7 +160,6 @@ const Home = () => {
           </div>
         )}
         </div>
-        {/* <div className="w-full border-b border-white/10"/> */}
         <div className="p-5">
             <h1 className="text-2xl pb-5 font-bold">Your next reading?</h1>
             {loadingDashboard? <Loading/> 
