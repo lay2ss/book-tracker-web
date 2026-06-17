@@ -21,7 +21,7 @@ const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, sho
 
   return (
         <div className={`relative ${isSelected? 'border-2 rounded-md purple-border' : ''}`} onClick={() => onSelect?.(String(id))}>
-            <div onClick={goToBook} className={`opacity-0 hover:opacity-85 absolute left-1/2 -translate-x-1/2 text-xs outline-white/10 rounded-md bg-[#1a191b] p-1 w-full h-full ${showHover}`}>
+            <div onClick={goToBook} className={`cursor-pointer opacity-0 hover:opacity-85 absolute left-1/2 -translate-x-1/2 text-xs outline-white/10 rounded-md bg-[#1a191b] p-1 w-full h-full ${showHover}`}>
                 <div className="flex items-center justify-center w-full h-full">
                     <p className="text-center">{hoverTitle}</p>
                 </div>
