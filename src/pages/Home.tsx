@@ -5,7 +5,7 @@ import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks, getBooks, getPreferences, getRecommendationsByGenres } from "../services/bookService";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Loading from "../components/Loading";
+import { HomeSk, HomeSk2 } from "../components/Skeleton";
 
 const Home = () => {
 
@@ -162,7 +162,7 @@ const Home = () => {
         </div>
         <div className="p-5">
             <h1 className="text-2xl pb-5 font-bold">Your next reading?</h1>
-            {loadingDashboard? <Loading/> 
+            {loadingDashboard? <HomeSk/> 
 
             :
             
@@ -189,7 +189,7 @@ const Home = () => {
             }
         </div>
         <div className="w-full border-b border-white/10"/>
-        {loadingFeed? <div className="mt-50"><Loading/></div> : 
+        {loadingFeed? <div className=""><HomeSk2/></div> : 
         (<div>
             <div className="p-5">
                 <h1 className="text-2xl font-bold">Currently reading</h1>
