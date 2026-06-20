@@ -9,7 +9,7 @@ import booksIcon from "../assets/icon/books.svg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getBooks, getCollections, getPreferences } from "../services/bookService";
-import Loading from "../components/Loading";
+import { ProfileSk, ProfileSk2, ProfileSk3 } from "../components/Skeleton";
 
 const Profile = () => {
 
@@ -98,24 +98,24 @@ const Profile = () => {
         <main className='main-wrapper'>
         <div className="flex flex-wrap md:flex-nowrap w-full justify-center gap-5 items-center">
           <div className="flex md:gap-2  flex-wrap gap-2 md:justify-center md:flex-nowrap lg:gap-4">
-            <StatWidget 
-            stat={loadingBooks? "..." : finishedThisYear.length}
-            text="Read this year"
-            icon={bookIcon}
-            alt="book"
-            />
-            <StatWidget 
-            stat={loadingBooks? "..." : totalPages}
-            text="Total pages"
-            icon={pageIcon}
-            alt="page"
-            />
-            <StatWidget 
-            stat={loadingBooks? "..." : finished.length}
-            text="Total books"
-            icon={booksIcon}
-            alt="books"
-            />
+              <StatWidget 
+              stat={loadingBooks? "..." : finishedThisYear.length}
+              text="Read this year"
+              icon={bookIcon}
+              alt="book"
+              />
+              <StatWidget 
+              stat={loadingBooks? "..." : totalPages}
+              text="Total pages"
+              icon={pageIcon}
+              alt="page"
+              />
+              <StatWidget 
+              stat={loadingBooks? "..." : finished.length}
+              text="Total books"
+              icon={booksIcon}
+              alt="books"
+              />
           </div>
         </div>
         <div className="w-full border-b border-white/10 py-5"/>
@@ -123,7 +123,7 @@ const Profile = () => {
           <div>
             <h1 className="text-2xl font-bold text-center md:text-start">Reading Goal</h1>
             <div className="flex mt-5 bg-white/5 rounded-xl p-3 justify-center md:w-fit">
-            {loadingSettings? <Loading/> 
+            {loadingSettings? <ProfileSk3/> 
             
               :
     
@@ -138,7 +138,7 @@ const Profile = () => {
           <div className="md:w-2/3 w-full text-center md:text-start">
             <h1 className="text-2xl font-bold">Recent Activity</h1>
             <div>
-              {loadingBooks? <div className="mt-5"><Loading/></div> : 
+              {loadingBooks? <div className="mt-5"><ProfileSk2/></div> : 
               (
                 <div className="mt-5 bg-white/5 gap-4 flex flex-col p-3 rounded-xl max-h-100 overflow-y-auto">
                   {recent.length < 1? (<p>no recent activity</p>) :
@@ -160,7 +160,7 @@ const Profile = () => {
           <div className="w-full text-center md:text-start">
             <h1 className="text-2xl font-bold">My Collections</h1>
             <div>
-              {loading? <div className="mt-5"><Loading/></div> : (<div className="w-full mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
+              {loading? <div className="mt-5"><ProfileSk/></div> : (<div className="w-full mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
                 <Link to={'/collection/favorites'} className="w-full sm:w-50">
                   <Collection
                   name="Favorites"
