@@ -5,7 +5,7 @@ import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks, getBooks, getPreferences, getRecommendationsByGenres } from "../services/bookService";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { HomeSk, HomeSk2 } from "../components/Skeleton";
+import { HomeSk, HomeSk2, HomeSk3 } from "../components/Skeleton";
 
 const Home = () => {
 
@@ -35,6 +35,7 @@ const Home = () => {
         });
 
         setLoading(true);
+        setShowDropdown(false);
 
         try {
             const books = await searchBooks(query);
@@ -43,7 +44,6 @@ const Home = () => {
             console.error("Error searching for books:", error);
         } finally {
         setLoading(false);
-        setShowDropdown(false);
         }
     };
 
@@ -132,11 +132,7 @@ const Home = () => {
             </div>
 
         <div className="px-5">
-            {loading? (<div className="flex justify-center items-center w-full"> 
-   <div className="animate-spin inline-block size-6 border-3 border-current border-t-transparent purple-text rounded-full" role="status" aria-label="loading">
-            <span className="sr-only">Loading...</span>
-        </div>
-   </div>
+            {loading? (<HomeSk3/>
         ) : (
           <div className="flex flex-wrap gap-4">
             {results.length > 0 ? (
