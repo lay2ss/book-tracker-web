@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import Alert from '../components/Alert';
 import { deleteUser } from '../services/bookService';
 import { useNavigate } from 'react-router-dom';
+import { SettingsSk } from '../components/Skeleton';
 
 const Settings = () => {
   
@@ -116,7 +117,7 @@ const Settings = () => {
         <main className='main-wrapper flex gap-3 flex-col'>
             <div className="border border-white/20 p-4 rounded-xl">
                 <h1 className="text-xl font-bold text-start">Reading Goal</h1>
-                {loadingSettings? <Loading/> 
+                {loadingSettings? <SettingsSk/> 
                 :
                 (
                 <div className='flex flex-col'>
@@ -151,7 +152,7 @@ const Settings = () => {
             </div>
             <div className="border border-white/20 p-4 rounded-xl">
               <h1 className="text-xl font-bold text-start">Favorites Genres</h1>
-              {loadingSettings? <Loading/> 
+              {loadingSettings? <SettingsSk/> 
               
               :
 
