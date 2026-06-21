@@ -65,3 +65,22 @@ export const HomeSk2 = () => {
     </div>
   );
 }
+
+export const HomeSk3 = () => {
+  return (
+      <div className='flex gap-3 sm:gap-4 flex-wrap justify-center'>
+        <Skeleton variant="rounded" width={500} height={200} sx={{ bgcolor: 'grey.900' }}/>
+        <Skeleton variant="rounded" width={500} height={200} sx={{ bgcolor: 'grey.900' }}/>
+        <Skeleton variant="rounded" width={500} height={200} sx={{ bgcolor: 'grey.900' }}/>
+        <Skeleton variant="rounded" width={500} height={200} sx={{ bgcolor: 'grey.900' }}/>
+      </div>
+  );
+}
+
+export const SettingsSk = () => {
+  return (
+    <div className='flex pt-2'>
+      <Skeleton variant="rounded" width={2000} height={100} sx={{ bgcolor: 'grey.900' }}/>
+    </div>
+  );
+}
