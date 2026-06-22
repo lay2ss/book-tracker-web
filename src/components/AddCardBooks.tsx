@@ -52,8 +52,8 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, s
     try {
         setLoading(true);
         await addBooksToCollection(selectedBookIds, collectionId);
-            alert("Books added!");
             window.location.reload();
+            alert("Books added!");
         } catch (err) {
             console.error(err);
         } finally {
@@ -73,7 +73,7 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, s
         <main className="relative w-fit min-w-80 mx-auto">
             <div className="border border-white/20 p-4 rounded-xl bg-[#1a191b]">
             {loading? <Loading /> :
-            (<div className="flex flex-wrap gap-3 sm:gap-5 font-inter text-sm sm:text-[16px] overflow-y-auto max-w-200 max-h-130">
+            (<div className="flex flex-wrap justify-center gap-3 sm:gap-5 font-inter text-sm sm:text-[16px] overflow-y-auto max-w-200 max-h-130">
                     {booksNotSaved.length >= 1? booksNotSaved.map((book) => (
                         <Book key={book.id}
                         id={book.id}  
@@ -84,7 +84,7 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, s
                         hoverTitle={book.title}
                         isSelected={selectedBookIds.includes(book.id)}
                         onSelect={handleSelectBook}/>  
-                    )) : (<p className="p-5">All saved books have already been added to this collection.</p>)}
+                    )) : (<p className="p-5">All saved books have already been added to this collection or there are no saved books.</p>)}
                 </div>
             )}
                 <div className="flex gap-2 pt-5 justify-end">
