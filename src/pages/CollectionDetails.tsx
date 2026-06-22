@@ -9,6 +9,7 @@ import AddCardBooks from "../components/AddCardBooks";
 import placeHolder from "../assets/icon/placeholder.png";
 import arrowBackIcon from "../assets/icon/arrow_back.svg";
 import { useLocation } from "react-router-dom";
+import { CollectionsSk } from "../components/Skeleton";
 
 const CollectionDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,8 +35,8 @@ const CollectionDetails = () => {
         await removeBookFromCollection(bookId, id);
         setShowX(false);
       };
-      alert("Book removed");
       window.location.reload();
+      alert("Book removed");
     } catch (error) {
       console.error("Failed to remove book:", error);
     } finally {
@@ -69,8 +70,8 @@ const CollectionDetails = () => {
         name,
         id
     );
-      alert("Collection name updated");
       window.location.reload();
+      alert("Collection name updated");
     } catch (err: any) {
         console.error(err);
         if (err.response && err.response.data) {
@@ -135,7 +136,7 @@ const CollectionDetails = () => {
   return (
     <section className="section-wrapper">
       <main className="main-wrapper md:py-25">
-        {loading? <Loading/> :
+        {loading? <CollectionsSk/> :
           <div>
 
             <div className={`z-10 ${showEdit? 'font-inter p-5 text-white absolute z-8 top-30 h-full bg-white/0.1 backdrop-blur-xs w-full left-1/2 transform -translate-x-1/2' : 'hidden'}`}>
@@ -171,7 +172,7 @@ const CollectionDetails = () => {
                 :
                 Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : ":/"}</p>
             </div>
-            <div className="flex gap-4 flex-wrap mt-5">
+            <div className="flex gap-4 flex-wrap mt-5 justify-center">
               { location.pathname.startsWith("/collection/favorites")?
               favorites.map((book) => (
                   <Book
