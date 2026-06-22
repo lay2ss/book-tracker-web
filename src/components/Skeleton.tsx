@@ -84,3 +84,17 @@ export const SettingsSk = () => {
     </div>
   );
 }
+
+export const CollectionsSk = () => {
+  return (
+    <div className='flex pt-2 flex-col'>
+      <Skeleton variant="text" sx={{ fontSize: '2rem', bgcolor: 'grey.900' }} />
+      <div className="flex pt-5 overflow-x-auto pb-5 shrink-0">
+        <div className='flex gap-3 sm:gap-5'>
+          <Skeleton variant="rounded" width={128} height={205} sx={{ bgcolor: 'grey.900' }}/>
+          <Skeleton variant="rounded" width={128} height={205} sx={{ bgcolor: 'grey.900' }}/>
+        </div>
+      </div>
+    </div>
+  );
+}
