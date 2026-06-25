@@ -14,8 +14,10 @@ import AddCardCollections from "../components/AddCardCollections";
 import heartActiveIcon from "../assets/icon/heart_active.svg";
 import heartIcon from "../assets/icon/heart.svg";
 import Alert from "../components/Alert";
+import { useQueryClient } from "@tanstack/react-query";
 
 const SaveBook = () => {
+    const queryClient = useQueryClient();
     const { id } = useParams<{ id: string }>();
     const { dbId } = useParams<{ dbId: string }>();
     const [book, setBook] = useState<any>(null);
@@ -79,6 +81,8 @@ const SaveBook = () => {
             isFavorite, 
             selectedCollectionsIds,
         );
+        queryClient.invalidateQueries({ queryKey: ["books"] });
+        queryClient.invalidateQueries({ queryKey: ["collections"] });
         alert("Book saved");
         navigate('/home');
         } catch (err) {
@@ -104,6 +108,7 @@ const SaveBook = () => {
             dbId,
             isFavorite
         );
+        queryClient.invalidateQueries({ queryKey: ["books"] });
         alert("Book updated");
         navigate(-1);
         } catch (err) {
@@ -121,6 +126,8 @@ const SaveBook = () => {
             await deleteBook(
             dbId
         );
+        queryClient.invalidateQueries({ queryKey: ["books"] });
+        queryClient.invalidateQueries({ queryKey: ["collections"] });
         alert("Book deleted");
         navigate('/home');
         } catch (err) {
