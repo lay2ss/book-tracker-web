@@ -7,91 +7,42 @@ import bookIcon from "../assets/icon/book.svg";
 import pageIcon from "../assets/icon/page.svg";
 import booksIcon from "../assets/icon/books.svg";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { getBooks, getCollections, getPreferences } from "../services/bookService";
 import { ProfileSk, ProfileSk2, ProfileSk3 } from "../components/Skeleton";
+import { useQuery } from "@tanstack/react-query";
 
 const Profile = () => {
+const { data: books = [], isLoading: loadingBooks } = useQuery({
+    queryKey: ["books"],
+    queryFn: getBooks,
+  });
 
-  const [loadingBooks, setLoadingBooks] = useState(false);
-  const [favorites, setFavorites] = useState<any[]>([]);
-  const [recent, setRecent] = useState<any[]>([]);
-  const [finishedThisYear, setFinishedThisYear] = useState<any[]>([]);
-  const [finished, setFinished] = useState<any[]>([]);
-  const [finishedThisMonth, setFinishedThisMonth] = useState<any[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
+const { data: collections = [], isLoading: loadingCollections } = useQuery({
+    queryKey: ["collections"],
+    queryFn: getCollections,
+  });
 
-  const [loadingSettings, setLoadingSettings] = useState(false);
-  const [goal, setGoal] = useState(false);
-  const [number, setNumber] = useState(0);
+const { data: preferences, isLoading: loadingSettings } = useQuery({
+    queryKey: ["preferences"],
+    queryFn: getPreferences,
+  });
 
-  const [loading, setLoading] = useState(false);
-  const [collections, setCollections] = useState<any[]>([]);
+const recent = books.filter((book: any) => book.comment && book.comment.trim() !== "");
+const favorites = books.filter((book: any) => book.isFavorite === true);
 
-  useEffect(() => {
-    const loadBooks = async () => {
-      try {
-        setLoadingBooks(true);
-        const data = await getBooks();
-        const recentBooks = data.filter((book:any) => book.comment && book.comment.trim() !== "");
-        const favoriteBooks = data.filter((book: any) => book.isFavorite === true);
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth();
-        const booksFinished = data.filter((book:any) => book.status === "FINISHED");
-        const booksFinishedThisYear = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year);
-        const booksFinishedThisMonth = data.filter((book:any) => book.status === "FINISHED" && book.readYear === year && book.readMonth === month + 1);
-        const totalPagesFinished = data.filter((book: any) => book.status === "FINISHED")
-        .reduce((sum: number, book:any) => sum + (book.totalPage || 0), 0);
-        setFavorites(favoriteBooks);
-        setRecent(recentBooks);
-        setFinished(booksFinished);
-        setFinishedThisYear(booksFinishedThisYear);
-        setFinishedThisMonth(booksFinishedThisMonth);
-        setTotalPages(totalPagesFinished);
-      } catch (error) {
-        console.error("Failed to load books:", error);
-      } finally {
-        setLoadingBooks(false);
-      }
-    };
+const now = new Date();
+const year = now.getFullYear();
+const month = now.getMonth();
 
-    loadBooks();
-  }, []);
+const finished = books.filter((book: any) => book.status === "FINISHED");
+const finishedThisYear = books.filter((book: any) => book.status === "FINISHED" && book.readYear === year);
+const finishedThisMonth = books.filter((book: any) => book.status === "FINISHED" && book.readYear === year && book.readMonth === month + 1);
 
-  useEffect(() => {
-    const loadCollections = async () => {
-      try {
-        setLoading(true);
-        const data = await getCollections();
-        setCollections(data);
-      } catch (error) {
-        console.error("Failed to load collections:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+const totalPages = finished.reduce((sum: number, book: any) => sum + (book.totalPage || 0), 0);
 
-    loadCollections();
-  }, []);
-
-  useEffect(() => {
-    const loadPreferences = async () => {
-      try {
-        setLoadingSettings(true);
-        const data = await getPreferences();
-        const dataUiSettings = data.uiSettings
-        dataUiSettings.Goal === "Annual"? setGoal(true) : setGoal(false);
-        setNumber(dataUiSettings.Number || 0);
-      } catch (error) {
-        console.error("Failed to load preferences:", error);
-      } finally {
-        setLoadingSettings(false);
-      }
-    };
-  
-    loadPreferences();
-  }, []);
+const dataUiSettings = preferences?.uiSettings || {};
+const isAnnualGoal = dataUiSettings.Goal === "Annual";
+const goalNumber = dataUiSettings.Number || 0;
 
   return (
     <section className='section-wrapper'>
@@ -128,9 +79,9 @@ const Profile = () => {
               :
     
               <GoalTracker 
-                current={goal? finishedThisYear.length : finishedThisMonth.length} 
-                max={number? number : 1} 
-                label={goal? "Yearly Goal" : "Monthly Goal"}
+                current={isAnnualGoal? finishedThisYear.length : finishedThisMonth.length} 
+                max={goalNumber? goalNumber : 1} 
+                label={isAnnualGoal? "Yearly Goal" : "Monthly Goal"}
               />
             }
             </div>
@@ -142,7 +93,7 @@ const Profile = () => {
               (
                 <div className="mt-5 bg-white/5 gap-4 flex flex-col p-3 rounded-xl max-h-100 overflow-y-auto">
                   {recent.length < 1? (<p>no recent activity</p>) :
-                   recent.map((book) => (
+                   recent.map((book: any) => (
                     <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                       <BookReview
                       cover={book.coverImage || "src/assets/icon/placeholder.png"}
@@ -160,14 +111,14 @@ const Profile = () => {
           <div className="w-full text-center md:text-start">
             <h1 className="text-2xl font-bold">My Collections</h1>
             <div>
-              {loading? <div className="mt-5"><ProfileSk/></div> : (<div className="w-full mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
+              {loadingCollections? <div className="mt-5"><ProfileSk/></div> : (<div className="w-full mt-5 flex gap-4 flex-wrap justify-center md:justify-start">
                 <Link to={'/collection/favorites'} className="w-full sm:w-50">
                   <Collection
                   name="Favorites"
                   qnt={favorites.length}
                   />
                 </Link>
-                  {collections.map((collection) => (
+                  {collections.map((collection: any) => (
                     <Link className="w-full sm:w-50" key={collection.id} to={`/collection/${collection.id}`}>
                         <Collection
                         name={collection.name}
