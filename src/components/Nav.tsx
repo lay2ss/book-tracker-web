@@ -5,6 +5,7 @@ import menuBarIcon from "../assets/icon/menu_bar.svg";
 import closeIcon from "../assets/icon/close.svg";
 import logoname from "../assets/logo/logo_name.svg";
 import b_purple_logo from "../assets/logo/b_purple_logo.svg";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +15,10 @@ const Nav = () => {
     <nav className={`w-full font-inter mx-auto fixed z-10 top-0 md:bg-white/0.5 md:backdrop-blur-sm md:border-b md:border-white/10 bg-white/0.5 ${!isOpen? "backdrop-blur-sm" : "" }`}>
         <div className="w-full mx-auto md:px-4 px-2">
             <div className="max-w-300 flex justify-between mx-auto p-5 items-center">
-                <a href="/" className="cursor-pointer flex gap-2 items-center">
+                <Link to="/" className="cursor-pointer flex gap-2 items-center">
                     <img src={b_purple_logo} alt="logo name" className='w-8 h-min' />
                     <img src={logoname} alt="logo name" className='w-14 h-min hidden md:block'/>
-                </a>
+                </Link>
                 <div className="hidden md:flex">
                     <DesktopNav/>
                 </div>
