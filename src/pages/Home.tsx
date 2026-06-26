@@ -3,47 +3,58 @@ import BookCard from "../components/BookCard";
 import searchIcon from "../assets/icon/search.svg";
 import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks, getBooks, getPreferences, getRecommendationsByGenres } from "../services/bookService";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeSk, HomeSk2, HomeSk3 } from "../components/Skeleton";
+import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
 
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-    const [loadingFeed, setLoadingFeed] = useState(false);
-    const [loadingDashboard, setLoadingDashboard] = useState(false);
-
-    const [recentSearches, setRecentSearches] = useState<string[]>(() => {
-    const saved = localStorage.getItem("recent_book_searches");
-    return saved ? JSON.parse(saved) : [];
-    });
-
     const [showDropdown, setShowDropdown] = useState(false);
-    const [books, setBooks] = useState<any[]>([]);
-    const [recommendations, setRecommendations] = useState<any[]>([]);
+    const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+        const saved = localStorage.getItem("recent_book_searches");
+        return saved ? JSON.parse(saved) : [];
+    });
+    
+    const { data: books = [], isLoading: loadingFeed } = useQuery({
+        queryKey: ["books"],
+        queryFn: getBooks,
+    });
+    
+    const { data: recommendations = [], isLoading: loadingDashboard } = useQuery({
+        queryKey: ["recommendations"],
+        queryFn: async () => {
+
+            const prefs = await getPreferences();
+            const userGenres = prefs?.favoriteGenres;
+
+            if (userGenres && userGenres.length > 0) {
+                return await getRecommendationsByGenres(userGenres);
+            }
+            return [];
+        },
+    });
 
     const handleSearch = async () => {
         if (!query.trim()) return;
-
         setRecentSearches((prev) => {
-        const filtered = prev.filter((item) => item !== query.trim());
-        const updated = [query.trim(), ...filtered].slice(0, 5);
-        localStorage.setItem("recent_book_searches", JSON.stringify(updated));
-        return updated;
+            const filtered = prev.filter((item) => item !== query.trim());
+            const updated = [query.trim(), ...filtered].slice(0, 5);
+            localStorage.setItem("recent_book_searches", JSON.stringify(updated));
+            return updated;
         });
-
         setLoading(true);
         setShowDropdown(false);
-
         try {
             const books = await searchBooks(query);
             setResults(books);
         } catch (error) {
             console.error("Error searching for books:", error);
         } finally {
-        setLoading(false);
+            setLoading(false);
         }
     };
 
@@ -52,42 +63,8 @@ const Home = () => {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     };
 
-    useEffect(() => {
-    const loadBooks = async () => {
-      try {
-        setLoadingFeed(true);
-        const data = await getBooks();
-        setBooks(data);
-      } catch (error) {
-        console.error("Failed to load books:", error);
-      } finally {
-        setLoadingFeed(false);
-      }
-    };
-
-    loadBooks();
-    }, []);
-
-    useEffect(() => {
-        const loadDashboard = async () => {
-        try {
-            setLoadingDashboard(true)
-            const prefs = await getPreferences(); 
-            const userGenres = prefs.favoriteGenres; 
-
-        if (userGenres && userGenres.length > 0) {
-            const booksFromGoogle = await getRecommendationsByGenres(userGenres);
-            setRecommendations(booksFromGoogle);
-        }
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoadingDashboard(false);
-        }
-    };
-
-    loadDashboard();
-    }, []);
+    const hasReadingBooks = books.some((book: any) => book.status === "READING");
+    const hasFinishedBooks = books.some((book: any) => book.status === "FINISHED");
 
   return (
     <section className='section-wrapper'>
@@ -191,9 +168,9 @@ const Home = () => {
                 <h1 className="text-2xl font-bold">Currently reading</h1>
                 
                     <div>
-                    {books.some(book => book.status === "READING")  ?
+                    {hasReadingBooks ?
                         (<div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
-                                {books.map((book) => (book.status === "READING" &&
+                                {books.map((book: any) => (book.status === "READING" &&
                                     <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book 
                                     current={book.currentPage}
@@ -213,9 +190,9 @@ const Home = () => {
             <div className="p-5">
                 <h1 className="text-2xl font-bold">Finished</h1>
                     <div>
-                    {books.some(book => book.status === "FINISHED")  ? 
+                    {hasFinishedBooks ? 
                         (<div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px] overflow-x-auto">
-                                {books.map((book) => (book.status === "FINISHED" &&
+                                {books.map((book: any) => (book.status === "FINISHED" &&
                                 <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book
                                     cover={book.coverImage || placeHolder}
