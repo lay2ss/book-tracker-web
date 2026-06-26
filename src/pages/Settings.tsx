@@ -8,40 +8,36 @@ import Alert from '../components/Alert';
 import { deleteUser } from '../services/bookService';
 import { useNavigate } from 'react-router-dom';
 import { SettingsSk } from '../components/Skeleton';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 const Settings = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   
   const [loading, setLoading] = useState(false);
   const [loadingGoal, setLoadingGoal] = useState(false);
-  const [loadingSettings, setLoadingSettings] = useState(false);
   const [goal, setGoal] = useState(false);
   const [number, setNumber] = useState(0);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [deleting, setDeleting] = useState(false);
-  const navigate = useNavigate();
-  
+
+  const { data: preferences, isLoading: loadingSettings } = useQuery({
+    queryKey: ["preferences"],
+    queryFn: getPreferences
+  });
+
   useEffect(() => {
-    const loadPreferences = async () => {
-      try {
-        setLoadingSettings(true);
-        const data = await getPreferences();
-        const dataUiSettings = data.uiSettings
-        dataUiSettings.Goal === "Annual"? setGoal(true) : setGoal(false);
-        setNumber(dataUiSettings.Number || 0);
+    if (preferences) {
+      const dataUiSettings = preferences.uiSettings || {};
+      setGoal(dataUiSettings.Goal === "Annual");
+      setNumber(dataUiSettings.Number || 0);
 
-        if (data.favoriteGenres) {
-        setSelectedGenres(data.favoriteGenres);
-        }
-
-      } catch (error) {
-        console.error("Failed to load preferences:", error);
-      } finally {
-        setLoadingSettings(false);
+      if (preferences.favoriteGenres) {
+        setSelectedGenres(preferences.favoriteGenres);
       }
-    };
-  
-    loadPreferences();
-  }, []);
+    }
+  }, [preferences]);
 
   const handleGoal = async () => {
       setLoadingGoal(true);
@@ -50,6 +46,7 @@ const Settings = () => {
           selectedGenres,
           goal === false? {Goal: 'Monthly', Number: number} : {Goal: "Annual", Number: number}
       );
+      queryClient.invalidateQueries({ queryKey: ["preferences"] });
       alert("Goal set");
       } catch (err) {
           console.error(err);
@@ -65,6 +62,8 @@ const Settings = () => {
           selectedGenres,
           goal === false? {Goal: 'Monthly', Number: number} : {Goal: "Annual", Number: number}
       );
+      queryClient.invalidateQueries({ queryKey: ["preferences"] });
+      queryClient.invalidateQueries({ queryKey: ["recommendations"] });
       alert("Favorite genres updated");
       } catch (err) {
           console.error(err);
@@ -87,6 +86,9 @@ const Settings = () => {
 
       try{
         await deleteUser();
+
+        queryClient.clear();
+
         alert("Profile deleted");
 
         navigate('/login');
@@ -109,6 +111,7 @@ const Settings = () => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("userToken");
     localStorage.removeItem("recent_book_searches");
+    queryClient.clear();
     navigate("/login", { replace: true });
   }
 
@@ -178,9 +181,9 @@ const Settings = () => {
             <div className="border border-white/20 p-4 rounded-xl mb-2">
                 <h1 className="text-xl font-bold text-start">Account Management</h1>
                 <div className='flex flex-col gap-2 text-sm md:w-fit mt-3'>
-                  <a href="/change-password" className='flex md:w-fit mb-2'>
+                  <Link to="/change-password" className='flex md:w-fit mb-2'>
                     <button className='rounded-xl bg-white/10 hover:bg-white/20 transition-transform active:scale-95 h-min py-3 px-9 font-bold cursor-pointer w-full'>Change password</button>
-                  </a>
+                  </Link>
                   <Alert
                   handleDelete={handleDelete}
                   loading={deleting}
