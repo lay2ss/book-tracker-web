@@ -163,7 +163,7 @@ const CollectionDetails = () => {
                 Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : ":/"}</p>
             </div>
             <div className="flex gap-4 flex-wrap mt-5 justify-center">
-              {!loadingAction? isFavoritesPage?
+              {isFavoritesPage?
               favorites.map((book: any) => (
                   <Book
                   key={book.externalId}
@@ -186,7 +186,7 @@ const CollectionDetails = () => {
                   showX={showX? "" : "hidden"}
                   goToBook={() => navigate(`/book/edit/${book.externalId}/${book.id}`)}
                   />
-            )) : <CollectionsSk2/>}
+            ))}
             </div>
             <button disabled={showEdit} className={`flex w-full justify-center mx-auto border-white/20 border cursor-pointer rounded-md hover:border-[#b99ef6] transition-transform active:scale-95 sm:w-fit sm:h-fit items-center mt-5 xs:px-10 p-2 ${isFavoritesPage? "hidden" : "flex"}`} onClick={() => {handleScrollTop(), setShowAddCard(true), setShowX(false)}}>
               <div className="flex items-center gap-2">  
