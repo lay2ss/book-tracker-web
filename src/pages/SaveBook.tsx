@@ -83,6 +83,7 @@ const SaveBook = () => {
         );
         queryClient.invalidateQueries({ queryKey: ["books"] });
         queryClient.invalidateQueries({ queryKey: ["collections"] });
+        queryClient.invalidateQueries({ queryKey: ["collection"] });
         alert("Book saved");
         navigate('/home');
         } catch (err) {
@@ -128,8 +129,9 @@ const SaveBook = () => {
         );
         queryClient.invalidateQueries({ queryKey: ["books"] });
         queryClient.invalidateQueries({ queryKey: ["collections"] });
+         queryClient.invalidateQueries({ queryKey: ["collection"] });
         alert("Book deleted");
-        navigate('/home');
+        navigate(-1);
         } catch (err) {
             console.error(err);
         }  finally {
