@@ -99,13 +99,8 @@ export const CollectionsSk = () => {
   );
 }
 
-export const CollectionsSk2 = () => {
+export const BookSk = () => {
   return (
-      <div className="flex pt-5 overflow-x-auto pb-5 shrink-0">
-        <div className='flex gap-3 sm:gap-5'>
-          <Skeleton variant="rounded" width={128} height={205} sx={{ bgcolor: 'grey.900' }}/>
-          <Skeleton variant="rounded" width={128} height={205} sx={{ bgcolor: 'grey.900' }}/>
-        </div>
-      </div>
+      <Skeleton variant="rounded" width={128} height={205} sx={{ bgcolor: 'grey.900' }}/>
   );
 }
