@@ -1,5 +1,6 @@
 import CircularProgress from "./CircularProgress";
 import closeIcon from "../assets/icon/close.svg";
+import { BookSk } from "./Skeleton";
 
 interface BookProps{
     current?: number;
@@ -15,11 +16,14 @@ interface BookProps{
     onSelect?: (id: string) => void;
     id?: string;
     goToBook?: any;
+    isRemoved?: boolean;
 }
 
-const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, showX, remove, isSelected, hoverTitle, onSelect , showHover = "hidden", goToBook}) =>{
+const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, showX, remove, isSelected, hoverTitle, onSelect , showHover = "hidden", goToBook, isRemoved}) =>{
 
   return (
+    <>
+    {isRemoved? <BookSk/> : 
         <div className={`relative ${isSelected? 'border-2 rounded-md purple-border' : ''}`} onClick={() => onSelect?.(String(id))}>
             <div onClick={goToBook} className={`cursor-pointer opacity-0 hover:opacity-85 absolute left-1/2 -translate-x-1/2 text-xs outline-white/10 rounded-md bg-[#1a191b] p-1 w-full h-full ${showHover}`}>
                 <div className="flex items-center justify-center w-full h-full">
@@ -41,6 +45,8 @@ const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, sho
                 </div>
             </div>
         </div>
+    }
+    </>
   )
 }
 
