@@ -2,11 +2,13 @@ import { useState } from "react";
 import { createCollection } from "../services/bookService";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateCollection = () => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const handleCreate = async () => {
 
@@ -17,6 +19,7 @@ const CreateCollection = () => {
               name
           );
           alert("Collection created");
+          queryClient.invalidateQueries({ queryKey: ["collections"] });
           navigate('/profile');
           } catch (err: any) {
             console.error(err);
