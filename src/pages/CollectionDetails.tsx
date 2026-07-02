@@ -8,7 +8,7 @@ import AddCardBooks from "../components/AddCardBooks";
 import placeHolder from "../assets/icon/placeholder.png";
 import arrowBackIcon from "../assets/icon/arrow_back.svg";
 import { useLocation } from "react-router-dom";
-import { CollectionsSk, CollectionsSk2 } from "../components/Skeleton";
+import { CollectionsSk } from "../components/Skeleton";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../components/Loading";
 
@@ -21,7 +21,7 @@ const CollectionDetails = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [showX, setShowX] = useState(false);
   const [showAddCard, setShowAddCard] = useState(false);
-  const [loadingAction, setLoadingAction] = useState(false);
+  const [loadingRemove, setLoadingRemove] = useState(false);
   const [loadingEdit, setLoadingEdit] = useState(false);
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ const CollectionDetails = () => {
 
   const handleRemove = async (bookId: any) => {
     try {
-      setLoadingAction(true);
+      setLoadingRemove(true);
       if (isFavoritesPage)
       {
         await toggleFavorite(bookId, false);
@@ -63,27 +63,23 @@ const CollectionDetails = () => {
     } catch (error) {
       console.error("Failed to remove book:", error);
     } finally {
-      setLoadingAction(false);
+      setLoadingRemove(false);
     }
   };
 
   const handleDelete = async () => {
-
-      setLoadingAction(true);
-
       try{
           await deleteCollection(
           id
       );
+      queryClient.invalidateQueries({ queryKey: ["collections"] });
       queryClient.removeQueries({ queryKey: ["collection", id] });
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       alert("Collection deleted");
       navigate('/profile');
       } catch (err) {
           console.error(err);
-      }  finally {
-          setLoadingAction(false);
-      }     
+      }  
   };
 
   const handleEdit = async () => {
@@ -93,6 +89,7 @@ const CollectionDetails = () => {
         name,
         id
     );
+      queryClient.invalidateQueries({ queryKey: ["collections"] });
       queryClient.invalidateQueries({ queryKey: ["collection", id] });
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       setShowEdit(false);
@@ -169,7 +166,8 @@ const CollectionDetails = () => {
                   key={book.externalId}
                   hoverTitle={book.title}
                   showHover="" 
-                  remove={() => handleRemove(book.id)} 
+                  remove={() => handleRemove(book.id)}
+                  isRemoved={loadingRemove} 
                   cover={book.coverImage || placeHolder}
                   show="hidden"
                   goToBook={() => navigate(`/book/edit/${book.externalId}/${book.id}`)}
@@ -181,6 +179,7 @@ const CollectionDetails = () => {
                   hoverTitle={book.title}
                   showHover="" 
                   remove={() => handleRemove(book.id)} 
+                  isRemoved={loadingRemove}
                   cover={book.coverImage || placeHolder}
                   show="hidden"
                   showX={showX? "" : "hidden"}
