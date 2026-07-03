@@ -11,6 +11,7 @@ import CreateCollection from "./pages/CreateCollection";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 import ResetPassword from "./pages/ResetPassword";
+import VerifyEmail from "./pages/VerifyEmail";
 import { useAuth, AuthProvider } from './contexts/AuthContext';
 import { PrivateRoute } from "./routes/PrivateRoute";
 import Footer from "./components/Footer";
@@ -28,6 +29,7 @@ function AppLayout() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/verify-email/:token" element={<VerifyEmail />} />
 
         <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
