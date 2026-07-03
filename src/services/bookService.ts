@@ -372,3 +372,14 @@ export const deleteUser = async () => {
     throw error;
   }
 };
+
+//verify email
+export const verifyEmail = async (token: any) => {
+  try {
+    const response = await api.post(`/api/users/verify-email/${token}`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error verifying email:', error);
+    throw error;
+  }
+};
