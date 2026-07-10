@@ -36,6 +36,7 @@ const Login = () => {
     const data = await response.json();
     if (response.ok) {
       authLogin(data); 
+      alert(data.message);
     } else {
       alert(data.message);
     }
