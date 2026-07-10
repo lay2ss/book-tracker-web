@@ -40,6 +40,7 @@ const AddCardCollections: React.FC<AddCardProps> = ({onCancel, isSelected, onSel
       <main className="relative w-fit min-w-80 mx-auto">
           <div className="border border-white/20 p-4 rounded-xl bg-[#1a191b]">
           {loading? <Loading /> :
+          collections.length == 0 ? (<p className="p-5 text-center">No collection available</p>) :
           (<div className="flex flex-wrap gap-3 sm:gap-5 font-inter text-sm sm:text-[16px] overflow-y-auto max-w-200 max-h-130">
               {collections.map((collection) => (
                           <Collection
