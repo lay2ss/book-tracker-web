@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeSk, HomeSk2, HomeSk3 } from "../components/Skeleton";
 import { useQuery } from "@tanstack/react-query";
+import empty_state from "../assets/icon/empty_state.svg";
 
 const Home = () => {
 
@@ -33,8 +34,9 @@ const Home = () => {
 
             if (userGenres && userGenres.length > 0) {
                 return await getRecommendationsByGenres(userGenres);
+            } else {
+                return await getRecommendationsByGenres(['Thriller', 'Suspense']);
             }
-            return [];
         },
     });
 
@@ -164,34 +166,41 @@ const Home = () => {
         <div className="w-full border-b border-white/10"/>
         {loadingFeed? <div className=""><HomeSk2/></div> : 
         (<div>
+        {books.length == 0? (
+            <div className="flex flex-col items-center justify-center">
+                <img  className="w-60" src={empty_state} alt="empty state"/>
+                <p className="text-lg opacity-50">No saved books</p>
+            </div>) : 
+            <>
+            {hasReadingBooks ?
             <div className="p-5">
                 <h1 className="text-2xl font-bold">Currently reading</h1>
-                
                     <div>
-                    {hasReadingBooks ?
-                        (<div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
-                                {books.map((book: any) => (book.status === "READING" &&
-                                    <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
-                                    <Book 
-                                    current={book.currentPage}
-                                    total={book.totalPage}
-                                    cover={book.coverImage || placeHolder}
-                                    title={book.title}
-                                    showX="hidden"
-                                    />
-                                    </Link>
-                                    ))}
-                                </div>):
-                        (<p className="opacity-80 font-light">Save some books :D</p>)}
-                    </div>
-                                        
-            </div>
+                        <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
+                            {books.map((book: any) => (book.status === "READING" &&
+                                <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
+                                <Book 
+                                current={book.currentPage}
+                                total={book.totalPage}
+                                cover={book.coverImage || placeHolder}
+                                title={book.title}
+                                showX="hidden"
+                                />
+                                </Link>
+                                ))}
+                        </div>
+                    </div>                  
+            </div> 
+            :
+            ("")
+            }
+        {hasFinishedBooks ? 
+        <>        
         <div className="w-full border-b border-white/10"/>
             <div className="p-5">
                 <h1 className="text-2xl font-bold">Finished</h1>
                     <div>
-                    {hasFinishedBooks ? 
-                        (<div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px] overflow-x-auto">
+                        <div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px] overflow-x-auto">
                                 {books.map((book: any) => (book.status === "FINISHED" &&
                                 <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book
@@ -200,12 +209,17 @@ const Home = () => {
                                     show="hidden"
                                     showX="hidden"/>  
                                 </Link>))} 
-                                </div>) :
-                        (<p className="opacity-80 font-light">You can also save books as finished ;D</p>)}
+                                </div>
                     </div>
-            </div>
+            </div> 
+            </>
+            :
+            ("")
+            }
+            </>}
         </div>
-        )} 
+        )}
+
         </main>
     </section>
   )
