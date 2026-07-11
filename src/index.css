@@ -43,7 +43,7 @@ html {
 }
 
 .section-wrapper{
-  @apply w-full px-5 relative mx-auto text-white;
+  @apply w-full px-5 relative mx-auto text-white min-h-screen;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
