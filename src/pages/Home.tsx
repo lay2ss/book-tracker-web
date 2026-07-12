@@ -55,6 +55,7 @@ const Home = () => {
             setResults(books);
         } catch (error) {
             console.error("Error searching for books:", error);
+            alert("Failed to search for books :/")
         } finally {
             setLoading(false);
         }
@@ -158,7 +159,7 @@ const Home = () => {
                     />
                 ))
                 ) : (
-                (<p className="opacity-80 font-light">No recommendations yet :/</p>)
+                (<p className="opacity-80 font-light">Failed to load recommendations :/</p>)
                 )}
             </div>
             }
