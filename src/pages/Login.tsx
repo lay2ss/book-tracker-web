@@ -164,7 +164,7 @@ const Login = () => {
             <div className={`absolute flex flex-col items-center justify-center h-full w-1/2 px-8 text-center top-0 transform transition-transform duration-600 ease-in-out
               ${isSignUp ? 'translate-x-0' : '-translate-x-[20%]'}`}>
               <h1 className="font-bold text-3xl mb-2">Welcome Back!</h1>
-              <p className="text-sm font-light mb-8">To keep connected with us please login with your personal info</p>
+              <p className="text-sm font-light mb-8">Sign in to access your personal collection and track your reading goals.</p>
               <button className="button-style-outline border-white" onClick={toggleMode}>
                 Sign In
               </button>
@@ -173,8 +173,8 @@ const Login = () => {
             {/* right panel (sign in) */}
             <div className={`absolute right-0 flex flex-col items-center justify-center h-full w-1/2 px-8 text-center top-0 transform transition-transform duration-600 ease-in-out
               ${isSignUp ? 'translate-x-[20%]' : 'translate-x-0'}`}>
-              <h1 className="font-bold text-3xl mb-2">Hello, Friend!</h1>
-              <p className="text-sm font-light mb-8">Enter your personal details and start journey with us</p>
+              <h1 className="font-bold text-3xl mb-2">Hello, Reader!</h1>
+              <p className="text-sm font-light mb-8">Set up your profile and start building your ultimate digital library today.</p>
               <button className="button-style-outline border-white" onClick={toggleMode}>
                 Sign Up
               </button>
