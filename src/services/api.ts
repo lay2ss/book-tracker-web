@@ -3,7 +3,22 @@ import axios from "axios";
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL; 
 
 export const api = axios.create({
-  baseURL: VITE_API_BASE_URL
+  baseURL: VITE_API_BASE_URL,
+  paramsSerializer: {
+    serialize: (params) => {
+      const searchParams = new URLSearchParams();
+      
+      Object.entries(params).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((val) => searchParams.append(key, val));
+        } else if (value !== undefined && value !== null) {
+          searchParams.append(key, String(value));
+        }
+      });
+      
+      return searchParams.toString();
+    }
+  }
 });
 
 api.interceptors.request.use((config) => {
