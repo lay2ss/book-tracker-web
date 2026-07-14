@@ -1,44 +1,22 @@
-import axios from "axios";
 import { api } from "./api";
-
-const API_BASE_URL = import.meta.env.VITE_API_GOOGLE;
-const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
 interface BookSearchResult {
   id: string;
   title: string;
   authors: string[];
   coverImage: string | null;
-  description: string | null;
-  categories: string | null;
-  pageCount: number | null;
-  publishedYear: number | null;
+  description: string;
+  categories: string;
+  pageCount: number;
+  publishedYear: number;
 }
 
 export const searchBooks = async (query: string): Promise<BookSearchResult[]> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/volumes`, {
-      params: {
-        q: query,
-        maxResults: 10,
-        key: API_KEY
-      }
+    const response = await api.get('api/books/search', {
+      params: { q: query }
     });
-
-    if (!response.data.items) {
-      return [];
-    }
-
-    return response.data.items.map((item: any) => ({
-      id: item.id,
-      title: item.volumeInfo.title || 'Unknown Title',
-      authors: item.volumeInfo.authors || ['Unknown Author'],
-      coverImage: item.volumeInfo.imageLinks?.thumbnail || null,
-      description: item.volumeInfo.description || null,
-      categories: item.volumeInfo.categories || "Unknown Genre",
-      pageCount: item.volumeInfo.pageCount || 0,
-      publishedYear: item.volumeInfo.publishedDate ? item.volumeInfo.publishedDate.substring(0, 4) : 'N/A'
-    }));
+    return response.data;
   } catch (error) {
     console.error('Error searching books:', error);
     throw new Error('Failed to search books');
@@ -47,63 +25,24 @@ export const searchBooks = async (query: string): Promise<BookSearchResult[]> =>
 
 export const getBookById = async (bookId: string): Promise<BookSearchResult | null> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/volumes/${bookId}`, {
-      params: {
-        key: API_KEY
-      }
-    });
-    const item = response.data;
-
-    return {
-      id: item.id,
-      title: item.volumeInfo.title || 'Unknown Title',
-      authors: item.volumeInfo.authors || ['Unknown Author'],
-      coverImage: item.volumeInfo.imageLinks?.thumbnail || null,
-      description: item.volumeInfo.description || null,
-      categories: item.volumeInfo.categories || "Unknown Genre",
-      pageCount: item.volumeInfo.pageCount || 0,
-      publishedYear: item.volumeInfo.publishedDate ? item.volumeInfo.publishedDate.substring(0, 4) : 'N/A'
-    };
+    const response = await api.get(`api/books/google/${bookId}`);
+    return response.data;
   } catch (error) {
     console.error('Error getting book details:', error);
     return null;
   }
 };
 
-export const getRecommendationsByGenres = async (genres: string[]): Promise<any[]> => {
+export const getRecommendationsByGenres = async (genres: string[]): Promise<BookSearchResult[]> => {
   if (!genres || genres.length === 0) return [];
 
-  const formattedGenres = genres.map(genre => genre.replace('-', '+'));
-
-  const genreQuery = `subject:(${formattedGenres.join('|')})`;
-
   try {
-    const response = await axios.get(`${API_BASE_URL}/volumes`, {
-      params: {
-        q: genreQuery,      
-        maxResults: 10,
-        orderBy: 'relevance',
-        key: API_KEY     
-      }
+    const response = await api.get('api/books/recommendations', {
+      params: { genres } 
     });
-
-    if (!response.data.items) {
-      return [];
-    }
-
-    return response.data.items.map((item: any) => ({
-      id: item.id,
-      title: item.volumeInfo.title || 'Unknown Title',
-      authors: item.volumeInfo.authors || ['Unknown Author'],
-      coverImage: item.volumeInfo.imageLinks?.thumbnail || null,
-      description: item.volumeInfo.description || null,
-      categories: item.volumeInfo.categories || "Unknown Genre",
-      pageCount: item.volumeInfo.pageCount || 0,
-      publishedYear: item.volumeInfo.publishedDate ? item.volumeInfo.publishedDate.substring(0, 4) : 'N/A'
-    }));
-
+    return response.data;
   } catch (error) {
-    console.error("Error fetching Google Books recommendations:", error);
+    console.error("Error fetching recommendations:", error);
     return [];
   }
 };
