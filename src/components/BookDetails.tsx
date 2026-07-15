@@ -47,7 +47,7 @@ const BookDetails: React.FC<BookDetailsProps> = ({id, close}) => {
     };
 
     return (
-        <section className='font-inter p-5 mx-auto text-white absolute z-8 top-0 md:top-40 left-1/2 transform -translate-x-1/2 h-full bg-white/0.1 backdrop-blur-xs w-full'>
+        <section className='font-inter p-5 mx-auto text-white absolute z-8 top-0 md:top-20 left-1/2 transform -translate-x-1/2 h-full bg-white/0.1 backdrop-blur-xs w-full'>
             <main className='main-wrapper'>
                 <div className="flex justify-center">
                     <div className="p-6 text-white bg-[#1a191b] rounded-xl flex gap-5 w-fit flex-col md:flex-row purple-border border relative">
