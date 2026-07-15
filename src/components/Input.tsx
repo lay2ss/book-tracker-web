@@ -23,20 +23,22 @@ const Input: React.FC<InputProps> = ({ ValuePassword, ValueEmail, ValueName, OnC
     className={`input-style ${show}`}
     value={ValueName}
     onChange={OnChange}
-             />
+    />
     <input type="email" 
     name='email'
     placeholder="Email" 
     className="input-style"
     value={ValueEmail}
-    onChange={OnChange} />
+    onChange={OnChange}
+    />
     <div className="relative w-full">
         <input type={showPassword ? 'text' : 'password'}
         name='password' 
         placeholder="Password" 
         className="input-style"
         value={ValuePassword}
-        onChange={OnChange}/>
+        onChange={OnChange}
+        />
         <button type="button" 
         onClick={togglePassword} 
         className="right-3 top-5 icon-style">
