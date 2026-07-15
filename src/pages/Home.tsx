@@ -1,6 +1,7 @@
 import Book from "../components/Book";
 import BookCard from "../components/BookCard";
 import searchIcon from "../assets/icon/search.svg";
+import closeIcon from "../assets/icon/close.svg";
 import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks, getBooks, getPreferences, getRecommendationsByGenres } from "../services/bookService";
 import { useState } from "react";
@@ -61,6 +62,12 @@ const Home = () => {
         }
     };
 
+    const handleRemoveSearch = () => {
+        if (!query.trim()) return;
+        setQuery("");
+        setResults([]);
+    }
+
     const truncateText = (text: string, maxLength: number) => {
     if (!text) return "";
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
@@ -91,6 +98,9 @@ const Home = () => {
                         <button className="right-4 top-2 icon-style" onClick={handleSearch}>
                             <img src={searchIcon} alt="search icon"/>
                         </button>
+                        {query && <button onClick={handleRemoveSearch} className="right-12 opacity-50 top-2 icon-style">
+                            <img src={closeIcon} alt="close icon" />
+                        </button>}
                         {showDropdown && recentSearches.length > 0 && query && (
                             <ul className="absolute top-full left-0 right-0 bg-dark mt-1 rounded-md z-10">
                             {recentSearches.map((item, i) => (
