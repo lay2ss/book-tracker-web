@@ -28,6 +28,7 @@ const BookReview: React.FC<BookReviewProps> = ({cover, review = "-", rate = 0, d
                           <p className="opacity-90">{review}</p>
                         </div>
                           <div className="opacity-65 text-sm">
+                            {/* @ts-expect-error - github relative-time custom element */}
                             <relative-time datetime={datetime}></relative-time>
                         </div>
                       </div>
