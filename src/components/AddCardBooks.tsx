@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Loading from "./Loading";
 import Book from "./Book";
 import placeHolder from "../assets/icon/placeholder.png";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AddCardProps{
     onCancel: any;
@@ -13,6 +14,7 @@ interface AddCardProps{
 
 const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, savedBooks}) => {
 
+    const queryClient = useQueryClient();
     const [loading, setLoading] = useState(false);
     const [books, setBooks] = useState<any[]>([]);
     const [selectedBookIds, setSelectedBookIds] = useState<string[]>([]);
@@ -24,7 +26,7 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, s
                     setLoading(true);
                     const data = await getBooks();
                     setBooks(data);
-                } catch (error) {
+                } catch (error) { 
                     console.error("Failed to load books:", error);
                 } finally {
                     setLoading(false);
@@ -52,7 +54,10 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, s
     try {
         setLoading(true);
         await addBooksToCollection(selectedBookIds, collectionId);
-            window.location.reload();
+            queryClient.invalidateQueries({ queryKey: ["books"] });
+            queryClient.invalidateQueries({ queryKey: ["collections"] });
+            queryClient.invalidateQueries({ queryKey: ["collection"] });
+            onCancel();
             alert("Books added!");
         } catch (err) {
             console.error(err);

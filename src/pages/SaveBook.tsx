@@ -129,7 +129,7 @@ const SaveBook = () => {
         );
         queryClient.invalidateQueries({ queryKey: ["books"] });
         queryClient.invalidateQueries({ queryKey: ["collections"] });
-         queryClient.invalidateQueries({ queryKey: ["collection"] });
+        queryClient.invalidateQueries({ queryKey: ["collection"] });
         alert("Book deleted");
         navigate(-1);
         } catch (err) {
