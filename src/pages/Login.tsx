@@ -4,6 +4,7 @@ import b_purple_logo from "../assets/logo/b_purple_logo.svg";
 import { useAuth } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
 import Input from '../components/Input';
+import SimpleAlert from '../components/SimpleAlert';
 
 const Login = () => {
 
@@ -12,6 +13,8 @@ const Login = () => {
   const { login: authLogin } = useAuth();
   const [formData, setFormData] = useState({ email: '', password: '', name: '' });
   const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value } = e.target;
@@ -36,9 +39,9 @@ const Login = () => {
     const data = await response.json();
     if (response.ok) {
       authLogin(data); 
-      alert(data.message);
     } else {
-      alert(data.message);
+      setShowAlert(true);
+      setAlertMessage(data.message);
     }
   } catch (err) {
     console.error(err);
@@ -51,8 +54,14 @@ const Login = () => {
   const toggleMode = () => setIsSignUp(!isSignUp);
 
   return (
-    <section className='flex h-screen w-full justify-center flex-col font-inter overflow-hidden text-white relative'>
-
+    <section className='flex h-screen w-full justify-center flex-col font-inter overflow-hidden text-white relative px-5'>
+    {showAlert && (
+        <SimpleAlert 
+          severity="error"  
+          message={alertMessage} 
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     <div className='flex mx-auto items-center pb-5 gap-2'>
       <img src={b_purple_logo} alt="logo name" className='w-13'/>
       <img src={logoname} alt="logo name" className='w-23' />
