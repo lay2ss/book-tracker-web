@@ -7,9 +7,10 @@ interface SimpleAlertProps {
     message: string;
     onClose?: () => void;
     goTo?: any;
+    time?: number;
 }
 
-const SimpleAlert: React.FC<SimpleAlertProps> = ({ severity, message, onClose, goTo }) => {
+const SimpleAlert: React.FC<SimpleAlertProps> = ({ severity, message, onClose, goTo, time = 5000 }) => {
     const navigate = useNavigate();
     useEffect(() => {
 
@@ -18,7 +19,7 @@ const SimpleAlert: React.FC<SimpleAlertProps> = ({ severity, message, onClose, g
     const timer = setTimeout(() => {
         onClose();
         navigate(goTo);
-    }, 5000);
+    }, time);
 
     return () => clearTimeout(timer);
     }, [onClose]); 
