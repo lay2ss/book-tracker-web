@@ -15,8 +15,12 @@ import heartActiveIcon from "../assets/icon/heart_active.svg";
 import heartIcon from "../assets/icon/heart.svg";
 import Alert from "../components/Alert";
 import { useQueryClient } from "@tanstack/react-query";
+import SimpleAlert from '../components/SimpleAlert';
 
 const SaveBook = () => {
+    const [showAlert, setShowAlert] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
     const queryClient = useQueryClient();
     const { id } = useParams<{ id: string }>();
     const { dbId } = useParams<{ dbId: string }>();
@@ -84,9 +88,14 @@ const SaveBook = () => {
         queryClient.invalidateQueries({ queryKey: ["books"] });
         queryClient.invalidateQueries({ queryKey: ["collections"] });
         queryClient.invalidateQueries({ queryKey: ["collection"] });
-        alert("Book saved");
         navigate('/home');
-        } catch (err) {
+        } catch (err: any) {
+        if (err.response && err.response.data) {
+            const backendMessage = err.response.data.message || "Invalid request.";
+            handleScrollTop();
+            setErrorMessage(backendMessage);
+            setShowAlert(true);
+        }
             console.error(err);
         }  finally {
             setLoading(false);
@@ -110,9 +119,14 @@ const SaveBook = () => {
             isFavorite
         );
         queryClient.invalidateQueries({ queryKey: ["books"] });
-        alert("Book updated");
         navigate(-1);
-        } catch (err) {
+        } catch (err: any) {
+            if (err.response && err.response.data) {
+            const backendMessage = err.response.data.message || "Invalid request.";
+            handleScrollTop();
+            setErrorMessage(backendMessage);
+            setShowAlert(true);
+        }
             console.error(err);
         }  finally {
             setLoading(false);
@@ -130,7 +144,6 @@ const SaveBook = () => {
         queryClient.invalidateQueries({ queryKey: ["books"] });
         queryClient.invalidateQueries({ queryKey: ["collections"] });
         queryClient.invalidateQueries({ queryKey: ["collection"] });
-        alert("Book deleted");
         navigate(-1);
         } catch (err) {
             console.error(err);
@@ -180,6 +193,11 @@ const SaveBook = () => {
 
     return (
     <section className='section-wrapper'>
+        {showAlert && <SimpleAlert 
+            severity={"warning"}  
+            message={errorMessage} 
+            onClose={() => setShowAlert(false)}
+        />}
         <main className='main-wrapper md:py-25'>
             <h1 className="text-2xl font-bold  text-center">{location.pathname.startsWith("/book/add/")? "Add Book to Library" : "Edit Book" }</h1>
             <div className="flex justify-center gap-10 mt-5 flex-wrap lg:flex-nowrap lg:justify-between">
