@@ -15,7 +15,7 @@ const MobileNav: React.FC<MobileNavProps> = ({toggle}) => {
       <ul className="pt-10 p-5 flex items-left flex-col gap-5 text-white w-[70vw] h-fit bg-[#1a191b] rounded-lg">
           {
             navData.map((item) => 
-              (<Link to={`/${item.li.toLowerCase()}`} key={item.id}>
+              (<Link onClick={toggle} className="w-fit" to={`/${item.li.toLowerCase()}`} key={item.id}>
                   {location.pathname === `/${item.li.toLowerCase()}` || (location.pathname === "/" && item.li == "Home") ? <li className="li-style text-md purple-text">{item.li}</li> : <li className="li-style text-md">{item.li}</li>}
               </Link>
               )
