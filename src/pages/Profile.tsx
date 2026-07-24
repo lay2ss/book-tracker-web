@@ -87,12 +87,12 @@ const goalNumber = dataUiSettings.Number || 0;
             </div>
           </div>
           <div className="md:w-2/3 w-full text-center md:text-start">
-            <h1 className="text-2xl font-bold">Recent Activity</h1>
+            <h1 className="text-2xl font-bold">Personal notes</h1>
             <div>
               {loadingBooks? <div className="mt-5"><ProfileSk2/></div> : 
               (
                 <div className="mt-5 bg-white/5 gap-4 flex flex-col p-3 rounded-xl max-h-100 overflow-y-auto">
-                  {recent.length < 1? (<p>no recent activity</p>) :
+                  {recent.length < 1? (<p className="opacity-50">you can add a personal note when saving a book</p>) :
                    recent.map((book: any) => (
                     <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                       <BookReview
