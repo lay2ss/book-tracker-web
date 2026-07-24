@@ -11,8 +11,12 @@ import { useLocation } from "react-router-dom";
 import { CollectionsSk } from "../components/Skeleton";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../components/Loading";
+import SimpleAlert from '../components/SimpleAlert';
 
 const CollectionDetails = () => {
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
@@ -59,7 +63,6 @@ const CollectionDetails = () => {
         queryClient.invalidateQueries({ queryKey: ["profile"] });
       };
       setShowX(false);
-      alert("Book removed");
     } catch (error) {
       console.error("Failed to remove book:", error);
     } finally {
@@ -69,16 +72,15 @@ const CollectionDetails = () => {
 
   const handleDelete = async () => {
       try{
-          await deleteCollection(
-          id
+        await deleteCollection(
+        id
       );
       queryClient.invalidateQueries({ queryKey: ["collections"] });
       queryClient.removeQueries({ queryKey: ["collection", id] });
       queryClient.invalidateQueries({ queryKey: ["profile"] });
-      alert("Collection deleted");
       navigate('/profile');
       } catch (err) {
-          console.error(err);
+        console.error(err);
       }  
   };
 
@@ -94,14 +96,15 @@ const CollectionDetails = () => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       setShowEdit(false);
       setName("");
-      alert("Collection name updated");
     } catch (err: any) {
         console.error(err);
         if (err.response && err.response.data) {
           const backendMessage = err.response.data.message || "Invalid request.";
-          alert(backendMessage);
+          setShowAlert(true);
+          setAlertMessage(backendMessage);
         } else {
-          alert("Something went wrong. Please try again later.");
+          setShowAlert(true);
+          setAlertMessage("Something went wrong. Please try again later.");
         }
     } finally {
       setLoadingEdit(false)
@@ -122,6 +125,13 @@ const CollectionDetails = () => {
 
   return (
     <section className="section-wrapper">
+      {showAlert && (
+        <SimpleAlert 
+            severity={"warning"}
+            message={alertMessage} 
+            onClose={() => setShowAlert(false)}
+        />
+      )}
       <main className="main-wrapper md:py-25">
         {loading? <CollectionsSk/> :
           <div>

@@ -3,39 +3,49 @@ import { createCollection } from "../services/bookService";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import SimpleAlert from '../components/SimpleAlert';
 
 const CreateCollection = () => {
-  const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+    const [loading, setLoading] = useState(false);
+    const [name, setName] = useState("");
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
-  const handleCreate = async () => {
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
-          setLoading(true);
-  
-          try{
-              await createCollection(
-              name
-          );
-          alert("Collection created");
-          queryClient.invalidateQueries({ queryKey: ["collections"] });
-          navigate('/profile');
-          } catch (err: any) {
-            console.error(err);
-            if (err.response && err.response.data) {
-            const backendMessage = err.response.data.message || "Invalid request.";
-            alert(backendMessage);
-            } else {
-            alert("Something went wrong. Please try again later.");
-        }
-          }  finally {
-              setLoading(false);
-          }     
+    const handleCreate = async () => {
+
+    setLoading(true);
+
+    try{
+        await createCollection(name);
+        queryClient.invalidateQueries({ queryKey: ["collections"] });
+        navigate('/profile');
+    } catch (err: any) {
+        console.error(err);
+        if (err.response && err.response.data) {
+        const backendMessage = err.response.data.message || "Invalid request.";
+        setShowAlert(true);
+        setAlertMessage(backendMessage);
+    } else {
+        setAlertMessage("Something went wrong. Please try again later.");
+        setShowAlert(true);
+    }
+    }  finally {
+        setLoading(false);
+    }     
       };
 
   return (
     <section className="section-wrapper">
+        {showAlert && (
+            <SimpleAlert 
+                severity={"warning"}
+                message={alertMessage} 
+                onClose={() => setShowAlert(false)}
+            />
+        )}
         <main className="main-wrapper md:py-25">
             <div className="text-center">
                 <h1 className="text-2xl font-bold">Create Collection</h1>
