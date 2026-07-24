@@ -58,7 +58,6 @@ const AddCardBooks: React.FC<AddCardProps> = ({onCancel, collectionId, isOpen, s
             queryClient.invalidateQueries({ queryKey: ["collections"] });
             queryClient.invalidateQueries({ queryKey: ["collection"] });
             onCancel();
-            alert("Books added!");
         } catch (err) {
             console.error(err);
         } finally {
