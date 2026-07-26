@@ -9,9 +9,12 @@ import { Link } from "react-router-dom";
 import { HomeSk, HomeSk2, HomeSk3 } from "../components/Skeleton";
 import { useQuery } from "@tanstack/react-query";
 import empty_state from "../assets/icon/empty_state.svg";
+import SimpleAlert from '../components/SimpleAlert';
 
 const Home = () => {
 
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
@@ -56,7 +59,8 @@ const Home = () => {
             setResults(books);
         } catch (error) {
             console.error("Error searching for books:", error);
-            alert("Failed to search for books :/")
+            setShowAlert(true);
+            setAlertMessage("Failed to search for books :/");
         } finally {
             setLoading(false);
         }
@@ -78,6 +82,13 @@ const Home = () => {
 
   return (
     <section className='section-wrapper'>
+    {showAlert && (
+        <SimpleAlert 
+            severity="error"  
+            message={alertMessage} 
+            onClose={() => setShowAlert(false)}
+        />
+      )}
         <main className='main-wrapper'>
             <div className="flex flex-col mx-auto">
                 <div className="p-5">
@@ -124,7 +135,7 @@ const Home = () => {
         <div className="px-5">
             {loading? (<HomeSk3/>
         ) : (
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             {results.length > 0 ? (
               results.map((book) => (
                 <BookCard
@@ -147,6 +158,7 @@ const Home = () => {
         )}
         </div>
         <div className="p-5">
+            <h2 className="mb-2 text-xl purple-text font-semibold">Recommendations</h2>
             <h1 className="text-2xl pb-5 font-bold">Your next reading?</h1>
             {loadingDashboard? <HomeSk/> 
 
@@ -175,6 +187,7 @@ const Home = () => {
             }
         </div>
         <div className="w-full border-b border-white/10"/>
+        <h2 className="px-5 mt-5 mb-2 text-xl purple-text font-semibold">My library</h2>
         {loadingFeed? <div className=""><HomeSk2/></div> : 
         (<div>
         {books.length == 0? (
@@ -184,7 +197,7 @@ const Home = () => {
             </div>) : 
             <>
             {hasReadingBooks ?
-            <div className="p-5">
+            <div className="px-5">
                 <h1 className="text-2xl font-bold">Currently reading</h1>
                     <div>
                         <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
