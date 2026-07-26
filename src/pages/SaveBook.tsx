@@ -92,7 +92,6 @@ const SaveBook = () => {
         } catch (err: any) {
         if (err.response && err.response.data) {
             const backendMessage = err.response.data.message || "Invalid request.";
-            handleScrollTop();
             setErrorMessage(backendMessage);
             setShowAlert(true);
         }
@@ -106,6 +105,12 @@ const SaveBook = () => {
 
         setLoading(true);
         const status = isActive? "READING" : "FINISHED";
+
+        const bookData = await getBookByDbId(dbId!); 
+        
+        if(bookData.status === status && bookData.rating === rating && bookData.comment === comment && bookData.currentPage === currentPage && bookData.isFavorite === isFavorite && bookData.readMonth -1 === readDate.month && bookData.readYear === readDate.year) {
+            return navigate(-1);
+        };
 
         try{
             await updateBook(
@@ -123,7 +128,6 @@ const SaveBook = () => {
         } catch (err: any) {
             if (err.response && err.response.data) {
             const backendMessage = err.response.data.message || "Invalid request.";
-            handleScrollTop();
             setErrorMessage(backendMessage);
             setShowAlert(true);
         }
