@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Alert, { type AlertColor } from '@mui/material/Alert';
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,16 @@ interface SimpleAlertProps {
 
 const SimpleAlert: React.FC<SimpleAlertProps> = ({ severity, message, onClose, goTo, time = 5000 }) => {
     const navigate = useNavigate();
+    const alertRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
+
+    if (alertRef.current) {
+        alertRef.current.scrollIntoView({
+        behavior: 'smooth', 
+        block: 'center',   
+        });
+    }
 
     if (!onClose) return;
 
@@ -25,7 +34,7 @@ const SimpleAlert: React.FC<SimpleAlertProps> = ({ severity, message, onClose, g
     }, [onClose]); 
 
     return (
-    <div  className='absolute max-w-120 w-full top-0 p-5 left-1/2 transform -translate-x-1/2 z-20'>
+    <div ref={alertRef} className='absolute max-w-120 w-full top-0 p-5 left-1/2 transform -translate-x-1/2 z-20'>
         <Alert severity={severity} onClose={onClose}>
             {message}
         </Alert>
