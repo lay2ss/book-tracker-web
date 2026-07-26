@@ -6,6 +6,7 @@ import b_purple_logo from "../assets/logo/b_purple_logo.svg";
 import { resetPassword } from "../services/bookService";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
+import SimpleAlert from '../components/SimpleAlert';
 
 const ResetPassword = () => {
 
@@ -17,6 +18,11 @@ const ResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
     const togglePassword = () => setShowPassword(!showPassword);
 
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+
+    const successMessage = "Password updated successfully!";
+
     const handleReset = async () => {
 
       setLoading(true);
@@ -26,15 +32,17 @@ const ResetPassword = () => {
           password,
           token
         )
-        alert("Password updated successfully!");
-        navigate('/login');
+        setShowAlert(true);
+        setAlertMessage(successMessage);
       } catch (err: any) {
           console.error(err);
           if (err.response && err.response.data) {
             const backendMessage = err.response.data.message || "Invalid request.";
-            alert(backendMessage);
+            setShowAlert(true);
+            setAlertMessage(backendMessage);
           } else {
-            alert("Something went wrong. Please try again later.");
+            setShowAlert(true);
+            setAlertMessage("Something went wrong. Please try again later.");
           }
         }  finally {
           setLoading(false);
@@ -43,6 +51,15 @@ const ResetPassword = () => {
 
   return (
     <section className="justify-start pt-20 password-page font-inter">
+    {showAlert && (
+      <SimpleAlert 
+        severity={alertMessage === successMessage? 'success' : 'warning'}
+        message={alertMessage} 
+        onClose={() => setShowAlert(false)}
+        goTo={alertMessage === successMessage? '/login' : ''}
+        time={alertMessage === successMessage? 3000 : 5000}
+      />
+    )}
       <div className='flex mx-auto items-center gap-2 pb-5'>
         <img src={b_purple_logo} alt="logo name" className='w-13'/>
         <img src={logoname} alt="logo name" className='w-23' />
