@@ -4,7 +4,7 @@ import visibility from "../assets/icon/visibility.svg";
 import logoname from "../assets/logo/logo_name.svg";
 import b_purple_logo from "../assets/logo/b_purple_logo.svg";
 import { resetPassword } from "../services/bookService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import SimpleAlert from '../components/SimpleAlert';
 
@@ -12,7 +12,6 @@ const ResetPassword = () => {
 
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
     const { token } = useParams<{ token: string }>();
 
     const [showPassword, setShowPassword] = useState(false);
