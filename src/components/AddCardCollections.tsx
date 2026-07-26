@@ -37,7 +37,7 @@ const AddCardCollections: React.FC<AddCardProps> = ({onCancel, isSelected, onSel
 
   return (
     <section className="font-inter p-5 text-white absolute z-8 top-30 h-full bg-white/0.1 backdrop-blur-xs w-full left-1/2 transform -translate-x-1/2">
-      <main className="relative w-fit min-w-80 mx-auto">
+      <main className="relative w-fit min-w-70 mx-auto">
           <div className="border border-white/20 p-4 rounded-xl bg-[#1a191b]">
           {loading? <Loading /> :
           collections.length == 0 ? (<p className="p-5 text-center">No collection available</p>) :
