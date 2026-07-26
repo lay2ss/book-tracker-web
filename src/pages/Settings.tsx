@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { SettingsSk } from '../components/Skeleton';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import SimpleAlert from '../components/SimpleAlert';
 
 const Settings = () => {
   const queryClient = useQueryClient();
@@ -21,6 +22,11 @@ const Settings = () => {
   const [number, setNumber] = useState(0);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [deleting, setDeleting] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const msgGoal = "Goal set";
+  const msgGenres = "Favorites genres updated";
 
   const { data: preferences, isLoading: loadingSettings } = useQuery({
     queryKey: ["preferences"],
@@ -47,7 +53,8 @@ const Settings = () => {
           goal === false? {Goal: 'Monthly', Number: number} : {Goal: "Annual", Number: number}
       );
       queryClient.invalidateQueries({ queryKey: ["preferences"] });
-      alert("Goal set");
+      setShowAlert(true);
+      setAlertMessage(msgGoal);
       } catch (err) {
           console.error(err);
       }  finally {
@@ -64,7 +71,8 @@ const Settings = () => {
       );
       queryClient.invalidateQueries({ queryKey: ["preferences"] });
       queryClient.invalidateQueries({ queryKey: ["recommendations"] });
-      alert("Favorite genres updated");
+      setShowAlert(true);
+      setAlertMessage(msgGenres);
       } catch (err) {
           console.error(err);
       }  finally {
@@ -89,16 +97,16 @@ const Settings = () => {
 
         queryClient.clear();
 
-        alert("Profile deleted");
-
         navigate('/login');
       } catch (err: any) {
         console.error(err);
         if (err.response && err.response.data) {
           const backendMessage = err.response.data.message || "Invalid request.";
-          alert(backendMessage);
+          setShowAlert(true);
+          setAlertMessage(backendMessage);
         } else {
-          alert("Something went wrong. Please try again later.");
+          setShowAlert(true);
+          setAlertMessage("Something went wrong. Please try again later.");
           }
       }  finally {
         setDeleting(false);
@@ -117,6 +125,13 @@ const Settings = () => {
 
   return (
     <section  className='section-wrapper'>
+      {showAlert && (
+        <SimpleAlert 
+          severity={alertMessage === msgGoal || msgGenres? 'success' : 'warning'}
+          message={alertMessage} 
+          onClose={() => setShowAlert(false)}
+        />
+      )}
         <main className='main-wrapper flex gap-3 flex-col'>
             <div className="border border-white/20 p-4 rounded-xl">
                 <h1 className="text-xl font-bold text-start">Reading Goal</h1>
