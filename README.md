@@ -2,13 +2,11 @@
 
 **Booknation** is a personal project born out of the need to keep track of and organize the books I read in a simple, intuitive way.
 
----
 
 ## 🌐 Live Demo
 
 Check out the live application here: [Booknation](https://booknationn.vercel.app/)
 
----
 
 ## ⚡ What you can do with the app
 
@@ -17,7 +15,6 @@ Check out the live application here: [Booknation](https://booknationn.vercel.app
 - 🔍 **Discover new books:** Search for titles and get dynamic recommendations by genre.
 - 🎯 **Track goals:** Set reading goals in your profile settings.
 
----
 
 ## 🛠️ Tech Stack & Tools
 
