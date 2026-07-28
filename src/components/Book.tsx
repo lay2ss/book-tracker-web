@@ -31,8 +31,8 @@ const Book: React.FC<BookProps> = ({ id, current, total, cover, title, show, sho
                 </div>
             </div>
             <button onClick={remove} className={`flex shrink-0 text-center cursor-pointer ${showX}`}>
-                <div className="bg-dark inset-ring-1 inset-ring-white/30 rounded-md absolute top-2 right-2 cursor-pointer hover:inset-ring-white/70">
-                    <img src={closeIcon} alt="close icon"/>
+                <div className="w-full py-1.5 bg-dark inset-ring-1 inset-ring-white/30  absolute bottom-2 cursor-pointer hover:inset-ring-white/70">
+                    <img className="mx-auto" src={closeIcon} alt="close icon"/>
                 </div>
             </button>
             <div className="flex gap-3">
