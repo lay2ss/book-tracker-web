@@ -4,12 +4,13 @@ import searchIcon from "../assets/icon/search.svg";
 import closeIcon from "../assets/icon/close.svg";
 import placeHolder from "../assets/icon/placeholder.png";
 import { searchBooks, getBooks, getPreferences, getRecommendationsByGenres } from "../services/bookService";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { HomeSk, HomeSk2, HomeSk3 } from "../components/Skeleton";
 import { useQuery } from "@tanstack/react-query";
 import empty_state from "../assets/icon/empty_state.svg";
 import SimpleAlert from '../components/SimpleAlert';
+import { genresData } from "../data/constants";
 
 const Home = () => {
 
@@ -28,7 +29,13 @@ const Home = () => {
         queryKey: ["books"],
         queryFn: getBooks,
     });
-    
+
+    const getRandomGenre = () => {
+        const randomIndex = Math.floor(Math.random() * genresData.length);
+        return genresData[randomIndex];
+    };
+
+    const randomGenre = useMemo(() => getRandomGenre().genre, []);
     const { data: recommendations = [], isLoading: loadingDashboard } = useQuery({
         queryKey: ["recommendations"],
         queryFn: async () => {
@@ -39,7 +46,7 @@ const Home = () => {
             if (userGenres && userGenres.length > 0) {
                 return await getRecommendationsByGenres(userGenres);
             } else {
-                return await getRecommendationsByGenres(['Thriller', 'Suspense']);
+                return await getRecommendationsByGenres([randomGenre]);
             }
         },
     });
