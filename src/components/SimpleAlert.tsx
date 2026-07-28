@@ -35,7 +35,7 @@ const SimpleAlert: React.FC<SimpleAlertProps> = ({ severity, message, onClose, g
 
     return (
     <div ref={alertRef} className='absolute max-w-120 w-full top-0 p-5 left-1/2 transform -translate-x-1/2 z-20'>
-        <Alert severity={severity} onClose={onClose}>
+        <Alert severity={severity} onClose={onClose} onClick={() => navigate(goTo)}>
             {message}
         </Alert>
     </div>
