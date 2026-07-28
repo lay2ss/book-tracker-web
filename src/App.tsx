@@ -15,6 +15,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import { useAuth, AuthProvider } from './contexts/AuthContext';
 import { PrivateRoute } from "./routes/PrivateRoute";
 import Footer from "./components/Footer";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 function AppLayout() {
   const location = useLocation();
@@ -25,6 +26,7 @@ function AppLayout() {
   return (
     <>
       {showNav && <Nav />}
+      <ScrollToTop />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
