@@ -57,10 +57,12 @@ const CollectionDetails = () => {
         await toggleFavorite(bookId, false);
         queryClient.invalidateQueries({ queryKey: ["favorites"] });
         queryClient.invalidateQueries({ queryKey: ["profile"] });
+        queryClient.invalidateQueries({ queryKey: ["books"] });
       } else {
         await removeBookFromCollection(bookId, id);
         queryClient.invalidateQueries({ queryKey: ["collection", id] });
         queryClient.invalidateQueries({ queryKey: ["profile"] });
+        queryClient.invalidateQueries({ queryKey: ["collections"] });
       };
       setShowX(false);
     } catch (error) {

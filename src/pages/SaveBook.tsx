@@ -88,6 +88,7 @@ const SaveBook = () => {
         queryClient.invalidateQueries({ queryKey: ["books"] });
         queryClient.invalidateQueries({ queryKey: ["collections"] });
         queryClient.invalidateQueries({ queryKey: ["collection"] });
+        queryClient.invalidateQueries({ queryKey: ["favorites"] });
         navigate('/home');
         } catch (err: any) {
         if (err.response && err.response.data) {
@@ -124,6 +125,7 @@ const SaveBook = () => {
             isFavorite
         );
         queryClient.invalidateQueries({ queryKey: ["books"] });
+        queryClient.invalidateQueries({ queryKey: ["favorites"] });
         navigate(-1);
         } catch (err: any) {
             if (err.response && err.response.data) {
@@ -148,6 +150,7 @@ const SaveBook = () => {
         queryClient.invalidateQueries({ queryKey: ["books"] });
         queryClient.invalidateQueries({ queryKey: ["collections"] });
         queryClient.invalidateQueries({ queryKey: ["collection"] });
+        queryClient.invalidateQueries({ queryKey: ["favorites"] });
         navigate(-1);
         } catch (err) {
             console.error(err);
