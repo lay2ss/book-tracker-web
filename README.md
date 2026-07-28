@@ -26,5 +26,3 @@ Check out the live application here: [Booknation](https://booknationn.vercel.app
 * **Styling:** Tailwind CSS 
 * **State Management & Fetching:** React Query / @tanstack/react-query
 * **HTTP Client:** Axios 
-
----
