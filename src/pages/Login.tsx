@@ -15,6 +15,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const infoMessage = "User registered successfully. Please check your email to verify your account.";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value } = e.target;
@@ -37,8 +38,9 @@ const Login = () => {
     });
 
     const data = await response.json();
-    if (response.ok) {
-      authLogin(data); 
+
+    if (response.ok && endpoint === '/login') {
+      authLogin(data);
     } else {
       setShowAlert(true);
       setAlertMessage(data.message);
@@ -57,7 +59,7 @@ const Login = () => {
     <section className='flex h-screen w-full justify-center flex-col font-inter overflow-hidden text-white relative px-5'>
     {showAlert && (
         <SimpleAlert 
-          severity="error"  
+          severity={alertMessage === infoMessage? 'info' : 'error'}  
           message={alertMessage} 
           onClose={() => setShowAlert(false)}
         />
