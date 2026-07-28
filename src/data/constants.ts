@@ -28,5 +28,8 @@ export const genresData = [
   { id: 12, genre: "Health & Fitness" },
   { id: 13, genre: "Crime" },
   { id: 14, genre: "Juvenile" },
-  { id: 15, genre: "Self-Help" }
+  { id: 15, genre: "Self-Help" },
+  { id: 16, genre: "Manga" },
+  { id: 17, genre: "Fantasy" },
+  { id: 18, genre: "Nonfiction" }
 ]
