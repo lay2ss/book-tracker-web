@@ -7,9 +7,7 @@ Built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**, the applic
 
 ## 🌐 Live Demo
 
-Access the application here:
-
-[Booknation](https://booknationn.vercel.app/)
+Access the application here:[Booknation](https://booknationn.vercel.app/)
 
 
 ## ✨ Features
@@ -109,3 +107,8 @@ The main focus was to apply best practices in:
 - Reusability
 - Maintainability
 - User experience
+
+
+## 🔗 Related Repository
+
+The backend service is available in a separate repository:[Booknation API](https://github.com/lay2ss/book-tracker-api)
