@@ -87,6 +87,9 @@ const Home = () => {
     const hasReadingBooks = books.some((book: any) => book.status === "READING");
     const hasFinishedBooks = books.some((book: any) => book.status === "FINISHED");
 
+    const finished = books.filter((book: any) => book.status === "FINISHED");
+    const reading = books.filter((book: any) => book.status === "READING");
+    
   return (
     <section className='section-wrapper'>
     {showAlert && (
@@ -205,10 +208,13 @@ const Home = () => {
             <>
             {hasReadingBooks ?
             <div className="px-5">
-                <h1 className="text-2xl font-bold">Currently reading</h1>
+                <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-bold">Currently reading</h1>
+                    <p>{reading.length}</p>
+                </div>
                     <div>
                         <div className="flex gap-3 sm:gap-4 pt-5 overflow-x-auto pb-5 font-inter font-semibold text-sm sm:text-[16px]">
-                            {books.map((book: any) => (book.status === "READING" &&
+                            {reading.map((book: any) => (
                                 <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                 <Book 
                                 current={book.currentPage}
@@ -229,10 +235,13 @@ const Home = () => {
         <>        
         <div className="w-full border-b border-white/10"/>
             <div className="p-5">
-                <h1 className="text-2xl font-bold">Finished</h1>
+                <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-bold">Finished</h1>
+                    <p>{finished.length}</p>
+                </div>
                     <div>
                         <div className="flex gap-3 sm:gap-5 pt-5 pb-5 font-inter text-sm sm:text-[16px] overflow-x-auto">
-                                {books.map((book: any) => (book.status === "FINISHED" &&
+                                {finished.map((book: any) => (
                                 <Link key={book.externalId} to={`/book/edit/${book.externalId}/${book.id}`}>
                                     <Book
                                     cover={book.coverImage || placeHolder}
