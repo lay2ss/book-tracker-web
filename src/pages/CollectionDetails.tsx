@@ -167,9 +167,9 @@ const CollectionDetails = () => {
                 </div>
               </div>
               <p className="opacity-65">{isFavoritesPage?
-                Number(qntFavorites)? qntFavorites == 1? qntFavorites + " book" : qntFavorites + " books" : ":/"
+                Number(qntFavorites)? qntFavorites == 1? qntFavorites + " book" : qntFavorites + " books" : "0"
                 :
-                Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : ":/"}</p>
+                Number(qnt)? qnt == 1? qnt + " book" : qnt + " books" : "0"}</p>
             </div>
             <div className="flex gap-4 flex-wrap mt-5 justify-center">
               {isFavoritesPage?
