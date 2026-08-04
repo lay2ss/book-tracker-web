@@ -2,7 +2,7 @@ import Skeleton from '@mui/material/Skeleton';
 
 export const ProfileSk = () => {
   return (
-    <Skeleton variant="rounded" width={200} height={70} sx={{ bgcolor: 'grey.900' }}/>
+    <Skeleton variant="rounded" width={250} height={70} sx={{ bgcolor: 'grey.900' }}/>
   );
 }
 

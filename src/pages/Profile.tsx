@@ -80,7 +80,7 @@ const goalNumber = dataUiSettings.Number || 0;
           <div className="w-full text-center md:text-start">
             <h1 className="text-2xl font-bold">My Collections</h1>
             <div>
-              {loadingCollections? <div className="mt-5"><ProfileSk/></div> : (<div className="max-h-100 overflow-y-auto mt-5 md:w-2/3 w-full flex flex-col gap-2">
+              {loadingCollections? <div className="mt-5 flex justify-center md:justify-start"><ProfileSk/></div> : (<div className="max-h-100 overflow-y-auto mt-5 md:w-2/3 w-full flex flex-col gap-2">
                 <Link to={'/collection/favorites'}>
                   <Collection
                   name="Favorites"
