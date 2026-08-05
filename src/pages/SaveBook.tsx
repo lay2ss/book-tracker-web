@@ -32,7 +32,7 @@ const SaveBook = () => {
     const [showAddCard, setShowAddCard] = useState(false);
     const [selectedCollectionsIds, setSelectedCollectionsIds] = useState<string[]>([]);
 
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(1);
     const [comment, setComment] = useState("");
     const [currentPage, setCurrentPage] = useState(0);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -49,7 +49,7 @@ const SaveBook = () => {
         const bookData = await getBookByDbId(dbId!); 
         
         bookData.status === "READING"? (setIsActive(true), setIsActiveRead(false)) : (setIsActive(false), setIsActiveRead(true));
-        setRating(bookData.rating || 0);
+        setRating(bookData.rating || 1);
         setComment(bookData.comment || "");
         setCurrentPage(bookData.currentPage || 0);
         setIsFavorite(!!bookData.isFavorite);
@@ -213,7 +213,7 @@ const SaveBook = () => {
                         <img src={book.coverImage || placeHolder} alt={book.title} className="h-fit rounded-md gray-shadow min-w-50 w-fit" />
                         <div className={`flex top-2 right-2 w-10`}>
                             <button className="transition-transform active:scale-80 cursor-pointer mx-auto" onClick={() => setIsFavorite(!isFavorite)}>
-                                <img src={isFavorite? heartActiveIcon : heartIcon} alt="star-icon" className="w-6"/>
+                                <img src={isFavorite? heartActiveIcon : heartIcon} alt="heart icon" className="w-6"/>
                             </button>
                         </div>
                     </div>
@@ -251,12 +251,13 @@ const SaveBook = () => {
                         </h2>
                         <div className="flex gap-2 items-center">
                             <input type="number"
+                            disabled={book.pageCount < 1? true : false}
                             value={currentPage}
                             onChange={(e) => setCurrentPage(Number(e.target.value))} 
                             id="currentPage" 
                             min={0} 
                             max={book.pageCount} 
-                            className="border border-white/20 mt-2 max-w-18 focus:outline-[#b99ef6] rounded-md p-1" />
+                            className={`border border-white/20 mt-2 max-w-18 focus:outline-[#b99ef6] rounded-md p-1 ${book.pageCount < 1? "cursor-not-allowed opacity-70" : ""}`} />
                             <label htmlFor="currentPage"></label>
                             <p>of {book.pageCount} pages</p>
                         </div>
