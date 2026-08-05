@@ -176,7 +176,7 @@ const Settings = () => {
 
               <div className='flex items-end'>
                 <div>
-                  <h2 className='mt-1'>Select your favorites genres to get better recommendations</h2>
+                  <p className='mt-1 text-sm text-zinc-400 font-medium'>Select your favorites genres to get better recommendations</p>
                   <div className='flex flex-wrap gap-2 mt-3'>
                     {genresData.map((item) => (
                       <div key={item.id}>
