@@ -1,12 +1,8 @@
-import openBookIcon from "../assets/icon/open_book.svg";
-
 interface GoalTrackerProps {
   current: number;
   max: number;
   label?: string;
   icon?: React.ReactNode;
-  size?: number;
-  strokeWidth?: number;
   primaryColor?: string;
   secondaryColor?: string;
 }
@@ -16,77 +12,64 @@ const GoalTracker: React.FC<GoalTrackerProps> = ({
   max,
   label = "Yearly Goal",
   icon,
-  size = 200,
-  strokeWidth = 12,
-  primaryColor = "text-[#b99ef6]",
-  secondaryColor = "text-white/20",
+  primaryColor = "bg-[#b99ef6]",
+  secondaryColor = "bg-white/20",
 }) => {
+  const safeMax = Math.max(max, 0);
+  const safeCurrent = Math.max(0, Math.min(current, safeMax));
 
-  const center = size / 2;
-  const radius = center - strokeWidth;
-  const circumference = 2 * Math.PI * radius;
+  const percentage =
+    safeMax > 0 ? Math.min((safeCurrent / safeMax) * 100, 100) : 0;
 
-  const arcLengthDegrees = 260;
-  const arcLengthParams = (arcLengthDegrees / 360) * circumference;
-  
-  const safeCurrent = Math.min(current, max);
-  const percentage = safeCurrent / max;
-  
-  const strokeDashoffset = circumference - (percentage * arcLengthParams);
-  
-  const rotation = 90 + (360 - arcLengthDegrees) / 2;
+  const goalAchieved = safeMax > 0 && safeCurrent >= safeMax;
 
   return (
-    <div className="flex flex-col items-center justify-center font-sans">
-      <div className="relative" style={{ width: size, height: size }}>
+    <div className="w-full">
+      <div className="mb-3 flex items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-2">
+          {icon && (
+            <span className="shrink-0 text-[#b99ef6]">
+              {icon}
+            </span>
+          )}
 
-        <svg
-          className="w-full h-full transform"
-          style={{ transform: `rotate(${rotation}deg)` }}
-        >
-
-          <circle
-            className={`stroke-current ${secondaryColor}`}
-            strokeWidth={strokeWidth}
-            fill="transparent"
-            r={radius}
-            cx={center}
-            cy={center}
-            strokeDasharray={circumference}
-            strokeDashoffset={circumference - arcLengthParams}
-            strokeLinecap="round"
-          />
-
-          <circle
-            className={`stroke-current ${primaryColor} transition-all duration-1000 ease-out`}
-            strokeWidth={strokeWidth}
-            fill="transparent"
-            r={radius}
-            cx={center}
-            cy={center}
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
-            strokeLinecap="round"
-          />
-        </svg>
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center mt-4">
-          
-          <span className={`text-2xl font-bold ${primaryColor}`}>
-            {current}/{max}
+          <span className="truncate font-semibold">
+            {label}
           </span>
-
-          <div className="my-1">
-            {icon ? icon : (
-              <img src={openBookIcon} alt="open book icon" />
-            )}
-          </div>
         </div>
+
+        <span className="shrink-0 text-sm font-semibold text-[#b99ef6]">
+          {safeCurrent}/{safeMax}
+        </span>
       </div>
-      
-      <span className="font-semibold text-lg -mt-4">
-        {current >= max? (<p className="mt-5">You achieved your goal :D</p>) : label}
-      </span>
+
+      <div
+        className={`h-3 w-full overflow-hidden rounded-full ${secondaryColor}`}
+        role="progressbar"
+        aria-label={label}
+        aria-valuemin={0}
+        aria-valuemax={safeMax}
+        aria-valuenow={safeCurrent}
+      >
+        <div
+          className={`h-full rounded-full ${primaryColor} transition-[width] duration-1000 ease-out`}
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
+
+      <div className="mt-2 flex items-center justify-between gap-4">
+        <span className="text-xs text-zinc-400 font-medium">
+          {goalAchieved
+            ? "You achieved your goal :D"
+            : `${Math.round(percentage)}% completed`}
+        </span>
+
+        {!goalAchieved && safeMax > 0 && (
+          <span className="text-xs text-zinc-400 font-medium0">
+            {safeMax - safeCurrent} remaining
+          </span>
+        )}
+      </div>
     </div>
   );
 };
